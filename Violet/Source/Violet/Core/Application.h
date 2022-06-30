@@ -30,7 +30,7 @@ namespace Violet
 		virtual ~Application();
 	public: // Main Functionality
 		void Run();
-	}
+	};
 
 	/**
 	 * @brief A function defined on the Client.

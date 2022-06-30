@@ -1,0 +1,3 @@
+[submodule "Violet/Dependencies/spdlog"]
+	path = Violet/Dependencies/spdlog
+	url = https://github.com/gabime/spdlog

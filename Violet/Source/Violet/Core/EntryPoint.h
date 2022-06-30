@@ -8,6 +8,8 @@
 /// and implemented on the engine side instead
 /// of the client side.
 ///
+/// Initializes Logging.
+///
 /////////////////
 
 #ifndef __VIOLET_ENGINE_CORE_ENTRY_POINT_H_INCLUDED__
@@ -19,6 +21,13 @@ extern Violet::Application* Violet::CreateApplication();
 
 int main(int p_ArgumentCount, char** p_Arguments)
 {
+	// Initialize Logger
+	Violet::Log::Init();
+	VT_CORE_WARN("Initialized Logger!");
+	int a = 5;
+	VT_INFO("Hello! Var={0}", a);
+
+	// Initialize Application
 	auto app = Violet::CreateApplication();
 	app->Run();
 	delete app;

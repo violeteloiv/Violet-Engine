@@ -13,6 +13,7 @@
 #define _VIOLET_ENGINE_H_INCLUDED__
 
 #include "Violet/Core/Application.h"
+#include "Violet/Core/Log.h"
 
 // -- Entry Point --
 #include "Violet/Core/EntryPoint.h"
