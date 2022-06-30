@@ -22,7 +22,7 @@ public:
 	{
 
 	}
-}
+};
 
 Violet::Application* Violet::CreateApplication()
 {
