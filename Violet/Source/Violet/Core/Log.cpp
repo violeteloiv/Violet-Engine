@@ -3,11 +3,14 @@
 /// Log.cpp
 /// Violet McAllister
 /// June 30th, 2022
+/// Updated: July 1st, 2022
 ///
 /// Contains class implementations for the Log
 /// object.
 ///
 /////////////////
+
+#include "vtpch.h"
 
 #include "Violet/Core/Log.h"
 

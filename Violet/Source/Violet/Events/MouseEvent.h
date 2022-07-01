@@ -13,8 +13,6 @@
 #ifndef __VIOLET_ENGINE_EVENTS_MOUSE_H_INCLUDED__
 #define __VIOLET_ENGINE_EVENTS_MOUSE_H_INCLUDED__
 
-#include <sstream>
-
 #include "Violet/Events/Event.h"
 
 namespace Violet

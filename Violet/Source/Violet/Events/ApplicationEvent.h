@@ -3,6 +3,7 @@
 /// ApplicationEvent.h
 /// Violet McAllister
 /// June 30th, 2022
+/// Updated: July 1st, 2022
 ///
 /// Contains Application related events and
 /// functionality.
@@ -11,8 +12,6 @@
 
 #ifndef __VIOLET_ENGINE_EVENTS_APPLICATION_H_INCLUDED__
 #define __VIOLET_ENGINE_EVENTS_APPLICATION_H_INCLUDED__
-
-#include <sstream>
 
 #include "Violet/Events/Event.h"
 

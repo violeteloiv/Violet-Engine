@@ -10,6 +10,8 @@
 ///
 /////////////////
 
+#include "vtpch.h"
+
 #include "Violet/Core/Application.h"
 #include "Violet/Core/Log.h"
 #include "Violet/Events/ApplicationEvent.h"

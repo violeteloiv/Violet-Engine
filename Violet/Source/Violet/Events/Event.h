@@ -3,6 +3,7 @@
 /// Event.h
 /// Violet McAllister
 /// June 30th, 2022
+/// Updated: July 1st, 2022
 ///
 /// Contains Event Types, Categories, and a Dispatcher.
 /// 
@@ -14,8 +15,7 @@
 #ifndef __VIOLET_ENGINE_EVENTS_EVENT_H_INCLUDED__
 #define __VIOLET_ENGINE_EVENTS_EVENT_H_INCLUDED__
 
-#include <string>
-#include <functional>
+#include "vtpch.h"
 
 #include "Violet/Core/Core.h"
 
