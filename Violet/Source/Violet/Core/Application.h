@@ -3,6 +3,7 @@
 /// Application.h
 /// Violet McAllister
 /// June 30th, 2022
+/// Updated: July 1st, 2022
 ///
 /// Contains class information for the application
 /// interfacing between a Violet Engine Application
@@ -17,6 +18,7 @@
 #define __VIOLET_ENGINE_CORE_APPLICATION_H_INCLUDED__
 
 #include "Violet/Core/Core.h"
+#include "Violet/Events/Event.h"
 
 namespace Violet
 {

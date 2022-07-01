@@ -23,4 +23,7 @@
 	#error Violet Only Supports Windows
 #endif // VT_PLATFORM_WINDOWS
 
+// Bit Operation
+#define BIT(x) (1 << x)
+
 #endif // __VIOLET_ENGINE_CORE_H_INCLUDED__

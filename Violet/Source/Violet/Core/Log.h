@@ -3,6 +3,7 @@
 /// Log.h
 /// Violet McAllister
 /// June 30th, 2022
+/// Updated: July 1st, 2022
 ///
 /// Contains class information for logging. Utilizes
 /// a static "singleton" like object in order to initialize
@@ -14,6 +15,7 @@
 #include <memory>
 
 #include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 
 #include "Violet/Core/Core.h"
 
