@@ -19,6 +19,8 @@ include "Violet/Dependencies/GLFW"
 include "Violet/Dependencies/Glad"
 include "Violet/Dependencies/imgui"
 
+startproject "Sandbox"
+
 project "Violet"
 	location "Violet"
 	kind "SharedLib"
