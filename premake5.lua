@@ -1,6 +1,8 @@
 workspace "Violet"
 	architecture "x64"
 
+	startproject "Sandbox"
+
 	configurations {
 		"Debug",
 		"Release",
@@ -15,11 +17,11 @@ IncludeDir = {
 	["ImGui"]	= "Violet/Dependencies/imgui"
 }
 
-include "Violet/Dependencies/GLFW"
-include "Violet/Dependencies/Glad"
-include "Violet/Dependencies/imgui"
-
-startproject "Sandbox"
+group "Dependencies"
+	include "Violet/Dependencies/GLFW"
+	include "Violet/Dependencies/Glad"
+	include "Violet/Dependencies/imgui"
+group ""
 
 project "Violet"
 	location "Violet"
