@@ -3,7 +3,7 @@
 /// Event.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 1st, 2022
+/// Updated: July 11th, 2022
 ///
 /// Contains Event Types, Categories, and a Dispatcher.
 /// 
@@ -80,8 +80,6 @@ namespace Violet
 	 */
 	class VIOLET_API Event
 	{
-	private: // Friend Classes
-		friend class EventDispatcher;
 	public: // Main Functionality
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
@@ -113,8 +111,8 @@ namespace Violet
 		{
 			return GetCategoryFlags() & p_Category;
 		}
-	protected: // Protected Variables
-		bool m_Handled = false;
+	public: // Public Member Variables
+		bool Handled = false;
 	};
 
 	/**
@@ -150,7 +148,7 @@ namespace Violet
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
 				// Wizard Referencing & Dereferencing
-				m_Event.m_Handled = p_Function(*(T*)&m_Event);
+				m_Event.Handled = p_Function(*(T*)&m_Event);
 				return true;
 			}
 			

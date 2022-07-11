@@ -40,6 +40,24 @@ namespace Violet
 	}
 
 	/**
+	 * @brief Pushes a layer to the LayerStack.
+	 * @param p_Layer The layer to be pushed.
+	 */
+	void Application::PushLayer(Layer* p_Layer)
+	{
+		m_LayerStack.PushLayer(p_Layer);
+	}
+
+	/**
+	 * @brief Pushes an overlay to the LayerStack.
+	 * @param p_Overlay The overlay to be pushed.
+	 */
+	void Application::PushOverlay(Layer* p_Overlay)
+	{
+		m_LayerStack.PushOverlay(p_Overlay);
+	}
+
+	/**
 	 * @brief Runs when an event is triggered.
 	 * @param p_Event The event being triggered.
 	 */
@@ -48,7 +66,13 @@ namespace Violet
 		EventDispatcher dispatcher(p_Event);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
-		VT_CORE_TRACE("{0}", p_Event);
+		// Loop through the LayerStack and look for OnEvent functions.
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+		{
+			(*--it)->OnEvent(p_Event);
+			if (p_Event.Handled)
+				break;
+		}
 	}
 
 	/**
@@ -62,6 +86,11 @@ namespace Violet
 			glClearColor(1, 0, 1, 1);
 			// Clears the screen of pixels.
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			// Update Layers
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
+
 			m_Window->OnUpdate();
 		}
 	}

@@ -18,9 +18,10 @@
 #define __VIOLET_ENGINE_CORE_APPLICATION_H_INCLUDED__
 
 #include "Violet/Core/Core.h"
+#include "Violet/Core/Layer.h"
+#include "Violet/Core/LayerStack.h"
 #include "Violet/Core/Window.h"
 #include "Violet/Events/ApplicationEvent.h"
-#include "Violet/Events/Event.h"
 
 namespace Violet
 {
@@ -35,10 +36,13 @@ namespace Violet
 	public: // Main Functionality
 		void Run();
 		void OnEvent(Event& p_Event);
+		void PushLayer(Layer* p_Layer);
+		void PushOverlay(Layer* p_Overlay);
 	private: // Event Callback
 		bool OnWindowClose(WindowCloseEvent& p_Event);
 	private: // Private Member Variables
 		std::unique_ptr<Window> m_Window;
+		LayerStack m_LayerStack;
 		bool m_Running = true;
 	};
 
