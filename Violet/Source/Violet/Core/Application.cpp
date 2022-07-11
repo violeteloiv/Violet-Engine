@@ -12,6 +12,8 @@
 
 #include "vtpch.h"
 
+#include <GLFW/glfw3.h>
+
 #include "Violet/Core/Application.h"
 #include "Violet/Core/Log.h"
 #include "Violet/Events/ApplicationEvent.h"
@@ -23,7 +25,7 @@ namespace Violet
 	 */
 	Application::Application()
 	{
-
+		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 
 	/**
@@ -35,16 +37,17 @@ namespace Violet
 	}
 
 	/**
-	 * @brief Contains the main run loop.
+	 * @brief Contains the main run loop and handles updating the application.
 	 */
 	void Application::Run()
 	{
-		WindowResizeEvent e(1280, 720);
-		if (e.IsInCategory(EventCategoryApplication))
-			VT_TRACE(e);
-		if (e.IsInCategory(EventCategoryInput))
-			VT_TRACE(e);
-
-		while (true);
+		while (m_Running)
+		{
+			// Sets what the window should clear to.
+			glClearColor(1, 0, 1, 1);
+			// Clears the screen of pixels.
+			glClear(GL_COLOR_BUFFER_BIT);
+			m_Window->OnUpdate();
+		}
 	}
 }

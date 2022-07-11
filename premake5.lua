@@ -9,6 +9,12 @@ workspace "Violet"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {
+	["GLFW"] = "Violet/Dependencies/GLFW/include"
+}
+
+include "Violet/Dependencies/GLFW"
+
 project "Violet"
 	location "Violet"
 	kind "SharedLib"
@@ -26,7 +32,13 @@ project "Violet"
 
 	includedirs {
 		"%{prj.name}/Dependencies/spdlog/include",
-		"%{prj.name}/Source"
+		"%{prj.name}/Source",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links {
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

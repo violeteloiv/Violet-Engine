@@ -23,6 +23,14 @@
 	#error Violet Only Supports Windows
 #endif // VT_PLATFORM_WINDOWS
 
+#ifdef VT_ENABLE_ASSERTS
+	#define VT_ASSERT(x, ...) { if (!(x)) { VT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define VT_CORE_ASSERT(x, ...) { if (!(x)) { VT_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#else
+	#define VT_ASSERT(x, ...)
+	#define VT_CORE_ASSERT(x, ...)
+#endif // VT_ENABLE_ASSERTS
+
 // Bit Operation
 #define BIT(x) (1 << x)
 

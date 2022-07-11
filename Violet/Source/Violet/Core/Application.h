@@ -18,6 +18,7 @@
 #define __VIOLET_ENGINE_CORE_APPLICATION_H_INCLUDED__
 
 #include "Violet/Core/Core.h"
+#include "Violet/Core/Window.h"
 #include "Violet/Events/Event.h"
 
 namespace Violet
@@ -32,6 +33,9 @@ namespace Violet
 		virtual ~Application();
 	public: // Main Functionality
 		void Run();
+	private: // Private Member Variables
+		std::unique_ptr<Window> m_Window;
+		bool m_Running = true;
 	};
 
 	/**

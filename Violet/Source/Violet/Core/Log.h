@@ -12,6 +12,9 @@
 ///
 /////////////////
 
+#ifndef __VIOLET_ENGINE_LOG_H_INCLUDED__
+#define __VIOLET_ENGINE_LOG_H_INCLUDED__
+
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 
@@ -61,3 +64,5 @@ namespace Violet
 #define VT_WARN(...)	      	::Violet::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define VT_ERROR(...)	      	::Violet::Log::GetClientLogger()->error(__VA_ARGS__)
 #define VT_CRITICAL(...)	    ::Violet::Log::GetClientLogger()->critical(__VA_ARGS__) 
+
+#endif // __VIOLET_ENGINE_LOG_H_INCLUDED__

@@ -23,6 +23,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Violet/Core/Log.h"
+
 #ifdef VT_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif // VT_PLATFORM_WINDOWS
