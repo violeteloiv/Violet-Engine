@@ -19,6 +19,7 @@
 
 #include "Violet/Core/Core.h"
 #include "Violet/Core/Window.h"
+#include "Violet/Events/ApplicationEvent.h"
 #include "Violet/Events/Event.h"
 
 namespace Violet
@@ -33,6 +34,9 @@ namespace Violet
 		virtual ~Application();
 	public: // Main Functionality
 		void Run();
+		void OnEvent(Event& p_Event);
+	private: // Event Callback
+		bool OnWindowClose(WindowCloseEvent& p_Event);
 	private: // Private Member Variables
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;

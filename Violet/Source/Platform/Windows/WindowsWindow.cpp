@@ -2,7 +2,7 @@
 ///
 /// WindowsWindow.h
 /// Violet McAllister
-/// July 1st, 2022
+/// July 11th, 2022
 ///
 /// Using the generalized Window class we create
 /// a WindowsWindow implementation for a Windows
@@ -14,6 +14,10 @@
 
 #include "Platform/Windows/WindowsWindow.h"
 
+#include "Violet/Events/ApplicationEvent.h"
+#include "Violet/Events/KeyEvent.h"
+#include "Violet/Events/MouseEvent.h"
+
 namespace Violet
 {
 	/**
@@ -22,6 +26,17 @@ namespace Violet
 	 * do it again, causing issues.
 	 */
 	static bool s_GLFWInitialized = false;
+
+	/**
+	 * @brief Run whenever an error is caught by GLFW. Gives information about
+	 * the error and why the error occured.
+	 * @param p_Error The error code.
+	 * @param p_Description The description of the error.
+	 */
+	static void GLFWErrorCallback(int p_Error, const char* p_Description)
+	{
+		VT_CORE_ERROR("GLFW Error ({0}): {1}", p_Error, p_Description);
+	}
 
 	/**
 	 * @brief Allows the user to create a Window for the Windows
@@ -70,6 +85,8 @@ namespace Violet
 			int success = glfwInit();
 			VT_CORE_ASSERT(success, "[GLFW ERROR] Could Not Initialize GLFW!");
 
+			// Set error callback that was defined earlier.
+			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
 
@@ -83,6 +100,145 @@ namespace Violet
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		// Activates Vertical Sync.
 		SetVSync(true);
+
+		/// SET GLFW CALLBACKS \\\
+
+		/**
+		 * @brief Updates the internal information about the window size in OpenGL when the window
+		 * is resized.
+		 * @param p_Window The window being resized.
+		 * @param p_Width The width being resized to.
+		 * @param p_Height The height being resized to.
+		 */
+		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* p_Window, int p_Width, int p_Height)
+		{
+			// Gets the window data based on the window pointer.
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_Window);
+			data.Width = p_Width;
+			data.Height = p_Height;
+
+			// Creates a Violet Event and sets it.
+			WindowResizeEvent e(p_Width, p_Height);
+			data.EventCallback(e);
+		});
+
+		/**
+		 * @brief Closes the window when the close button is pressed.
+		 * @param p_Window The window being closed.
+		 */
+		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* p_Window)
+		{
+			// Gets the window data based on the window pointer.
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_Window);
+
+			// Creates a Violet Event and sets it.
+			WindowCloseEvent e;
+			data.EventCallback(e);
+		});
+
+		/**
+		 * @brief Runs when any key event is executed.
+		 * @param p_Window The window being interacted with.
+		 * @param p_Key The keycode of the key event.
+		 * @param p_ScanCode Specified system-specific scancode of the key.
+		 * @param p_Action The type of action of the event (press, release, repeat).
+		 * @param p_Mods How the key is being modified (ctrl+key, etc.).
+		 */
+		glfwSetKeyCallback(m_Window, [](GLFWwindow* p_Window, int p_Key, int p_ScanCode, int p_Action, int p_Mods)
+		{
+			// Gets the window data based on the window pointer.
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_Window);
+
+			// Creates a Violet Event depending on p_Action
+			switch (p_Action)
+			{
+				// KeyPressed Action
+				case GLFW_PRESS:
+				{
+					KeyPressedEvent e(p_Key, 0);
+					data.EventCallback(e);
+					break;
+				}
+				// KeyReleased Action
+				case GLFW_RELEASE:
+				{
+					KeyReleasedEvent e(p_Key);
+					data.EventCallback(e);
+					break;
+				}
+				// KeyPressed Repeat Action
+				case GLFW_REPEAT:
+				{
+					KeyPressedEvent e(p_Key, 1);
+					data.EventCallback(e);
+					break;
+				}
+			}
+		});
+
+		/**
+		 * @brief Runs when any mouse event is executed.
+		 * @param p_Window The window being interacted with.
+		 * @param p_Button The mousecode of the mouse event.
+		 * @param p_Action The type of action of the event (press, release).
+		 * @param p_Mods How the key is being modified (ctrl+click, etc.).
+		 */
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* p_Window, int p_Button, int p_Action, int p_Mods)
+		{
+			// Gets the window data based on the window pointer.
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_Window);
+
+			// Creates a Violet Event depending on p_Action
+			switch (p_Action)
+			{
+				// MousePressed Action
+				case GLFW_PRESS:
+				{
+					MouseButtonPressedEvent e(p_Button);
+					data.EventCallback(e);
+					break;
+				}
+				// KeyReleased Action
+				case GLFW_RELEASE:
+				{
+					MouseButtonReleasedEvent e(p_Button);
+					data.EventCallback(e);
+					break;
+				}
+			}
+		});
+
+		/**
+		 * @brief Updates the internal information about the scroll position of the scroll wheel.
+		 * @param p_Window The window being resized.
+		 * @param p_XOffset The updated scroll position.
+		 * @param p_Height The updated scroll position.
+		 */
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* p_Window, double p_XOffset, double p_YOffset)
+		{
+			// Gets the window data based on the window pointer.
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_Window);
+
+			// Creates a Violet Event and sets it.
+			MouseScrolledEvent e((float)p_XOffset, (float)p_YOffset);
+			data.EventCallback(e);
+		});
+
+		/**
+		 * @brief Updates the internal information about the mouse position.
+		 * @param p_Window The window being resized.
+		 * @param p_XPos The updated mouse position.
+		 * @param p_YPos The updated mouse position.
+		 */
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* p_Window, double p_XPos, double p_YPos)
+		{
+			// Gets the window data based on the window pointer.
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_Window);
+
+			// Creates a Violet Event and sets it.
+			MouseScrolledEvent e((float)p_XPos, (float)p_YPos);
+			data.EventCallback(e);
+		});
 	}
 
 	/**
