@@ -13,6 +13,8 @@
 
 #include "vtpch.h"
 
+#include <glad/glad.h>
+
 #include "Platform/Windows/WindowsWindow.h"
 
 #include "Violet/Events/ApplicationEvent.h"
@@ -97,6 +99,11 @@ namespace Violet
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		// Tells GLFW which window context to use for displaying pixel data.
 		glfwMakeContextCurrent(m_Window);
+
+		// Adds all of the OpenGL functions and allows them to be used.
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		VT_CORE_ASSERT(status, "[GLAD ERROR] Could Not Initialize Glad!");
+
 		// Sets a User Pointer containing data for the window, not modified by GLFW.
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		// Activates Vertical Sync.

@@ -12,7 +12,7 @@
 
 #include "vtpch.h"
 
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 #include "Violet/Core/Application.h"
 #include "Violet/Core/Log.h"
