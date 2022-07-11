@@ -3,6 +3,7 @@
 /// WindowsWindow.h
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 11th, 2022
 ///
 /// Using the generalized Window class we create
 /// a WindowsWindow implementation for a Windows

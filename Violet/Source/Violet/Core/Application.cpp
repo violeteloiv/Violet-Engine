@@ -3,7 +3,7 @@
 /// Application.cpp
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 1st, 2022
+/// Updated: July 11th, 2022
 ///
 /// Contains class implementations for the Application
 /// object.

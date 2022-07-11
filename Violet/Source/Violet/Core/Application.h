@@ -3,7 +3,7 @@
 /// Application.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 1st, 2022
+/// Updated: July 11th, 2022
 ///
 /// Contains class information for the application
 /// interfacing between a Violet Engine Application
