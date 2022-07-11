@@ -34,4 +34,7 @@
 // Bit Operation
 #define BIT(x) (1 << x)
 
+// Event Bind Function
+#define VT_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
 #endif // __VIOLET_ENGINE_CORE_H_INCLUDED__

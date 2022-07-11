@@ -185,6 +185,21 @@ namespace Violet
 		});
 
 		/**
+		 * @brief Runs when keys are typed.
+		 * @param p_Window The window being closed.
+		 * @param p_KeyCode The keycode being typed.
+		 */
+		glfwSetCharCallback(m_Window, [](GLFWwindow* p_Window, unsigned int p_KeyCode)
+		{
+			// Gets the window data based on the window pointer.
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_Window);
+
+			// Creates a Violet Event and sets it.
+			KeyTypedEvent e(p_KeyCode);
+			data.EventCallback(e);
+		});
+
+		/**
 		 * @brief Runs when any mouse event is executed.
 		 * @param p_Window The window being interacted with.
 		 * @param p_Button The mousecode of the mouse event.
@@ -238,13 +253,13 @@ namespace Violet
 		 * @param p_XPos The updated mouse position.
 		 * @param p_YPos The updated mouse position.
 		 */
-		glfwSetScrollCallback(m_Window, [](GLFWwindow* p_Window, double p_XPos, double p_YPos)
+		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* p_Window, double p_XPos, double p_YPos)
 		{
 			// Gets the window data based on the window pointer.
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_Window);
 
 			// Creates a Violet Event and sets it.
-			MouseScrolledEvent e((float)p_XPos, (float)p_YPos);
+			MouseMovedEvent e((float)p_XPos, (float)p_YPos);
 			data.EventCallback(e);
 		});
 	}

@@ -116,6 +116,38 @@ namespace Violet
 	public: // Macros
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
+
+	/**
+	 * @brief Passed through the event system when keys are typed.
+	 * Stores information about the key code.
+	 */
+	class VIOLET_API KeyTypedEvent : public KeyEvent
+	{
+	public: // Constructors & Deconstructors
+		/**
+		 * @brief Constructor for the KeyTypedEvent object.
+		 * @param p_KeyCode They key code of the button pressed.
+		 */
+		KeyTypedEvent(int p_KeyCode)
+			: KeyEvent(p_KeyCode)
+		{
+
+		}
+	public: // Overrides
+		/**
+		 * @brief Gives the Key Typed Event in the format:
+		 *     - "KeyTypedEvent: {keycode}"
+		 * @returns The above string formatted.
+		 */
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+	public: // Macros
+		EVENT_CLASS_TYPE(KeyTyped)
+	};
 }
 
 #endif // __VIOLET_ENGINE_EVENTS_KEY_H_INCLUDED__

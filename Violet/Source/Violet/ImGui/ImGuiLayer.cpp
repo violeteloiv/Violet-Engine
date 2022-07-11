@@ -13,7 +13,10 @@
 #include "Violet/ImGui/ImGuiLayer.h"
 
 #include <imgui.h>
+
+// Temporary
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 #include "Platform/OpenGL/ImGuiOpenGLRenderer.h"
 
@@ -98,6 +101,130 @@ namespace Violet
 	 */
 	void ImGuiLayer::OnEvent(Event& p_Event)
 	{
+		EventDispatcher dispatcher(p_Event);
+		dispatcher.Dispatch<MouseButtonPressedEvent>(VT_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonPressedEvent));
+		dispatcher.Dispatch<MouseButtonReleasedEvent>(VT_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonReleasedEvent));
+		dispatcher.Dispatch<MouseMovedEvent>(VT_BIND_EVENT_FN(ImGuiLayer::OnMouseMovedEvent));
+		dispatcher.Dispatch<MouseScrolledEvent>(VT_BIND_EVENT_FN(ImGuiLayer::OnMouseScrolledEvent));
+		dispatcher.Dispatch<KeyPressedEvent>(VT_BIND_EVENT_FN(ImGuiLayer::OnKeyPressedEvent));
+		dispatcher.Dispatch<KeyTypedEvent>(VT_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
+		dispatcher.Dispatch<KeyReleasedEvent>(VT_BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
+		dispatcher.Dispatch<WindowResizeEvent>(VT_BIND_EVENT_FN(ImGuiLayer::OnWindowResizeEvent));
+	}
 
+	/**
+	 * @brief Runs when the mouse button is pressed.
+	 * @param p_Event the event information.
+	 * @returns The success of the event.
+	 */
+	bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& p_Event)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		// Sets the mouse button to true.
+		io.MouseDown[p_Event.GetMouseButton()] = true;
+
+		return false;
+	}
+
+	/**
+	 * @brief Runs when the mouse button is released.
+	 * @param p_Event the event information.
+	 * @returns The success of the event.
+	 */
+	bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& p_Event)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		// Sets the mouse button to false.
+		io.MouseDown[p_Event.GetMouseButton()] = false;
+
+		return false;
+	}
+
+	/**
+	 * @brief Runs when the mouse is moved.
+	 * @param p_Event the event information.
+	 * @returns The success of the event.
+	 */
+	bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent& p_Event)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.MousePos = ImVec2(p_Event.GetX(), p_Event.GetY());
+
+		return false;
+	}
+
+	/**
+	 * @brief Runs when the mouse is scrolled.
+	 * @param p_Event the event information.
+	 * @returns The success of the event.
+	 */
+	bool ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent& p_Event)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.MouseWheelH += p_Event.GetXOffset();
+		io.MouseWheel += p_Event.GetYOffset();
+
+		return false;
+	}
+
+	/**
+	 * @brief Runs when a key is pressed.
+	 * @param p_Event the event information.
+	 * @returns The success of the event.
+	 */
+	bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& p_Event)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.KeysDown[p_Event.GetKeyCode()] = true;
+
+		io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
+		io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
+		io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
+		io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
+
+		return false;
+	}
+
+	/**
+	 * @brief Runs when a key is released.
+	 * @param p_Event the event information.
+	 * @returns The success of the event.
+	 */
+	bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& p_Event)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.KeysDown[p_Event.GetKeyCode()] = false;
+
+		return false;
+	}
+
+	/**
+	 * @brief Runs when a key is typed.
+	 * @param p_Event the event information.
+	 * @returns The success of the event.
+	 */
+	bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent& p_Event)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		int keycode = p_Event.GetKeyCode();
+		if (keycode > 0 && keycode < 0x10000)
+			io.AddInputCharacter((unsigned short)keycode);
+
+		return false;
+	}
+
+	/**
+	 * @brief Runs when the window is resized.
+	 * @param p_Event the event information.
+	 * @returns The success of the event.
+	 */
+	bool ImGuiLayer::OnWindowResizeEvent(WindowResizeEvent& p_Event)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.DisplaySize = ImVec2(p_Event.GetWidth(), p_Event.GetHeight());
+		io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+		glViewport(0, 0, p_Event.GetWidth(), p_Event.GetHeight());
+
+		return false;
 	}
 }
