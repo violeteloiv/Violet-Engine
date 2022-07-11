@@ -37,6 +37,7 @@ public:
 	SandboxApp()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Violet::ImGuiLayer());
 	}
 
 	~SandboxApp()

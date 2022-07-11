@@ -22,11 +22,17 @@ namespace Violet
 	// Bind Event Function Macro
 	#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
+	// Insantiate Application Instance
+	Application* Application::s_Instance = nullptr;
+
 	/**
 	 * @brief Constructs an Application object.
 	 */
 	Application::Application()
 	{
+		VT_CORE_ASSERT(!s_Instance, "Application Already Exists!");
+		s_Instance = this;
+
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	}
@@ -46,6 +52,7 @@ namespace Violet
 	void Application::PushLayer(Layer* p_Layer)
 	{
 		m_LayerStack.PushLayer(p_Layer);
+		p_Layer->OnAttach();
 	}
 
 	/**
@@ -55,6 +62,7 @@ namespace Violet
 	void Application::PushOverlay(Layer* p_Overlay)
 	{
 		m_LayerStack.PushOverlay(p_Overlay);
+		p_Overlay->OnAttach();
 	}
 
 	/**

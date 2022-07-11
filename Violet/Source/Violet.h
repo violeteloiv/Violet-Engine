@@ -17,6 +17,8 @@
 #include "Violet/Core/Layer.h"
 #include "Violet/Core/Log.h"
 
+#include "Violet/ImGui/ImGuiLayer.h"
+
 // -- Entry Point --
 #include "Violet/Core/EntryPoint.h"
 

@@ -10,12 +10,14 @@ workspace "Violet"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {
-	["GLFW"] = "Violet/Dependencies/GLFW/include",
-	["GLAD"] = "Violet/Dependencies/GLAD/include"
+	["GLFW"]	= "Violet/Dependencies/GLFW/include",
+	["GLAD"]	= "Violet/Dependencies/GLAD/include",
+	["ImGui"]	= "Violet/Dependencies/imgui"
 }
 
 include "Violet/Dependencies/GLFW"
 include "Violet/Dependencies/Glad"
+include "Violet/Dependencies/imgui"
 
 project "Violet"
 	location "Violet"
@@ -36,12 +38,14 @@ project "Violet"
 		"%{prj.name}/Dependencies/spdlog/include",
 		"%{prj.name}/Source",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.GLAD}"
+		"%{IncludeDir.GLAD}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links {
 		"GLFW",
 		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 

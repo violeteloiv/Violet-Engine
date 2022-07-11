@@ -38,12 +38,17 @@ namespace Violet
 		void OnEvent(Event& p_Event);
 		void PushLayer(Layer* p_Layer);
 		void PushOverlay(Layer* p_Overlay);
+	public: // Getters & Setters
+		inline Window& GetWindow() { return *m_Window; }
+		inline static Application& Get() { return *s_Instance; }
 	private: // Event Callback
 		bool OnWindowClose(WindowCloseEvent& p_Event);
 	private: // Private Member Variables
 		std::unique_ptr<Window> m_Window;
 		LayerStack m_LayerStack;
 		bool m_Running = true;
+	private: // Static Instance
+		static Application* s_Instance;
 	};
 
 	/**
