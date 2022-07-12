@@ -49,6 +49,8 @@ namespace Violet
 		LayerStack m_LayerStack;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
+	private: // Renderer Specific
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 	private: // Static Instance
 		static Application* s_Instance;
 	};

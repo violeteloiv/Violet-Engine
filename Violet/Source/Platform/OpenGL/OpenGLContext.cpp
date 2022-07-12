@@ -38,6 +38,11 @@ namespace Violet
 		// Gets OpenGL functionality from drivers.
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		VT_CORE_ASSERT(status, "[GLAD ERROR] Failed To Initialize Glad!");
+
+		VT_CORE_INFO("OpenGL Info:");
+		VT_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
+		VT_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
+		VT_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
 	}
 
 	/**
