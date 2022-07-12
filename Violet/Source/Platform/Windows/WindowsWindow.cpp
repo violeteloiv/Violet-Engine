@@ -13,8 +13,7 @@
 
 #include "vtpch.h"
 
-#include <glad/glad.h>
-
+#include "Platform/OpenGL/OpenGLContext.h"
 #include "Platform/Windows/WindowsWindow.h"
 
 #include "Violet/Events/ApplicationEvent.h"
@@ -97,12 +96,10 @@ namespace Violet
 		// When specifying fullscreen mode, you use the monitor, for windowed, use nullptr.
 		// nullptr also for share sinec we aren't sharing resources to other monitors.
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		// Tells GLFW which window context to use for displaying pixel data.
-		glfwMakeContextCurrent(m_Window);
-
-		// Adds all of the OpenGL functions and allows them to be used.
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		VT_CORE_ASSERT(status, "[GLAD ERROR] Could Not Initialize Glad!");
+		
+		// Create & Initialize Context
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 
 		// Sets a User Pointer containing data for the window, not modified by GLFW.
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -281,10 +278,9 @@ namespace Violet
 		// GLFW processes the events that it is listening for and sets flags
 		// saying whether or not those events have been triggered.
 		glfwPollEvents();
-		// GLFW swaps the framebuffers from front to back allowing rendering to
-		// be smooth. Pixels are rendered to a back buffer before displayed on
-		// the screen. This switches the buffer.
-		glfwSwapBuffers(m_Window);
+		
+		// Context Swaps Buffers.
+		m_Context->SwapBuffers();
 	}
 
 	/**

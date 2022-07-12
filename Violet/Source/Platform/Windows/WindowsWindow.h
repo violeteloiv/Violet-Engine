@@ -17,6 +17,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Violet/Core/Window.h"
+#include "Violet/Renderer/GraphicsContext.h"
 
 namespace Violet
 {
@@ -73,6 +74,7 @@ namespace Violet
 		};
 	private: // Private Member Variables
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 		WindowData m_Data;
 	};
 }
