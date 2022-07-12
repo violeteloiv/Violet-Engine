@@ -14,8 +14,11 @@
 #define _VIOLET_ENGINE_H_INCLUDED__
 
 #include "Violet/Core/Application.h"
+#include "Violet/Core/Input.h"
+#include "Violet/Core/KeyCodes.h"
 #include "Violet/Core/Layer.h"
 #include "Violet/Core/Log.h"
+#include "Violet/Core/MouseButtonCodes.h"
 
 #include "Violet/ImGui/ImGuiLayer.h"
 

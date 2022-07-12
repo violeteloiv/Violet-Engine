@@ -15,6 +15,7 @@
 #include <glad/glad.h>
 
 #include "Violet/Core/Application.h"
+#include "Violet/Core/Input.h"
 #include "Violet/Core/Log.h"
 
 namespace Violet

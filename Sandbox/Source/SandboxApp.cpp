@@ -22,12 +22,19 @@ public:
 
 	void OnUpdate() override
 	{
-		VT_INFO("ExampleLayer::Update");
+		if (Violet::Input::IsKeyPressed(VT_KEY_TAB))
+			VT_TRACE("Tab Key Is Pressed (poll)!");
 	}
 
 	void OnEvent(Violet::Event& p_Event) override
 	{
-		VT_TRACE("{0}", p_Event);
+		if (p_Event.GetEventType() == Violet::EventType::KeyPressed)
+		{
+			Violet::KeyPressedEvent& e = (Violet::KeyPressedEvent&)p_Event;
+			if (e.GetKeyCode() == VT_KEY_TAB)
+				VT_TRACE("Tab key is pressed (event)!");
+			VT_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 };
 
