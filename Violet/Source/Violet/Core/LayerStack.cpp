@@ -17,14 +17,6 @@
 namespace Violet
 {
 	/**
-	 * @brief Constructs a LayerStack object.
-	 */
-	LayerStack::LayerStack()
-	{
-		m_LayerInsert = m_Layers.begin();
-	}
-
-	/**
 	 * @brief Deconstructs a LayerStack object by deleting every
 	 * layer in the std::vector.
 	 */
@@ -42,7 +34,8 @@ namespace Violet
 	 */
 	void LayerStack::PushLayer(Layer* p_Layer)
 	{
-		m_LayerInsert = m_Layers.emplace(m_LayerInsert, p_Layer);
+		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, p_Layer);
+		p_Layer->OnAttach();
 	}
 
 	/**
@@ -54,6 +47,7 @@ namespace Violet
 	void LayerStack::PushOverlay(Layer* p_Overlay)
 	{
 		m_Layers.emplace_back(p_Overlay);
+		p_Overlay->OnAttach();
 	}
 
 	/**
@@ -67,7 +61,8 @@ namespace Violet
 		if (it != m_Layers.end())
 		{
 			m_Layers.erase(it);
-			m_LayerInsert--;
+			m_LayerInsertIndex--;
+			p_Layer->OnDetach();
 		}
 	}
 
@@ -80,6 +75,9 @@ namespace Violet
 		// Finds the iterator position of the overlay.
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), p_Overlay);
 		if (it != m_Layers.end())
+		{
 			m_Layers.erase(it);
+			p_Overlay->OnDetach();
+		}
 	}
 }

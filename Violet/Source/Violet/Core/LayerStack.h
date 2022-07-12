@@ -27,7 +27,7 @@ namespace Violet
 	class VIOLET_API LayerStack
 	{
 	public: // Constructors & Deconstructors
-		LayerStack();
+		LayerStack() = default;
 		~LayerStack();
 	public: // Main Functionality
 		void PushLayer(Layer* p_Layer);
@@ -39,7 +39,7 @@ namespace Violet
 		std::vector<Layer*>::iterator end() { return m_Layers.end(); }
 	private: // Private Member Variables
 		std::vector<Layer*> m_Layers;
-		std::vector<Layer*>::iterator m_LayerInsert;
+		unsigned int m_LayerInsertIndex = 0;
 	};
 }
 

@@ -11,6 +11,8 @@
 
 #include <Violet.h>
 
+#include <imgui/imgui.h>
+
 class ExampleLayer : public Violet::Layer
 {
 public:
@@ -24,6 +26,13 @@ public:
 	{
 		if (Violet::Input::IsKeyPressed(VT_KEY_TAB))
 			VT_TRACE("Tab Key Is Pressed (poll)!");
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Text");
+		ImGui::Text("Hello World!");
+		ImGui::End();
 	}
 
 	void OnEvent(Violet::Event& p_Event) override
@@ -44,7 +53,6 @@ public:
 	SandboxApp()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Violet::ImGuiLayer());
 	}
 
 	~SandboxApp()

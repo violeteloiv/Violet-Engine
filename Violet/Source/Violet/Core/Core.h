@@ -14,11 +14,15 @@
 #define __VIOLET_ENGINE_CORE_H_INCLUDED__
 
 #ifdef VT_PLATFORM_WINDOWS
-	#ifdef VT_BUILD_DLL
-		#define VIOLET_API __declspec(dllexport)
+	#if VT_DYNAMIC_LINK
+		#ifdef VT_BUILD_DLL
+			#define VIOLET_API __declspec(dllexport)
+		#else
+			#define VIOLET_API __declspec(dllimport)
+		#endif // VT_BUILD_DLL
 	#else
-		#define VIOLET_API __declspec(dllimport)
-	#endif // VT_BUILD_DLL
+		#define VIOLET_API
+	#endif // VT_DYNAMIC_LINK
 #else
 	#error Violet Only Supports Windows
 #endif // VT_PLATFORM_WINDOWS

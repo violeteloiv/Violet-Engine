@@ -36,6 +36,10 @@ namespace Violet
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		// Create & Push ImGui Layer.
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	/**
@@ -53,7 +57,6 @@ namespace Violet
 	void Application::PushLayer(Layer* p_Layer)
 	{
 		m_LayerStack.PushLayer(p_Layer);
-		p_Layer->OnAttach();
 	}
 
 	/**
@@ -63,7 +66,6 @@ namespace Violet
 	void Application::PushOverlay(Layer* p_Overlay)
 	{
 		m_LayerStack.PushOverlay(p_Overlay);
-		p_Overlay->OnAttach();
 	}
 
 	/**
@@ -99,6 +101,12 @@ namespace Violet
 			// Update Layers
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			// Every ImGuiLayer gets rendered as part of the ImGui Layer.
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 		}

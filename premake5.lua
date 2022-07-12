@@ -14,7 +14,8 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {
 	["GLFW"]	= "Violet/Dependencies/GLFW/include",
 	["GLAD"]	= "Violet/Dependencies/GLAD/include",
-	["ImGui"]	= "Violet/Dependencies/imgui"
+	["ImGui"]	= "Violet/Dependencies/imgui",
+	["glm"]		= "Violet/Dependencies/glm"
 }
 
 group "Dependencies"
@@ -25,8 +26,10 @@ group ""
 
 project "Violet"
 	location "Violet"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -35,7 +38,12 @@ project "Violet"
 	pchsource "Violet/Source/vtpch.cpp"
 
 	files {
-		"%{prj.name}/Source/**.h", "%{prj.name}/Source/**.cpp"
+		"%{prj.name}/Source/**.h", "%{prj.name}/Source/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp", "%{prj.name}/vendor/glm/glm/**.inl"
+	}
+	defines {
+
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	includedirs {
@@ -43,7 +51,8 @@ project "Violet"
 		"%{prj.name}/Source",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.GLAD}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links {
@@ -54,7 +63,6 @@ project "Violet"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
 
@@ -71,22 +79,24 @@ project "Violet"
 	filter "configurations:Debug"
 		defines "VT_DEBUG"
 		buildoptions "/MDd"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "VT_RELEASE"
 		buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "VT_DIST"
 		buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -97,7 +107,9 @@ project "Sandbox"
 
 	includedirs {
 		"Violet/Dependencies/spdlog/include",
-		"Violet/Source"
+		"Violet/Source",
+		"Violet/Dependencies",
+		"%{IncludeDir.glm}"
 	}
 
 	links {
@@ -116,14 +128,14 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "VT_DEBUG"
 		buildoptions "/MDd"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "VT_RELEASE"
 		buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "VT_DIST"
 		buildoptions "/MD"
-		optimize "On" 
+		optimize "on" 
