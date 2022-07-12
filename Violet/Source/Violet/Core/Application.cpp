@@ -100,14 +100,6 @@ namespace Violet
 	}
 
 	/**
-	 * @brief Destructs an Application object.
-	 */
-	Application::~Application()
-	{
-
-	}
-
-	/**
 	 * @brief Pushes a layer to the LayerStack.
 	 * @param p_Layer The layer to be pushed.
 	 */

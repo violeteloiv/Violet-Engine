@@ -35,7 +35,7 @@ namespace Violet
 	{
 	public: // Constructors & Deconstructors
 		Application();
-		virtual ~Application();
+		virtual ~Application() = default;
 	public: // Main Functionality
 		void Run();
 		void OnEvent(Event& p_Event);
