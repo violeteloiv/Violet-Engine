@@ -27,10 +27,23 @@ namespace Violet
 		OpenGLVertexBuffer(float* p_Vertices, uint32_t p_Size);
 		virtual ~OpenGLVertexBuffer();
 	public: // Main Functionality
-		virtual void Bind() const;
-		virtual void Unbind() const;
+		virtual void Bind() const override;
+		virtual void Unbind() const override;
+	public: // Buffer Layout
+		/**
+		 * @brief Gets the buffer layout.
+		 * @returns The buffer layout.
+		 */
+		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
+
+		/**
+		 * @brief Sets the buffer layout.
+		 * @returns The buffer layout.
+		 */
+		virtual void SetLayout(const BufferLayout& p_Layout) override { m_Layout = p_Layout; }
 	private: // Private Member Variables
 		uint32_t m_RendererID;
+		BufferLayout m_Layout;
 	};
 
 	/**
