@@ -55,6 +55,7 @@ namespace Violet
 	public: // Getters
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
+		virtual void* GetNativeWindow() const = 0;
 	public: // Window Attributes
 		virtual void SetEventCallback(const EventCallbackFunction& p_Callback) = 0;
 		virtual void SetVSync(bool p_Enabled) = 0;

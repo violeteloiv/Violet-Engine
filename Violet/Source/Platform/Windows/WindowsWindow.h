@@ -3,6 +3,7 @@
 /// WindowsWindow.h
 /// Violet McAllister
 /// July 1st, 2022
+/// Updated: July 11th, 2022
 ///
 /// Using the generalized Window class we create
 /// a WindowsWindow definition to specify the implementation
@@ -45,6 +46,12 @@ namespace Violet
 		 * @param p_Callback The callback for the event.
 		 */
 		inline void SetEventCallback(const EventCallbackFunction& p_Callback) override { m_Data.EventCallback = p_Callback; }
+
+		/**
+		 * @brief Gets the native window pointer.
+		 * @returns The native window pointer.
+		 */
+		inline virtual void* GetNativeWindow() const { return m_Window; }
 	public: // Override Definitions
 		void OnUpdate() override;
 		void SetVSync(bool p_Enabled) override;
