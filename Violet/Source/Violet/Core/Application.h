@@ -23,13 +23,14 @@
 #include "Violet/Core/Window.h"
 #include "Violet/Events/ApplicationEvent.h"
 #include "Violet/ImGui/ImGuiLayer.h"
+#include "Violet/Renderer/Shader.h"
 
 namespace Violet
 {
 	/**
 	 * @brief Defines the functionality for an Application.
 	 */
-	class VIOLET_API Application
+	class Application
 	{
 	public: // Constructors & Deconstructors
 		Application();
@@ -51,6 +52,7 @@ namespace Violet
 		bool m_Running = true;
 	private: // Renderer Specific
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 	private: // Static Instance
 		static Application* s_Instance;
 	};

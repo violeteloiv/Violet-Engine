@@ -3,7 +3,7 @@
 /// KeyEvent.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 1st, 2022
+/// Updated: July 11th, 2022
 ///
 /// Contains Keyboard related events and
 /// functionality.
@@ -20,7 +20,7 @@ namespace Violet
 	/**
 	 * @brief Base class for different types of key event.
 	 */
-	class VIOLET_API KeyEvent : public Event
+	class KeyEvent : public Event
 	{
 	public: // Main Functionality
 		/**
@@ -48,7 +48,7 @@ namespace Violet
 	 * @brief Passed through the event system when a key is pressed.
 	 * Stores information about the key code and repeat count.
 	 */
-	class VIOLET_API KeyPressedEvent : public KeyEvent
+	class KeyPressedEvent : public KeyEvent
 	{
 	public: // Constructors & Deconstructors
 		/**
@@ -89,7 +89,7 @@ namespace Violet
 	 * @brief Passed through the event system when the key is released.
 	 * Stores information about the key code.
 	 */
-	class VIOLET_API KeyReleasedEvent : public KeyEvent
+	class KeyReleasedEvent : public KeyEvent
 	{
 	public: // Constructors & Deconstructors
 		/**
@@ -121,7 +121,7 @@ namespace Violet
 	 * @brief Passed through the event system when keys are typed.
 	 * Stores information about the key code.
 	 */
-	class VIOLET_API KeyTypedEvent : public KeyEvent
+	class KeyTypedEvent : public KeyEvent
 	{
 	public: // Constructors & Deconstructors
 		/**

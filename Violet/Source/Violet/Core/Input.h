@@ -20,7 +20,7 @@ namespace Violet
 	 * @brief Main input object for Input Polling in
 	 * Violet.
 	 */
-	class VIOLET_API Input
+	class Input
 	{
 	public: // Static Key Events
 		/**

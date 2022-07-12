@@ -24,7 +24,7 @@ namespace Violet
 	 * @brief Contains several layers and is the main container
 	 * for all user and application defined layers.
 	 */
-	class VIOLET_API LayerStack
+	class LayerStack
 	{
 	public: // Constructors & Deconstructors
 		LayerStack() = default;

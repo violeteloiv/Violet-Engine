@@ -3,7 +3,7 @@
 /// ApplicationEvent.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 1st, 2022
+/// Updated: July 11th, 2022
 ///
 /// Contains Application related events and
 /// functionality.
@@ -21,7 +21,7 @@ namespace Violet
 	 * @brief Passed through the event system when the window is resized.
 	 * Stores information about new width amd height.
 	 */
-	class VIOLET_API WindowResizeEvent : public Event
+	class WindowResizeEvent : public Event
 	{
 	public: // Constructors & Deconstructors
 		/**
@@ -68,7 +68,7 @@ namespace Violet
 	/**
 	 * @brief Passed through the event system when the window is closed.
 	 */
-	class VIOLET_API WindowCloseEvent : public Event
+	class WindowCloseEvent : public Event
 	{
 	public: // Constructors & Deconstructors
 		/**
@@ -86,7 +86,7 @@ namespace Violet
 	/**
 	 * @brief Passed through the event system when the application is ticked.
 	 */
-	class VIOLET_API AppTickEvent : public Event
+	class AppTickEvent : public Event
 	{
 	public: // Constructors & Deconstructors
 		/**
@@ -104,7 +104,7 @@ namespace Violet
 	/**
 	 * @brief Passed through the event system when the application is updated.
 	 */
-	class VIOLET_API AppUpdateEvent : public Event
+	class AppUpdateEvent : public Event
 	{
 	public: // Constructors & Deconstructors
 		/**
@@ -122,7 +122,7 @@ namespace Violet
 	/**
 	 * @brief Passed through the event system when a render pass is done.
 	 */
-	class VIOLET_API AppRenderEvent : public Event
+	class AppRenderEvent : public Event
 	{
 	public: // Constructors & Deconstructors
 		/**

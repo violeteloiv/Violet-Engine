@@ -3,7 +3,7 @@
 /// MouseEvent.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 1st, 2022
+/// Updated: July 11th, 2022
 ///
 /// Contains Mouse related events and
 /// functionality.
@@ -21,7 +21,7 @@ namespace Violet
 	 * @brief Passed through the event system when the mouse is moved.
 	 * Stores information about the mouse position.
 	 */
-	class VIOLET_API MouseMovedEvent : public Event
+	class MouseMovedEvent : public Event
 	{
 	public: // Constructors & Deconstructors
 		/**
@@ -69,7 +69,7 @@ namespace Violet
 	 * @brief Passed through the event system when the mouse scroll wheel is used.
 	 * Stores information about the scroll wheel position.
 	 */
-	class VIOLET_API MouseScrolledEvent : public Event
+	class MouseScrolledEvent : public Event
 	{
 	public: // Constructors & Deconstructors
 		/**
@@ -116,7 +116,7 @@ namespace Violet
 	/**
 	 * @brief Base class for different types of mouse button events.
 	 */
-	class VIOLET_API MouseButtonEvent : public Event
+	class MouseButtonEvent : public Event
 	{
 	public: // Main Functionality
 		/**
@@ -144,7 +144,7 @@ namespace Violet
 	 * @brief Passed through the event system when a mouse button is pressed.
 	 * Stores information about the mouse button being pressed.
 	 */
-	class VIOLET_API MouseButtonPressedEvent : public MouseButtonEvent
+	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public: // Constructors & Deconstructors
 		/**
@@ -176,7 +176,7 @@ namespace Violet
 	 * @brief Passed through the event system when a mouse button is released.
 	 * Stores information about the mouse button being released.
 	 */
-	class VIOLET_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public: // Constructors & Deconstructors
 		/**

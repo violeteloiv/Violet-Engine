@@ -78,7 +78,7 @@ namespace Violet
 	 * the update stage.
 	 * 
 	 */
-	class VIOLET_API Event
+	class Event
 	{
 	public: // Main Functionality
 		virtual EventType GetEventType() const = 0;

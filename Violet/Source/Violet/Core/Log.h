@@ -3,7 +3,7 @@
 /// Log.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 1st, 2022
+/// Updated: July 11th, 2022
 ///
 /// Contains class information for logging. Utilizes
 /// a static "singleton" like object in order to initialize
@@ -25,7 +25,7 @@ namespace Violet
 	/**
 	 * @brief Defines the functionality of the logger object.
 	 */
-	class VIOLET_API Log
+	class Log
 	{
 	public:
 		static void Init();

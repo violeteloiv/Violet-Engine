@@ -3,6 +3,7 @@
 /// Window.h
 /// Violet McAllister
 /// July 1st, 2022
+/// Updated: July 11th
 ///
 /// Contains Window Properties and a Window
 /// interface to generalize window functionality
@@ -44,7 +45,7 @@ namespace Violet
 	/**
 	 * @brief An interface representing a desktop system based window. 
 	 */
-	class VIOLET_API Window
+	class Window
 	{
 	public: // Definitions
 		using EventCallbackFunction = std::function<void(Event&)>;

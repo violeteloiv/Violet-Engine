@@ -24,7 +24,7 @@ namespace Violet
 	 * @brief Layer object used to define a Layer and
 	 * its functionality. Abstract in nature.
 	 */
-	class VIOLET_API Layer
+	class Layer
 	{
 	public: // Constructors & Deconstructors
 		/**

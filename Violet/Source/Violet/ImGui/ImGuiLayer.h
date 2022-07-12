@@ -22,7 +22,7 @@ namespace Violet
 	/**
 	 * @brief ImGuiLayer defined on the application side.
 	 */
-	class VIOLET_API ImGuiLayer : public Layer
+	class ImGuiLayer : public Layer
 	{
 	public: // Constructors & Deconstructors
 		ImGuiLayer()
