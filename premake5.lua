@@ -12,10 +12,11 @@ workspace "Violet"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {
-	["GLFW"]	= "Violet/Dependencies/GLFW/include",
-	["GLAD"]	= "Violet/Dependencies/GLAD/include",
-	["ImGui"]	= "Violet/Dependencies/imgui",
-	["glm"]		= "Violet/Dependencies/glm"
+	["GLFW"]		= "Violet/Dependencies/GLFW/include",
+	["GLAD"]		= "Violet/Dependencies/GLAD/include",
+	["ImGui"]		= "Violet/Dependencies/imgui",
+	["glm"]			= "Violet/Dependencies/glm",
+	["stb_image"]	= "Violet/Dependencies/stb_image"
 }
 
 group "Dependencies"
@@ -39,7 +40,8 @@ project "Violet"
 
 	files {
 		"%{prj.name}/Source/**.h", "%{prj.name}/Source/**.cpp",
-		"%{prj.name}/vendor/glm/glm/**.hpp", "%{prj.name}/vendor/glm/glm/**.inl"
+		"%{prj.name}/Dependencies/glm/glm/**.hpp", "%{prj.name}/Dependencies/glm/glm/**.inl",
+		"%{prj.name}/Dependencies/stb_image/**.h", "%{prj.name}/Dependencies/stb_image/**.cpp",
 	}
 	defines {
 
@@ -52,7 +54,8 @@ project "Violet"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.GLAD}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links {
