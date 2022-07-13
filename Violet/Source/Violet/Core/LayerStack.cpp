@@ -60,7 +60,7 @@ namespace Violet
 	{
 		// Finds the iterator position of the layer.
 		auto it = std::find(m_Layers.begin(), m_Layers.begin() + m_LayerInsertIndex, p_Layer);
-		if (it != m_Layers.end())
+		if (it != m_Layers.begin() + m_LayerInsertIndex)
 		{
 			p_Layer->OnDetach();
 			m_Layers.erase(it);
