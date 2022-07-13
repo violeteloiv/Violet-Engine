@@ -3,6 +3,7 @@
 /// LayerStack.cpp
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 12th, 2022
 ///
 /// An object which contains and allows for the application
 /// to easily iterate through layers, and for the user to
