@@ -3,7 +3,7 @@
 /// Application.cpp
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 11th, 2022
+/// Updated: July 12th, 2022
 ///
 /// Contains class implementations for the Application
 /// object.
@@ -12,11 +12,10 @@
 
 #include "vtpch.h"
 
-#include <glad/glad.h>
-
 #include "Violet/Core/Application.h"
 #include "Violet/Core/Input.h"
 #include "Violet/Core/Log.h"
+#include "Violet/Renderer/Renderer.h"
 
 namespace Violet
 {
@@ -206,19 +205,21 @@ namespace Violet
 		while (m_Running)
 		{
 			// Sets what the window should clear to.
-			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 			// Clears the screen of pixels.
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::Clear();
+
+			Renderer::BeginScene();
 
 			// Blue Square
 			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_SquareVA);
 
 			// Triangle
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
+
+			Renderer::EndScene();
 
 			// Update Layers
 			for (Layer* layer : m_LayerStack)

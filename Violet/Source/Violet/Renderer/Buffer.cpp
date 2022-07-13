@@ -3,6 +3,7 @@
 /// Buffer.cpp
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 12th, 2022
 ///
 /// Contains Vertex & Index Buffer objects used
 /// to store information regarding the vertices
@@ -25,8 +26,8 @@ namespace Violet
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::None:    VT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::OpenGL:  return new OpenGLVertexBuffer(p_Vertices, p_Size);
+			case RendererAPI::API::None:    VT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  return new OpenGLVertexBuffer(p_Vertices, p_Size);
 		}
 
 		VT_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -37,8 +38,8 @@ namespace Violet
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::None:    VT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::OpenGL:  return new OpenGLIndexBuffer(p_Indices, p_Size);
+			case RendererAPI::API::None:    VT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  return new OpenGLIndexBuffer(p_Indices, p_Size);
 		}
 
 		VT_CORE_ASSERT(false, "Unknown RendererAPI!");
