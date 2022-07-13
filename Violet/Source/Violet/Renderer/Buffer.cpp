@@ -22,6 +22,11 @@
 
 namespace Violet
 {
+	/**
+	 * @brief Creates a VertexBuffer object based on the current API.
+	 * @param p_Vertices The vertices to be added to the vertex buffer.
+	 * @param p_Size The size of the vertices.
+	 */
 	VertexBuffer* VertexBuffer::Create(float* p_Vertices, uint32_t p_Size)
 	{
 		switch (Renderer::GetAPI())
@@ -34,6 +39,11 @@ namespace Violet
 		return nullptr;
 	}
 
+	/**
+	 * @brief Creates an IndexBuffer object based on the current API.
+	 * @param p_Indices The indices to be added to the index buffer.
+	 * @param p_Size The count of the indices.
+	 */
 	IndexBuffer* IndexBuffer::Create(uint32_t* p_Indices, uint32_t p_Size)
 	{
 		switch (Renderer::GetAPI())

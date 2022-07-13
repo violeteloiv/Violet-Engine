@@ -22,6 +22,9 @@
 
 namespace Violet
 {
+	/**
+	 * @brief Creates a VertexArray object based on the current API.
+	 */
 	VertexArray* VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
