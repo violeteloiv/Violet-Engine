@@ -58,7 +58,7 @@ namespace Violet
 	void LayerStack::PopLayer(Layer* p_Layer)
 	{
 		// Finds the iterator position of the layer.
-		auto it = std::find(m_Layers.begin(), m_Layers.end(), p_Layer);
+		auto it = std::find(m_Layers.begin(), m_Layers.begin() + m_LayerInsertIndex, p_Layer);
 		if (it != m_Layers.end())
 		{
 			p_Layer->OnDetach();
@@ -74,7 +74,7 @@ namespace Violet
 	void LayerStack::PopOverlay(Layer* p_Overlay)
 	{
 		// Finds the iterator position of the overlay.
-		auto it = std::find(m_Layers.begin(), m_Layers.end(), p_Overlay);
+		auto it = std::find(m_Layers.begin() + m_LayerInsertIndex, m_Layers.end(), p_Overlay);
 		if (it != m_Layers.end())
 		{
 			p_Overlay->OnDetach();
