@@ -25,6 +25,7 @@
 #include "Violet/ImGui/ImGuiLayer.h"
 #include "Violet/Renderer/Buffer.h"
 #include "Violet/Renderer/Shader.h"
+#include "Violet/Renderer/VertexArray.h"
 
 namespace Violet
 {
@@ -52,10 +53,10 @@ namespace Violet
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 	private: // Renderer Specific
-		unsigned int m_VertexArray;
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+		std::shared_ptr<Shader> m_BlueShader;
+		std::shared_ptr<VertexArray> m_SquareVA;
 	private: // Static Instance
 		static Application* s_Instance;
 	};
