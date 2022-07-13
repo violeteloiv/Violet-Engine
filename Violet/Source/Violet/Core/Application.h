@@ -3,7 +3,7 @@
 /// Application.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 11th, 2022
+/// Updated: July 12th, 2022
 ///
 /// Contains class information for the application
 /// interfacing between a Violet Engine Application
@@ -24,6 +24,7 @@
 #include "Violet/Events/ApplicationEvent.h"
 #include "Violet/ImGui/ImGuiLayer.h"
 #include "Violet/Renderer/Buffer.h"
+#include "Violet/Renderer/OrthographicCamera.h"
 #include "Violet/Renderer/Shader.h"
 #include "Violet/Renderer/VertexArray.h"
 
@@ -57,6 +58,7 @@ namespace Violet
 		std::shared_ptr<VertexArray> m_VertexArray;
 		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_SquareVA;
+		OrthographicCamera m_Camera;
 	private: // Static Instance
 		static Application* s_Instance;
 	};

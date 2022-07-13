@@ -17,6 +17,8 @@
 
 #include <glad/glad.h>
 
+#include <glm/gtc/type_ptr.hpp>
+
 namespace Violet
 {
 	/**
@@ -150,5 +152,16 @@ namespace Violet
 	void Shader::Unbind() const
 	{
 		glUseProgram(0);
+	}
+
+	/**
+	 * @brief Uploads a uniform mat4 to the GPU for a shader to use.
+	 * @param p_Name The name of the uniform in the shader.
+	 * @param p_Matrix The matrix to be uploaded.
+	 */
+	void Shader::UploadUniformMat4(const std::string& p_Name, const glm::mat4& p_Matrix)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, p_Name.c_str());
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(p_Matrix));
 	}
 }
