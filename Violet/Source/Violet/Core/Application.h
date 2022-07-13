@@ -20,13 +20,10 @@
 #include "Violet/Core/Core.h"
 #include "Violet/Core/Layer.h"
 #include "Violet/Core/LayerStack.h"
+#include "Violet/Core/Timestep.h"
 #include "Violet/Core/Window.h"
 #include "Violet/Events/ApplicationEvent.h"
 #include "Violet/ImGui/ImGuiLayer.h"
-#include "Violet/Renderer/Buffer.h"
-#include "Violet/Renderer/OrthographicCamera.h"
-#include "Violet/Renderer/Shader.h"
-#include "Violet/Renderer/VertexArray.h"
 
 namespace Violet
 {
@@ -53,12 +50,7 @@ namespace Violet
 		LayerStack m_LayerStack;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
-	private: // Renderer Specific
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
-		OrthographicCamera m_Camera;
+		float m_LastFrameTime;
 	private: // Static Instance
 		static Application* s_Instance;
 	};

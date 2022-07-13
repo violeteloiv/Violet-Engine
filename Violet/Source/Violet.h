@@ -3,7 +3,7 @@
 /// Violet.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 11th, 2022
+/// Updated: July 12th, 2022
 ///
 /// Contains all of the include files for the
 /// Violet API.
@@ -19,8 +19,16 @@
 #include "Violet/Core/Layer.h"
 #include "Violet/Core/Log.h"
 #include "Violet/Core/MouseButtonCodes.h"
+#include "Violet/Core/Timestep.h"
 
 #include "Violet/ImGui/ImGuiLayer.h"
+
+#include "Violet/Renderer/Buffer.h"
+#include "Violet/Renderer/OrthographicCamera.h"
+#include "Violet/Renderer/Renderer.h"
+#include "Violet/Renderer/RenderCommand.h"
+#include "Violet/Renderer/Shader.h"
+#include "Violet/Renderer/VertexArray.h"
 
 // -- Entry Point --
 #include "Violet/Core/EntryPoint.h"

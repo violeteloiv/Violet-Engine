@@ -3,6 +3,7 @@
 /// Layer.h
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 12th, 2022
 ///
 /// A layer object is used as the main object where
 /// code is written and allows for multiple render layers.
@@ -16,6 +17,7 @@
 #define __VIOLET_ENGINE_CORE_LAYER_H_INCLUDED__
 
 #include "Violet/Core/Core.h"
+#include "Violet/Core/Timestep.h"
 #include "Violet/Events/Event.h"
 
 namespace Violet
@@ -37,7 +39,7 @@ namespace Violet
 	public: // Main Functionality
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep p_Timestep) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& p_Event) {}
 	public: // Getters
