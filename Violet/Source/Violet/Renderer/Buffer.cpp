@@ -3,7 +3,7 @@
 /// Buffer.cpp
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 12th, 2022
+/// Updated: July 13th, 2022
 ///
 /// Contains Vertex & Index Buffer objects used
 /// to store information regarding the vertices

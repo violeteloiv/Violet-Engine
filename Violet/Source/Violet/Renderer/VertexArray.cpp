@@ -4,6 +4,7 @@
 /// VertexArray.cpp
 /// Violet McAllister
 /// July 12th, 2022
+/// Updated: July 13th, 2022
 ///
 /// The vertex array object contains
 /// information about how the vertex 
