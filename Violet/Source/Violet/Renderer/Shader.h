@@ -3,7 +3,7 @@
 /// Shader.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 12th, 2022
+/// Updated: July 13th, 2022
 ///
 /// A shader is a program which allows
 /// you to communicate with the GPU directly
@@ -17,22 +17,22 @@
 
 #include <string>
 
-#include <glm/glm.hpp>
-
 namespace Violet
 {
+	/**
+	 * @brief Abstract Shader class used to
+	 * define implementations of a Shader
+	 * using a graphics API.
+	 */
 	class Shader
 	{
-	public: // Constructors & Deconstructors
-		Shader(const std::string& p_VertexSource, const std::string& p_FragmentSource);
-		~Shader();
+	public: // Deconstructors
+		virtual ~Shader() = default;
 	public: // Main Functionality
-		void Bind() const;
-		void Unbind() const;
-	public: // Uniforms
-		void UploadUniformMat4(const std::string& p_Name, const glm::mat4& p_Matrix);
-	private: // Private Member Variables
-		uint32_t m_RendererID;
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
+	public: // Creator
+		static Shader* Create(const std::string& p_VertexSource, const std::string& p_FragmentSource);
 	};
 }
 
