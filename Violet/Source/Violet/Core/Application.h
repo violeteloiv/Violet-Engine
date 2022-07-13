@@ -46,7 +46,7 @@ namespace Violet
 	private: // Event Callback
 		bool OnWindowClose(WindowCloseEvent& p_Event);
 	private: // Private Member Variables
-		std::unique_ptr<Window> m_Window;
+		Scope<Window> m_Window;
 		LayerStack m_LayerStack;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;

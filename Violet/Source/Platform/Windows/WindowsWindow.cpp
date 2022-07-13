@@ -46,9 +46,9 @@ namespace Violet
 	 * @param p_Properties The window properties (title, width, height).
 	 * @returns The windows window, not implemented for Windows.
 	 */
-	Window* Window::Create(const WindowProperties& p_Properties)
+	Scope<Window> Window::Create(const WindowProperties& p_Properties)
 	{
-		return new WindowsWindow(p_Properties);
+		return CreateScope<WindowsWindow>(p_Properties);
 	}
 
 	/**
@@ -98,7 +98,7 @@ namespace Violet
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		
 		// Create & Initialize Context
-		m_Context = new OpenGLContext(m_Window);
+		m_Context = CreateRef<OpenGLContext>(m_Window);
 		m_Context->Init();
 
 		// Sets a User Pointer containing data for the window, not modified by GLFW.

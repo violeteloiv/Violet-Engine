@@ -27,12 +27,12 @@ namespace Violet
 	 * @param p_VertexSource The vertex source for the shader.
 	 * @param p_FragmentSource The fragment source for the shader.
 	 */
-	Shader* Shader::Create(const std::string& p_VertexSource, const std::string& p_FragmentSource)
+	Ref<Shader> Shader::Create(const std::string& p_VertexSource, const std::string& p_FragmentSource)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    VT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return new OpenGLShader(p_VertexSource, p_FragmentSource);
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(p_VertexSource, p_FragmentSource);
 		}
 
 		VT_CORE_ASSERT(false, "Unknown RendererAPI!");

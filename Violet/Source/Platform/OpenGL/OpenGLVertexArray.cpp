@@ -83,7 +83,7 @@ namespace Violet
 	 * @brief Adds a Vertex Buffer to the Vertex Array.
 	 * @param p_VertexBuffer The vertex buffer to be added.
 	 */
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& p_VertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& p_VertexBuffer)
 	{
 		VT_CORE_ASSERT(p_VertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer Has No Layout!");
 
@@ -111,7 +111,7 @@ namespace Violet
 	 * @brief Adds an Index Buffer into the Vertex Array.
 	 * @param p_IndexBuffer The index buffer to be added.
 	 */
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& p_IndexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& p_IndexBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		p_IndexBuffer->Bind();

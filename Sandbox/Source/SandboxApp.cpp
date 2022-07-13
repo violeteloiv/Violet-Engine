@@ -23,7 +23,7 @@ public:
 	ExampleLayer()
 		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
 	{
-		m_VertexArray.reset(Violet::VertexArray::Create());
+		m_VertexArray = Violet::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -32,7 +32,7 @@ public:
 		};
 
 		std::shared_ptr<Violet::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Violet::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = Violet::VertexBuffer::Create(vertices, sizeof(vertices));
 		Violet::BufferLayout layout = {
 			{ Violet::ShaderDataType::Float3, "a_Position" },
 			{ Violet::ShaderDataType::Float4, "a_Color" }
@@ -42,10 +42,10 @@ public:
 
 		uint32_t indices[3] = { 0, 1, 2 };
 		std::shared_ptr<Violet::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Violet::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		indexBuffer = Violet::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_SquareVA.reset(Violet::VertexArray::Create());
+		m_SquareVA = Violet::VertexArray::Create();
 
 		float squareVertices[3 * 4] = {
 			-0.5f, -0.5f, 0.0f,
@@ -55,7 +55,7 @@ public:
 		};
 
 		std::shared_ptr<Violet::VertexBuffer> squareVB;
-		squareVB.reset(Violet::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVB = Violet::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		squareVB->SetLayout({
 			{ Violet::ShaderDataType::Float3, "a_Position" }
 		});
@@ -63,7 +63,7 @@ public:
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		std::shared_ptr<Violet::IndexBuffer> squareIB;
-		squareIB.reset(Violet::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		squareIB = Violet::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(
@@ -101,7 +101,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(Violet::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = Violet::Shader::Create(vertexSrc, fragmentSrc);
 
 		std::string flatColorVertexSrc = R"(
 			#version 330 core
@@ -135,7 +135,7 @@ public:
 			}
 		)";
 
-		m_FlatColorShader.reset(Violet::Shader::Create(flatColorVertexSrc, flatColorFragmentSrc));
+		m_FlatColorShader = Violet::Shader::Create(flatColorVertexSrc, flatColorFragmentSrc);
 	}
 
 	void OnUpdate(Violet::Timestep p_Timestep) override
@@ -195,11 +195,11 @@ public:
 		
 	}
 private:
-	std::shared_ptr<Violet::Shader> m_Shader;
-	std::shared_ptr<Violet::VertexArray> m_VertexArray;
+	Violet::Ref<Violet::Shader> m_Shader;
+	Violet::Ref<Violet::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Violet::Shader> m_FlatColorShader;
-	std::shared_ptr<Violet::VertexArray> m_SquareVA;
+	Violet::Ref<Violet::Shader> m_FlatColorShader;
+	Violet::Ref<Violet::VertexArray> m_SquareVA;
 
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 

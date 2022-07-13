@@ -45,7 +45,7 @@ namespace Violet
 		 * @brief Draws the data in the Vertex Array.
 		 * @param p_VertexArray The Vertex Array.
 		 */
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& p_VertexArray)
+		inline static void DrawIndexed(const Ref<VertexArray>& p_VertexArray)
 		{
 			s_RendererAPI->DrawIndexed(p_VertexArray);
 		}

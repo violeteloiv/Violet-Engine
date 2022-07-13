@@ -45,7 +45,7 @@ namespace Violet
 	 * @param p_VertexArray The supplied Vertex Array for
 	 * submission.
 	 */
-	void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& p_VertexArray)
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& p_VertexArray)
 	{
 		glDrawElements(GL_TRIANGLES, p_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}

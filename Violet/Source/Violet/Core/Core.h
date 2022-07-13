@@ -3,7 +3,8 @@
 /// Core.h
 /// Violet McAllister
 /// June 30th, 2022
-///
+/// Updated: July 13th, 2022
+/// 
 /// Defines the macros required to make dll
 /// exporting work and connect the Violet
 /// API to the Sandbox.
@@ -12,6 +13,8 @@
 
 #ifndef __VIOLET_ENGINE_CORE_H_INCLUDED__
 #define __VIOLET_ENGINE_CORE_H_INCLUDED__
+
+#include <memory>
 
 #ifdef VT_PLATFORM_WINDOWS
 	#if VT_DYNAMIC_LINK
@@ -40,5 +43,38 @@
 
 // Event Bind Function
 #define VT_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+namespace Violet
+{
+	/**
+	 * @brief Scopes essentially contain a pointer to one
+	 * place in memory only, with the perk that once there
+	 * are no more references to that place in memory it
+	 * gets deallocated.
+	 */
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T, typename ... Args>
+	constexpr Scope<T> CreateScope(Args&& ... args)
+	{
+		return std::make_unique<T>(std::forward<Args>(args)...);
+	}
+
+	/**
+	 * @brief Refs are similar to Scopes except that multiple
+	 * references can be made to that place in memory, with the
+	 * same perk that once there are no more references to that
+	 * place in memory it gets deallocated.
+	 */
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+
+	template<typename T, typename ... Args>
+	constexpr Ref<T> CreateRef(Args&& ... args)
+	{
+		return std::make_shared<T>(std::forward<Args>(args)...);
+	}
+}
 
 #endif // __VIOLET_ENGINE_CORE_H_INCLUDED__

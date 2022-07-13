@@ -35,7 +35,7 @@ namespace Violet
 	public: // Main Functionality
 		virtual void SetClearColor(const glm::vec4& p_Color) = 0;
 		virtual void Clear() = 0;
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& p_VertexArray) = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& p_VertexArray) = 0;
 	public: // Getter
 		/**
 		 * @brief Gets the static API.

@@ -170,7 +170,7 @@ namespace Violet
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& p_Layout) = 0;
 	public: // Creator
-		static VertexBuffer* Create(float* p_Vertices, uint32_t p_Size);
+		static Ref<VertexBuffer> Create(float* p_Vertices, uint32_t p_Size);
 	};
 
 	/**
@@ -186,7 +186,7 @@ namespace Violet
 	public: // Getter
 		virtual uint32_t GetCount() const = 0;
 	public: // Creator
-		static IndexBuffer* Create(uint32_t* p_Indices, uint32_t p_Size);
+		static Ref<IndexBuffer> Create(uint32_t* p_Indices, uint32_t p_Size);
 	};
 }
 

@@ -62,6 +62,6 @@ namespace Violet
 		virtual void SetVSync(bool p_Enabled) = 0;
 		virtual bool IsVSync() const = 0;
 	public: // Static Creator
-		static Window* Create(const WindowProperties& p_Properties = WindowProperties());
+		static Scope<Window> Create(const WindowProperties& p_Properties = WindowProperties());
 	};
 }

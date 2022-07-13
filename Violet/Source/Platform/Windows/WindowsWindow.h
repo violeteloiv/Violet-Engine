@@ -74,7 +74,7 @@ namespace Violet
 		};
 	private: // Private Member Variables
 		GLFWwindow* m_Window;
-		GraphicsContext* m_Context;
+		Ref<GraphicsContext> m_Context;
 		WindowData m_Data;
 	};
 }
