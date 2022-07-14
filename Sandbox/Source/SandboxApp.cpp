@@ -3,7 +3,7 @@
 /// SandboxApp.cpp
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 11th, 2022
+/// Updated: July 13th, 2022
 ///
 /// Testing Violet API Code
 ///
@@ -173,6 +173,7 @@ public:
 		m_TextureShader = Violet::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc);
 
 		m_Texture = Violet::Texture2D::Create("Assets/Textures/Checkerboard.png");
+		m_Rainbow = Violet::Texture2D::Create("Assets/Textures/Rainbow.png");
 
 		std::dynamic_pointer_cast<Violet::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Violet::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -220,6 +221,8 @@ public:
 
 		m_Texture->Bind();
 		Violet::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		m_Rainbow->Bind();
+		Violet::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		Violet::Renderer::EndScene();
 	}
@@ -242,7 +245,7 @@ private:
 	Violet::Ref<Violet::Shader> m_FlatColorShader, m_TextureShader;
 	Violet::Ref<Violet::VertexArray> m_SquareVA;
 
-	Violet::Ref<Violet::Texture2D> m_Texture;
+	Violet::Ref<Violet::Texture2D> m_Texture, m_Rainbow;
 
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 

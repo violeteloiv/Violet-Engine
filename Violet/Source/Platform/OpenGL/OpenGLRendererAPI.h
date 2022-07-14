@@ -3,6 +3,7 @@
 /// OpenGLRendererAPI.h
 /// Violet McAllister
 /// July 12th, 2022
+/// Updated: July 13th, 2022
 ///
 /// Defines what graphics APIs are available
 /// to use and allows for better abstraction.
@@ -24,6 +25,8 @@ namespace Violet
 	 */
 	class OpenGLRendererAPI : public RendererAPI
 	{
+	public: // Initializer
+		virtual void Init() override;
 	public: // Main Functionality
 		virtual void SetClearColor(const glm::vec4& p_Color) override;
 		virtual void Clear() override;

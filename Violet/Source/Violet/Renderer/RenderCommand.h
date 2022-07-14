@@ -3,6 +3,7 @@
 /// RenderCommand.h
 /// Violet McAllister
 /// July 12th, 2022
+/// Updated: July 13th, 2022
 ///
 /// Abstracts away referencing a
 /// specific RendererAPI.
@@ -22,6 +23,14 @@ namespace Violet
 	class RenderCommand
 	{
 	public: // Main Functionality
+		/**
+		 * @brief Initializes the graphics API. 
+		 */
+		inline static void Init()
+		{
+			s_RendererAPI->Init();
+		}
+
 		/**
 		 * @brief Sets the background color that gets
 		 * cleared to when the window is cleared before

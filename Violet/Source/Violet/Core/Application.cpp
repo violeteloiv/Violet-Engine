@@ -3,7 +3,7 @@
 /// Application.cpp
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 12th, 2022
+/// Updated: July 13th, 2022
 ///
 /// Contains class implementations for the Application
 /// object.
@@ -37,6 +37,9 @@ namespace Violet
 
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		// Initialize Violet Subsystems
+		Renderer::Init();
 
 		// Create & Push ImGui Layer.
 		m_ImGuiLayer = new ImGuiLayer();

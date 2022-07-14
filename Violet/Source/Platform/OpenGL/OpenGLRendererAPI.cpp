@@ -3,6 +3,7 @@
 /// OpenGLRendererAPI.cpp
 /// Violet McAllister
 /// July 12th, 2022
+/// Updated: July 13th, 2022
 ///
 /// Defines what graphics APIs are available
 /// to use and allows for better abstraction.
@@ -20,6 +21,16 @@
 
 namespace Violet
 {
+	/**
+	 * @brief Initializes OpenGL functions. 
+	 */
+	void OpenGLRendererAPI::Init()
+	{
+		// Enable Blending
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+
 	/**
 	 * @brief Wrapper for glClearColor().
 	 * @param p_Color The clear color to be submitted to

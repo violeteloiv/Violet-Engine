@@ -22,6 +22,14 @@ namespace Violet
 	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
 
 	/**
+	 * @brief Initializes the renderer. 
+	 */
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
+
+	/**
 	 * @brief Initializes for the scene. 
 	 * @param p_Camera The camera being initialized.
 	 */

@@ -25,6 +25,8 @@ namespace Violet
 	 */
 	class Renderer
 	{
+	public: // Initializer
+		static void Init();
 	public: // Main Functionality
 		static void BeginScene(OrthographicCamera& p_Camera);
 		static void EndScene();
