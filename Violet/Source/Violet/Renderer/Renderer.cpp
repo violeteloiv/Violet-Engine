@@ -30,6 +30,16 @@ namespace Violet
 	}
 
 	/**
+	 * @brief Runs when the window is resized.
+	 * @param p_Width The width the window is resized to.
+	 * @param p_Height The height the window is resized to.
+	 */
+	void Renderer::OnWindowResize(uint32_t p_Width, uint32_t p_Height)
+	{
+		RenderCommand::SetViewport(0, 0, p_Width, p_Height);
+	}
+
+	/**
 	 * @brief Initializes for the scene. 
 	 * @param p_Camera The camera being initialized.
 	 */

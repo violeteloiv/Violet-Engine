@@ -3,7 +3,7 @@
 /// Renderer.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 13th, 2022
+/// Updated: July 14th, 2022
 ///
 /// Violet's main renderer which handles
 /// creating and ending a scene, as well
@@ -27,6 +27,8 @@ namespace Violet
 	{
 	public: // Initializer
 		static void Init();
+	public: // Events
+		static void OnWindowResize(uint32_t p_Width, uint32_t p_Height);
 	public: // Main Functionality
 		static void BeginScene(OrthographicCamera& p_Camera);
 		static void EndScene();

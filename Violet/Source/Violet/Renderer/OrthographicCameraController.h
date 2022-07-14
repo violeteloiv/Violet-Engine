@@ -3,6 +3,7 @@
 /// OrthographicCameraController.h
 /// Violet McAllister
 /// July 13th, 2022
+/// Updated: July 14th, 2022
 ///
 /// Controller for an Orthographic Controller.
 /// 
@@ -44,6 +45,18 @@ namespace Violet
 		 * @returns The const camera.
 		 */
 		const OrthographicCamera& GetCamera() const { return m_Camera; }
+
+		/**
+		 * @brief Gets the zoom level.
+		 * @returns The zoom level.
+		 */
+		float GetZoomLevel() const { return m_ZoomLevel; }
+
+		/**
+		 * @brief Sets the zoom level.
+		 * @param p_ZoomLevel The zoom level being set.
+		 */
+		void SetZoomLevel(float p_ZoomLevel) { m_ZoomLevel = p_ZoomLevel; }
 	private: // Events
 		bool OnMouseScrolled(MouseScrolledEvent& p_Event);
 		bool OnWindowResized(WindowResizeEvent& p_Event);

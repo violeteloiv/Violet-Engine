@@ -3,7 +3,7 @@
 /// RenderCommand.h
 /// Violet McAllister
 /// July 12th, 2022
-/// Updated: July 13th, 2022
+/// Updated: July 14th, 2022
 ///
 /// Abstracts away referencing a
 /// specific RendererAPI.
@@ -29,6 +29,18 @@ namespace Violet
 		inline static void Init()
 		{
 			s_RendererAPI->Init();
+		}
+
+		/**
+		 * @brief Sets the viewport size and position.
+		 * @param p_X The x position.
+		 * @param p_Y The y position.
+		 * @param p_Width The width.
+		 * @param p_Height The height.
+		 */
+		inline static void SetViewport(uint32_t p_X, uint32_t p_Y, uint32_t p_Width, uint32_t p_Height)
+		{
+			s_RendererAPI->SetViewport(p_X, p_Y, p_Width, p_Height);
 		}
 
 		/**

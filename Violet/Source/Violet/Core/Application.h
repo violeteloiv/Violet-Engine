@@ -3,7 +3,7 @@
 /// Application.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 12th, 2022
+/// Updated: July 14th, 2022
 ///
 /// Contains class information for the application
 /// interfacing between a Violet Engine Application
@@ -45,11 +45,13 @@ namespace Violet
 		inline static Application& Get() { return *s_Instance; }
 	private: // Event Callback
 		bool OnWindowClose(WindowCloseEvent& p_Event);
+		bool OnWindowResize(WindowResizeEvent& p_Event);
 	private: // Private Member Variables
 		Scope<Window> m_Window;
 		LayerStack m_LayerStack;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
+		bool m_Minimized = false;
 		float m_LastFrameTime;
 	private: // Static Instance
 		static Application* s_Instance;

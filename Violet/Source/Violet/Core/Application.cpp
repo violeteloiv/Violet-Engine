@@ -3,7 +3,7 @@
 /// Application.cpp
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 13th, 2022
+/// Updated: July 14th, 2022
 ///
 /// Contains class implementations for the Application
 /// object.
@@ -21,9 +21,6 @@
 
 namespace Violet
 {
-	// Bind Event Function Macro
-	#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
-
 	// Insantiate Application Instance
 	Application* Application::s_Instance = nullptr;
 
@@ -36,7 +33,7 @@ namespace Violet
 		s_Instance = this;
 
 		m_Window = Window::Create();
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window->SetEventCallback(VT_BIND_EVENT_FN(Application::OnEvent));
 
 		// Initialize Violet Subsystems
 		Renderer::Init();
@@ -71,7 +68,8 @@ namespace Violet
 	void Application::OnEvent(Event& p_Event)
 	{
 		EventDispatcher dispatcher(p_Event);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(VT_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(VT_BIND_EVENT_FN(Application::OnWindowResize));
 
 		// Loop through the LayerStack and look for OnEvent functions.
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
@@ -95,8 +93,11 @@ namespace Violet
 			m_LastFrameTime = time;
 
 			// Update Layers
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
+			}
 
 			// Every ImGuiLayer gets rendered as part of the ImGui Layer.
 			m_ImGuiLayer->Begin();
@@ -117,5 +118,24 @@ namespace Violet
 	{
 		m_Running = false;
 		return true;
+	}
+
+	/**
+	 * @brief Runs when the window is resized.
+	 * @param p_Event The window resize event information.
+	 * @returns The successful execution of the event.
+	 */
+	bool Application::OnWindowResize(WindowResizeEvent& p_Event)
+	{
+		if (p_Event.GetWidth() == 0 || p_Event.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+		Renderer::OnWindowResize(p_Event.GetWidth(), p_Event.GetHeight());
+
+		return false;
 	}
 }

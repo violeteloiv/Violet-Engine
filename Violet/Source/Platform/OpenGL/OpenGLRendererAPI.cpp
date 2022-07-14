@@ -3,7 +3,7 @@
 /// OpenGLRendererAPI.cpp
 /// Violet McAllister
 /// July 12th, 2022
-/// Updated: July 13th, 2022
+/// Updated: July 14th, 2022
 ///
 /// Defines what graphics APIs are available
 /// to use and allows for better abstraction.
@@ -29,6 +29,18 @@ namespace Violet
 		// Enable Blending
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+
+	/**
+	 * @brief Updates the GL Viewport
+	 * @param p_X The x position of the view port.
+	 * @param p_Y The y position of the view port.
+	 * @param p_Width The width of the view port.
+	 * @param p_Height The height of the view port.
+	 */
+	void OpenGLRendererAPI::SetViewport(uint32_t p_X, uint32_t p_Y, uint32_t p_Width, uint32_t p_Height)
+	{
+		glViewport(p_X, p_Y, p_Width, p_Height);
 	}
 
 	/**
