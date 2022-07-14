@@ -3,6 +3,7 @@
 /// Buffer.h
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 14th, 2022
 ///
 /// Contains Vertex & Index Buffer objects used
 /// to store information regarding the vertices
@@ -59,7 +60,7 @@ namespace Violet
 		std::string Name;
 		ShaderDataType Type;
 		uint32_t Size;
-		uint32_t Offset;
+		size_t Offset;
 		bool Normalized;
 	public: // Constructors
 		BufferElement() = default;
@@ -142,7 +143,7 @@ namespace Violet
 		 */
 		void CalculateOffsetsAndStride()
 		{
-			uint32_t offset = 0;
+			size_t offset = 0;
 			m_Stride = 0;
 			for (auto& element : m_Elements)
 			{
