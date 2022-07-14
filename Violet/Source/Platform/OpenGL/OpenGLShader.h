@@ -33,11 +33,17 @@ namespace Violet
 	{
 	public: // Constructors & Deconstructors
 		OpenGLShader(const std::string& p_Filepath);
-		OpenGLShader(const std::string& p_VertexSource, const std::string& p_FragmentSource);
+		OpenGLShader(const std::string& p_Name, const std::string& p_VertexSource, const std::string& p_FragmentSource);
 		virtual ~OpenGLShader();
 	public: // Main Functionality
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+	public: // Getters
+		/**
+		 * @brief Gets the name of the shader.
+		 * @returns The name of the shader.
+		 */
+		virtual const std::string& GetName() const override { return m_Name; }
 	public: // Uniforms
 		void UploadUniformInt(const std::string& p_Name, int p_Value);
 		void UploadUniformFloat(const std::string& p_Name, float p_Value);
@@ -52,6 +58,7 @@ namespace Violet
 		void Compile(const std::unordered_map<GLenum, std::string>& p_ShaderSources);
 	private: // Private Member Variables
 		uint32_t m_RendererID;
+		std::string m_Name;
 	};
 }
 

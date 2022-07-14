@@ -52,6 +52,13 @@ namespace Violet
 		std::string source = ReadFile(p_Filepath);
 		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
+
+		// Extract Name From Filepath
+		auto lastSlash = p_Filepath.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = p_Filepath.rfind('.');
+		auto count = lastDot == std::string::npos ? p_Filepath.size() - lastSlash : lastDot - lastSlash;
+		m_Name = p_Filepath.substr(lastSlash, count);
 	}
 	
 	/**
@@ -59,7 +66,8 @@ namespace Violet
 	 * @param p_VertexSource The vertex shader source.
 	 * @param p_FragmentSource The fragment shader source.
 	 */ 
-	OpenGLShader::OpenGLShader(const std::string& p_VertexSource, const std::string& p_FragmentSource)
+	OpenGLShader::OpenGLShader(const std::string& p_Name, const std::string& p_VertexSource, const std::string& p_FragmentSource)
+		: m_Name(p_Name)
 	{
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = p_VertexSource;
@@ -83,7 +91,7 @@ namespace Violet
 	std::string OpenGLShader::ReadFile(const std::string& p_Filepath)
 	{
 		std::string result;
-		std::ifstream in(p_Filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(p_Filepath, std::ios::in | std::ios::binary);
 		if (in)
 		{
 			// Reads File Data into result
@@ -137,7 +145,9 @@ namespace Violet
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& p_ShaderSources)
 	{
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderIDs(p_ShaderSources.size());
+		VT_CORE_ASSERT(p_ShaderSources.size() <= 2, "We only support 2 shaders for now");
+		std::array<GLenum, 2> glShaderIDs;
+		int glShaderIDIndex = 0;
 		for (auto& kv : p_ShaderSources)
 		{
 			GLenum type = kv.first;
@@ -168,7 +178,7 @@ namespace Violet
 			}
 
 			glAttachShader(program, shader);
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glShaderIDIndex++] = shader;
 		}
 
 		m_RendererID = program;
