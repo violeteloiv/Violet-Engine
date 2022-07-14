@@ -25,6 +25,7 @@
 
 #include "Violet/Renderer/Buffer.h"
 #include "Violet/Renderer/OrthographicCamera.h"
+#include "Violet/Renderer/OrthographicCameraController.h"
 #include "Violet/Renderer/Renderer.h"
 #include "Violet/Renderer/RenderCommand.h"
 #include "Violet/Renderer/Shader.h"

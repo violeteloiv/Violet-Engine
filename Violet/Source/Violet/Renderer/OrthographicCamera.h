@@ -3,6 +3,7 @@
 /// OrthographicCamera.h
 /// Violet McAllister
 /// July 12th, 2022
+/// Updated July 13th, 2022
 ///
 /// An Orthographic Camera is a camera which
 /// shoots parallel rays from a camera. All
@@ -22,6 +23,8 @@ namespace Violet
 	{
 	public: // Constructors
 		OrthographicCamera(float p_Left, float p_Right, float p_Bottom, float p_Top);
+	public: // Getters & Setters
+		void SetProjection(float p_Left, float p_Right, float p_Bottom, float p_Top);
 	public: // Getters & Setters
 		/**
 		 * @brief Gets the camera position.

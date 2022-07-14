@@ -3,6 +3,7 @@
 /// OrthographicCamera.cpp
 /// Violet McAllister
 /// July 12th, 2022
+/// Updated: July 13th, 2022
 ///
 /// An Orthographic Camera is a camera which
 /// shoots parallel rays from a camera. All
@@ -29,6 +30,19 @@ namespace Violet
 	OrthographicCamera::OrthographicCamera(float p_Left, float p_Right, float p_Bottom, float p_Top)
 		: m_ProjectionMatrix(glm::ortho(p_Left, p_Right, p_Bottom, p_Top, -1.0f, 1.0f)), m_ViewMatrix(1.0f)
 	{
+		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
+	}
+
+	/**
+	 * @brief Updates the projection with new values.
+	 * @param p_Left Number furthest left on x-axis.
+	 * @param p_Right Number furthst right on x-axis.
+	 * @param p_Bottom Number furthest down on the y-axis.
+	 * @param p_Top Number furthest up on the y-axis.
+	 */
+	void OrthographicCamera::SetProjection(float p_Left, float p_Right, float p_Bottom, float p_Top)
+	{
+		m_ProjectionMatrix = glm::ortho(p_Left, p_Right, p_Bottom, p_Top, -1.0f, 1.0f);
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
 
