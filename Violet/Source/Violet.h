@@ -32,7 +32,4 @@
 #include "Violet/Renderer/Texture.h"
 #include "Violet/Renderer/VertexArray.h"
 
-// -- Entry Point --
-#include "Violet/Core/EntryPoint.h"
-
 #endif // _VIOLET_ENGINE_H_INCLUDED__

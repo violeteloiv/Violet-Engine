@@ -3,19 +3,22 @@
 /// SandboxApp.cpp
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 13th, 2022
+/// Updated: July 13=4th, 2022
 ///
 /// Testing Violet API Code
 ///
 /////////////////
 
 #include <Violet.h>
+#include <Violet/Core/EntryPoint.h>
 #include <Platform/OpenGL/OpenGLShader.h>
 
 #include <imgui/imgui.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include "Sandbox2D.h"
 
 class ExampleLayer : public Violet::Layer
 {
@@ -213,7 +216,8 @@ class SandboxApp : public Violet::Application
 public:
 	SandboxApp()
 	{
-		PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
+		//PushLayer(new ExampleLayer());
 	}
 
 	~SandboxApp()
