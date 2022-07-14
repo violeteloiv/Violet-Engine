@@ -21,6 +21,9 @@
 
 #include "Violet/Renderer/Shader.h"
 
+// remove <3
+typedef unsigned int GLenum;
+
 namespace Violet
 {
 	/**
@@ -29,6 +32,7 @@ namespace Violet
 	class OpenGLShader : public Shader
 	{
 	public: // Constructors & Deconstructors
+		OpenGLShader(const std::string& p_Filepath);
 		OpenGLShader(const std::string& p_VertexSource, const std::string& p_FragmentSource);
 		virtual ~OpenGLShader();
 	public: // Main Functionality
@@ -42,6 +46,10 @@ namespace Violet
 		void UploadUniformFloat4(const std::string& p_Name, const glm::vec4& p_Value);
 		void UploadUniformMat3(const std::string& p_Name, const glm::mat3& p_Matrix);
 		void UploadUniformMat4(const std::string& p_Name, const glm::mat4& p_Matrix);
+	private: // Helpers
+		std::string ReadFile(const std::string& p_Filepath);
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& p_Source);
+		void Compile(const std::unordered_map<GLenum, std::string>& p_ShaderSources);
 	private: // Private Member Variables
 		uint32_t m_RendererID;
 	};

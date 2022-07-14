@@ -24,6 +24,22 @@ namespace Violet
 {
 	/**
 	 * @brief Creates a Shader object based on the current API.
+	 * @param p_Filepath The file path to a shader program.
+	 */
+	Ref<Shader> Shader::Create(const std::string& p_Filepath)
+	{
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::API::None:    VT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(p_Filepath);
+		}
+
+		VT_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
+
+	/**
+	 * @brief Creates a Shader object based on the current API.
 	 * @param p_VertexSource The vertex source for the shader.
 	 * @param p_FragmentSource The fragment source for the shader.
 	 */

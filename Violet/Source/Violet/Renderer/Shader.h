@@ -32,6 +32,7 @@ namespace Violet
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 	public: // Creator
+		static Ref<Shader> Create(const std::string& p_Filepath);
 		static Ref<Shader> Create(const std::string& p_VertexSource, const std::string& p_FragmentSource);
 	};
 }
