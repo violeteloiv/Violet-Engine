@@ -74,7 +74,6 @@ project "Violet"
 		systemversion "latest"
 
 		defines {
-			"VT_PLATFORM_WINDOWS",
 			"VT_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
@@ -127,10 +126,6 @@ project "Sandbox"
 		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
-
-		defines {
-			"VT_PLATFORM_WINDOWS"
-		}
 
 	filter "configurations:Debug"
 		defines "VT_DEBUG"
