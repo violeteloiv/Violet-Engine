@@ -3,7 +3,7 @@
 /// Renderer.cpp
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 13th, 2022
+/// Updated: July 14th, 2022
 ///
 /// Violet's main renderer which handles
 /// creating and ending a scene, as well
@@ -17,6 +17,8 @@
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
+#include "Violet/Renderer/Renderer2D.h"
+
 namespace Violet
 {
 	Scope<Renderer::SceneData> Renderer::s_SceneData = CreateScope<Renderer::SceneData>();
@@ -27,6 +29,7 @@ namespace Violet
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
+		Renderer2D::Init();
 	}
 
 	/**

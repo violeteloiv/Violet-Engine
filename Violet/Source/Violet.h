@@ -3,7 +3,7 @@
 /// Violet.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 12=3th, 2022
+/// Updated: July 14th, 2022
 ///
 /// Contains all of the include files for the
 /// Violet API.
@@ -27,6 +27,7 @@
 #include "Violet/Renderer/OrthographicCamera.h"
 #include "Violet/Renderer/OrthographicCameraController.h"
 #include "Violet/Renderer/Renderer.h"
+#include "Violet/Renderer/Renderer2D.h"
 #include "Violet/Renderer/RenderCommand.h"
 #include "Violet/Renderer/Shader.h"
 #include "Violet/Renderer/Texture.h"
