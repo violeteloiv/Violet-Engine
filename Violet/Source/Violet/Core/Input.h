@@ -3,6 +3,7 @@
 /// Input.h
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 13th, 2022
 ///
 /// Used to conduct input polling on the application
 /// and client side.
@@ -22,6 +23,11 @@ namespace Violet
 	 */
 	class Input
 	{
+	protected: // Constructor For Singleton
+		Input() = default;
+	public: // Constructors For Singleton
+		Input(const Input&) = delete;
+		Input& operator=(const Input&) = delete;
 	public: // Static Key Events
 		/**
 		 * @brief Checks if a certain key is pressed.

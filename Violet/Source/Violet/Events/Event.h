@@ -3,7 +3,7 @@
 /// Event.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 11th, 2022
+/// Updated: July 13th, 2022
 ///
 /// Contains Event Types, Categories, and a Dispatcher.
 /// 
@@ -121,9 +121,6 @@ namespace Violet
 	 */
 	class EventDispatcher
 	{
-	private: // Event Function
-		template<typename T>
-		using EventFunction = std::function<bool(T&)>;
 	public: // Constructor & Deconstructor
 		/**
 		 * @brief Constructor for an EventDispatcher
@@ -137,18 +134,19 @@ namespace Violet
 	public: // Main Functionality
 		/**
 		 * @brief When the event is triggered, runs the function passed in.
+		 * F is deduced by the compiler during compilation.
 		 * @param p_Function The event callback function.
 		 * @returns Verification on if the even has successfully occured.
 		 */
-		template<typename T>
-		bool Dispatch(EventFunction<T> p_Function)
+		template<typename T, typename F>
+		bool Dispatch(const F& p_Function)
 		{
 			// If the type of the internal event is the same as the 
 			// event passed through the dispatcher, run the event function.
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
 				// Wizard Referencing & Dereferencing
-				m_Event.Handled = p_Function(*(T*)&m_Event);
+				m_Event.Handled = p_Function(static_cast<T&>(m_Event));
 				return true;
 			}
 			
