@@ -45,7 +45,7 @@ namespace Violet
 			glm::mat4 ViewProjectionMatrix;
 		};
 	private: // Private Static Member Variables
-		static SceneData* s_SceneData;
+		static Scope<SceneData> s_SceneData;
 	};
 }
 

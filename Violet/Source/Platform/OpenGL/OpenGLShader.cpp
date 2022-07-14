@@ -121,18 +121,20 @@ namespace Violet
 
 		const char* typeToken = "#type";
 		size_t typeTokenLength = strlen(typeToken);
-		size_t pos = p_Source.find(typeToken, 0);
+		size_t pos = p_Source.find(typeToken, 0); // Start of shader type declaration line
 		while (pos != std::string::npos)
 		{
 			size_t eol = p_Source.find_first_of("\r\n", pos);
 			VT_CORE_ASSERT(eol != std::string::npos, "Syntax error");
-			size_t begin = pos + typeTokenLength + 1;
+			size_t begin = pos + typeTokenLength + 1; // Start of shader type name (after "#type " keyword)
 			std::string type = p_Source.substr(begin, eol - begin);
 			VT_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
 
-			size_t nextLinePos = p_Source.find_first_not_of("\r\n", eol);
-			pos = p_Source.find(typeToken, nextLinePos);
-			shaderSources[ShaderTypeFromString(type)] = p_Source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? p_Source.size() - 1 : nextLinePos));
+			size_t nextLinePos = p_Source.find_first_not_of("\r\n", eol); // Start of shader code after shader type declaration line
+			VT_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
+			pos = p_Source.find(typeToken, nextLinePos); // Start of next shader type declaration line
+
+			shaderSources[ShaderTypeFromString(type)] = (pos == std::string::npos) ? p_Source.substr(nextLinePos) : p_Source.substr(nextLinePos, pos - nextLinePos);
 		}
 
 		return shaderSources;

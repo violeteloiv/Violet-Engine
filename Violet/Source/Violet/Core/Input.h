@@ -68,7 +68,7 @@ namespace Violet
 		virtual float GetMouseXImpl() = 0;
 		virtual float GetMouseYImpl() = 0;
 	private: // Static Instance
-		static Input* s_Instance;
+		static Scope<Input> s_Instance;
 	};
 }
 

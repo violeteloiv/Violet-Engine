@@ -71,7 +71,7 @@ namespace Violet
 			s_RendererAPI->DrawIndexed(p_VertexArray);
 		}
 	private: // Private State Member Variables
-		static RendererAPI* s_RendererAPI;
+		static Scope<RendererAPI> s_RendererAPI;
 	};
 }
 

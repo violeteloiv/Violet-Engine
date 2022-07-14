@@ -19,7 +19,7 @@
 
 namespace Violet
 {
-	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
+	Scope<Renderer::SceneData> Renderer::s_SceneData = CreateScope<Renderer::SceneData>();
 
 	/**
 	 * @brief Initializes the renderer. 
