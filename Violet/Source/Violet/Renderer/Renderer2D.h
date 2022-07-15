@@ -13,6 +13,7 @@
 #define __VIOLET_ENGINE_RENDERER_2D_H_INCLUDED__
 
 #include "Violet/Renderer/OrthographicCamera.h"
+#include "Violet/Renderer/Texture.h"
 
 namespace Violet
 {
@@ -31,6 +32,8 @@ namespace Violet
 	public: // Main Functionality
 		static void DrawQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, const glm::vec4& p_Color);
 		static void DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const glm::vec4& p_Color);
+		static void DrawQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture);
+		static void DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture);
 	};
 }
 

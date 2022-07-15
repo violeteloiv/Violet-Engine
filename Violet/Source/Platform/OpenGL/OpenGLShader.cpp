@@ -3,6 +3,7 @@
 /// OpenGLShader.cpp
 /// Violet McAllister
 /// July 13th, 2022
+/// Updated: July 15th, 2022
 ///
 /// A shader is a program which allows
 /// you to communicate with the GPU directly
@@ -229,6 +230,46 @@ namespace Violet
 	void OpenGLShader::Unbind() const
 	{
 		glUseProgram(0);
+	}
+
+	/**
+	 * @brief Uploads an integer value to the GPU for use in a shader.
+	 * @param p_Name The name of the uniform in the shader.
+	 * @param p_Value The integer value.
+	 */
+	void OpenGLShader::SetInt(const std::string& p_Name, int p_Value)
+	{
+		UploadUniformInt(p_Name, p_Value);
+	}
+
+	/**
+	 * @brief Uploads a set of three float values to the GPU for use in a shader.
+	 * @param p_Name The name of the uniform in the shader.
+	 * @param p_Value The three float values as a vector.
+	 */
+	void OpenGLShader::SetFloat3(const std::string& p_Name, const glm::vec3& p_Value)
+	{
+		UploadUniformFloat3(p_Name, p_Value);
+	}
+
+	/**
+	 * @brief Uploads a set of four float values to the GPU for use in a shader.
+	 * @param p_Name The name of the uniform in the shader.
+	 * @param p_Value The four float values as a vector.
+	 */
+	void OpenGLShader::SetFloat4(const std::string& p_Name, const glm::vec4& p_Value)
+	{
+		UploadUniformFloat4(p_Name, p_Value);
+	}
+
+	/**
+	 * @brief Uploads a 4x4 matrix to the GPU for use in a shader.
+	 * @param p_Name The name of the uniform in the shader.
+	 * @param p_Value The 4x4 matrix.
+	 */
+	void OpenGLShader::SetMat4(const std::string& p_Name, const glm::mat4& p_Value)
+	{
+		UploadUniformMat4(p_Name, p_Value);
 	}
 
 	/**

@@ -3,7 +3,7 @@
 /// OpenGLRendererAPI.cpp
 /// Violet McAllister
 /// July 12th, 2022
-/// Updated: July 14th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Defines what graphics APIs are available
 /// to use and allows for better abstraction.
@@ -29,6 +29,9 @@ namespace Violet
 		// Enable Blending
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		// Enable Depth Testing
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	/**

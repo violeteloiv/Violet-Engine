@@ -3,6 +3,7 @@
 /// Renderer2D.cpp
 /// Violet McAllister
 /// July 14th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Violet's main 2D Renderer which
 /// handles drawing 2D shapes.
@@ -13,7 +14,7 @@
 
 #include "Violet/Renderer/Renderer2D.h"
 
-#include "Platform/OpenGL/OpenGLShader.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "Violet/Renderer/RenderCommand.h"
 #include "Violet/Renderer/Shader.h"
@@ -28,6 +29,7 @@ namespace Violet
 	{
 		Ref<VertexArray> QuadVertexArray;
 		Ref<Shader> FlatColorShader;
+		Ref<Shader> TextureShader;
 	};
 
 	static Renderer2DStorage* s_Data;
@@ -42,17 +44,18 @@ namespace Violet
 		s_Data->QuadVertexArray = VertexArray::Create();
 
 		// Create Vertex Buffer & Layout
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		Ref<VertexBuffer> squareVB;
 		squareVB = VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		squareVB->SetLayout({
-			{ ShaderDataType::Float3, "a_Position" }
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float2, "a_TexCoord" }
 		});
 		s_Data->QuadVertexArray->AddVertexBuffer(squareVB);
 
@@ -67,6 +70,10 @@ namespace Violet
 
 		// Shader
 		s_Data->FlatColorShader = Shader::Create("Assets/Shaders/FlatColor.glsl");
+
+		s_Data->TextureShader = Shader::Create("Assets/Shaders/Texture.glsl");
+		s_Data->TextureShader->Bind();
+		s_Data->TextureShader->SetInt("u_Texture", 0);
 	}
 
 	/**
@@ -83,9 +90,11 @@ namespace Violet
 	 */
 	void Renderer2D::BeginScene(const OrthographicCamera& p_Camera)
 	{
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->UploadUniformMat4("u_ViewProjection", p_Camera.GetViewProjectionMatrix());
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->UploadUniformMat4("u_Transform", glm::mat4(1.0f));
+		s_Data->FlatColorShader->Bind();
+		s_Data->FlatColorShader->SetMat4("u_ViewProjection", p_Camera.GetViewProjectionMatrix());
+
+		s_Data->TextureShader->Bind();
+		s_Data->TextureShader->SetMat4("u_ViewProjection", p_Camera.GetViewProjectionMatrix());
 	}
 
 	/**
@@ -115,8 +124,41 @@ namespace Violet
 	 */
 	void Renderer2D::DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const glm::vec4& p_Color)
 	{
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->UploadUniformFloat4("u_Color", p_Color);
+		s_Data->FlatColorShader->Bind();
+		s_Data->FlatColorShader->SetFloat4("u_Color", p_Color);
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position) * glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
+		s_Data->FlatColorShader->SetMat4("u_Transform", transform);
+
+		s_Data->QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
+	}
+
+	/**
+	 * @brief Draws a square at a position, with a size, and with a texture.
+	 * @param p_Position The 2D position.
+	 * @param p_Size The size of the square.
+	 * @param p_Texture The texture for the square.
+	 */
+	void Renderer2D::DrawQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture)
+	{
+		DrawQuad({ p_Position.x, p_Position.y, 0.0f }, p_Size, p_Texture);
+	}
+
+	/**
+	 * @brief Draws a square at a position, with a size, and with a texture.
+	 * @param p_Position The 3D position.
+	 * @param p_Size The size of the square.
+	 * @param p_Texture The texture for the square.
+	 */
+	void Renderer2D::DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture)
+	{
+		s_Data->TextureShader->Bind();
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position) * glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
+		s_Data->TextureShader->SetMat4("u_Transform", transform);
+
+		p_Texture->Bind();
 
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
