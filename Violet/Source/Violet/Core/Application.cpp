@@ -92,9 +92,9 @@ namespace Violet
 		dispatcher.Dispatch<WindowResizeEvent>(VT_BIND_EVENT_FN(Application::OnWindowResize));
 
 		// Loop through the LayerStack and look for OnEvent functions.
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 		{
-			(*--it)->OnEvent(p_Event);
+			(*it)->OnEvent(p_Event);
 			if (p_Event.Handled)
 				break;
 		}
