@@ -13,12 +13,14 @@
 
 #include "vtpch.h"
 
-#include "Platform/OpenGL/OpenGLContext.h"
 #include "Platform/Windows/WindowsWindow.h"
+
+#include "Platform/OpenGL/OpenGLContext.h"
 
 #include "Violet/Events/ApplicationEvent.h"
 #include "Violet/Events/KeyEvent.h"
 #include "Violet/Events/MouseEvent.h"
+#include "Violet/Renderer/Renderer.h"
 
 namespace Violet
 {
@@ -102,6 +104,11 @@ namespace Violet
 
 		{
 			VT_PROFILE_SCOPE("glfwCreateWindow");
+
+		#if VT_DEBUG
+			if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
+				glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+		#endif
 
 			// Create the window.
 			// When specifying fullscreen mode, you use the monitor, for windowed, use nullptr.

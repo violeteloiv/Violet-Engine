@@ -22,11 +22,43 @@
 namespace Violet
 {
 	/**
+	 * @brief OpenGL Message Callback for errors. 
+	 */
+	void OpenGLMessageCallback(
+		unsigned p_Source,
+		unsigned p_Type,
+		unsigned p_ID,
+		unsigned p_Severity,
+		int p_Length,
+		const char* p_Message,
+		const void* p_UserParam)
+	{
+		switch (p_Severity)
+		{
+			case GL_DEBUG_SEVERITY_HIGH:         VT_CORE_CRITICAL(p_Message); return;
+			case GL_DEBUG_SEVERITY_MEDIUM:       VT_CORE_ERROR(p_Message); return;
+			case GL_DEBUG_SEVERITY_LOW:          VT_CORE_WARN(p_Message); return;
+			case GL_DEBUG_SEVERITY_NOTIFICATION: VT_CORE_TRACE(p_Message); return;
+		}
+
+		VT_CORE_ASSERT(false, "Unknown Severity Level!");
+	}
+
+	/**
 	 * @brief Initializes OpenGL functions. 
 	 */
 	void OpenGLRendererAPI::Init()
 	{
 		VT_PROFILE_FUNCTION();
+
+	#ifdef VT_DEBUG
+		// Debugging OpenGL
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+		glDebugMessageCallback(OpenGLMessageCallback, nullptr);
+
+		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+	#endif
 
 		// Enable Blending
 		glEnable(GL_BLEND);
