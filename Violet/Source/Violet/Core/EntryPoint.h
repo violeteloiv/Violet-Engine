@@ -26,14 +26,19 @@ int main(int p_ArgumentCount, char** p_Arguments)
 {
 	// Initialize Logger
 	Violet::Log::Init();
-	VT_CORE_WARN("Initialized Logger!");
-	int a = 5;
-	VT_INFO("Hello! Var={0}", a);
 
 	// Initialize Application
+	VT_PROFILE_BEGIN_SESSION("Startup", "VioletProfile-Startup.json");
 	auto app = Violet::CreateApplication();
+	VT_PROFILE_END_SESSION();
+
+	VT_PROFILE_BEGIN_SESSION("Runtime", "VioletProfile-Runtime.json");
 	app->Run();
+	VT_PROFILE_END_SESSION();
+
+	VT_PROFILE_BEGIN_SESSION("Shutdown", "VioletProfile-Shutdown.json");
 	delete app;
+	VT_PROFILE_END_SESSION();
 }
 
 #endif // VT_PLATFORM_WINDOWS

@@ -27,13 +27,6 @@ public:
 	virtual void OnImGuiRender() override;
 	void OnEvent(Violet::Event& p_Event) override;
 private:
-	struct ProfileResult
-	{
-		const char* Name;
-		float Time;
-	};
-	std::vector<ProfileResult> m_ProfileResults;
-private:
 	Violet::OrthographicCameraController m_CameraController;
 
 	Violet::Ref<Violet::VertexArray> m_SquareVA;

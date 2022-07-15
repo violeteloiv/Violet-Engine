@@ -7,4 +7,6 @@ bin-int/
 *.vcxproj.filters
 *.sln
 
+*.json
+
 *.ini

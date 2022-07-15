@@ -3,6 +3,7 @@
 /// vtpch.h
 /// Violet McAllister
 /// July 1st, 2022
+/// Updated: July 15th, 2022
 ///
 /// Precompiled Header to allow for faster compilation.
 ///
@@ -25,6 +26,7 @@
 #include <unordered_set>
 
 #include "Violet/Core/Log.h"
+#include "Violet/Debug/Instrumentor.h"
 
 #ifdef VT_PLATFORM_WINDOWS
 	#include <Windows.h>

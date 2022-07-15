@@ -1,6 +1,6 @@
 /////////////////
 ///
-/// GraphicsContext.h
+/// GraphicsContext.cpp
 /// Violet McAllister
 /// July 15th, 2022
 ///
