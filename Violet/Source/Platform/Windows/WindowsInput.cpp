@@ -20,8 +20,6 @@
 
 namespace Violet
 {
-	Scope<Input> Input::s_Instance = CreateScope<WindowsInput>();
-
 	/**
 	 * @brief Checks if a certain key is pressed.
 	 * @param p_KeyCode The key code of the key we're checking.

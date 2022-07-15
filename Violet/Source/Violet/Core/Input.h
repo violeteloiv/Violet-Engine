@@ -3,7 +3,7 @@
 /// Input.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 13th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Used to conduct input polling on the application
 /// and client side.
@@ -62,6 +62,8 @@ namespace Violet
 		 * @returns The mouse Y position.
 		 */
 		inline static float GetMouseY() { return s_Instance->GetMouseYImpl(); }
+	public: // Creator
+		static Scope<Input> Create();
 	protected: // Key Event Implementations
 		virtual bool IsKeyPressedImpl(KeyCode p_Key) = 0;
 	protected: // Mouse Event Implementations

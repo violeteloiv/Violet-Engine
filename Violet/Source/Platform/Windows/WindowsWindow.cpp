@@ -45,17 +45,6 @@ namespace Violet
 	}
 
 	/**
-	 * @brief Allows the user to create a Window for the Windows
-	 * system without specifically referencing Windows.
-	 * @param p_Properties The window properties (title, width, height).
-	 * @returns The windows window, not implemented for Windows.
-	 */
-	Scope<Window> Window::Create(const WindowProperties& p_Properties)
-	{
-		return CreateScope<WindowsWindow>(p_Properties);
-	}
-
-	/**
 	 * @brief Constructs a WindowsWindow object.
 	 * @param p_Properties The window properties (title, width, height).
 	 */

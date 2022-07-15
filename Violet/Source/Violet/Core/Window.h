@@ -3,13 +3,16 @@
 /// Window.h
 /// Violet McAllister
 /// July 1st, 2022
-/// Updated: July 11th
+/// Updated: July 15th, 2022
 ///
 /// Contains Window Properties and a Window
 /// interface to generalize window functionality
 /// between systems.
 ///
 /////////////////
+
+#ifndef __VIOLET_ENGINE_CORE_WINDOW_H_INCLUDED__
+#define __VIOLET_ENGINE_CORE_WINDOW_H_INCLUDED__
 
 #include "vtpch.h"
 
@@ -65,3 +68,5 @@ namespace Violet
 		static Scope<Window> Create(const WindowProperties& p_Properties = WindowProperties());
 	};
 }
+
+#endif // __VIOLET_ENGINE_CORE_WINDOW_H_INCLUDED__

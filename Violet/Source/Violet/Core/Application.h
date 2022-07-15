@@ -25,6 +25,8 @@
 #include "Violet/Events/ApplicationEvent.h"
 #include "Violet/ImGui/ImGuiLayer.h"
 
+int main(int argc, char** argv);
+
 namespace Violet
 {
 	/**
@@ -36,7 +38,6 @@ namespace Violet
 		Application();
 		virtual ~Application();
 	public: // Main Functionality
-		void Run();
 		void OnEvent(Event& p_Event);
 		void PushLayer(Layer* p_Layer);
 		void PushOverlay(Layer* p_Overlay);
@@ -46,6 +47,8 @@ namespace Violet
 	private: // Event Callback
 		bool OnWindowClose(WindowCloseEvent& p_Event);
 		bool OnWindowResize(WindowResizeEvent& p_Event);
+	private: // Private Functionality
+		void Run();
 	private: // Private Member Variables
 		Scope<Window> m_Window;
 		LayerStack m_LayerStack;
@@ -55,6 +58,8 @@ namespace Violet
 		float m_LastFrameTime;
 	private: // Static Instance
 		static Application* s_Instance;
+	private: // Friend Objects
+		friend int ::main(int argc, char** argv);
 	};
 
 	/**
