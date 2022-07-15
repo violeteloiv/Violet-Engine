@@ -3,6 +3,7 @@
 /// ImGuiLayer.h
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Layer to display ImGui items. Defined by application, pushed to
 /// LayerStack on client side.
@@ -31,7 +32,6 @@ namespace Violet
 	public: // Overrides
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
-		virtual void OnImGuiRender() override;
 	public: // Main Functionality
 		void Begin();
 		void End();

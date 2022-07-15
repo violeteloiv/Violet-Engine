@@ -3,6 +3,7 @@
 /// ImGuiLayer.cpp
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Defines the implementation for an ImGuiLayer.
 ///
@@ -101,14 +102,5 @@ namespace Violet
 			ImGui::RenderPlatformWindowsDefault();
 			glfwMakeContextCurrent(backup_current_context);
 		}
-	}
-
-	/**
-	 * Runs on the ImGuiRender event in a layer. 
-	 */
-	void ImGuiLayer::OnImGuiRender()
-	{
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
 	}
 }
