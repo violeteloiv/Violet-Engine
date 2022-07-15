@@ -28,8 +28,8 @@ namespace Violet
 	struct Renderer2DStorage
 	{
 		Ref<VertexArray> QuadVertexArray;
-		Ref<Shader> FlatColorShader;
 		Ref<Shader> TextureShader;
+		Ref<Texture2D> WhiteTexture;
 	};
 
 	static Renderer2DStorage* s_Data;
@@ -68,9 +68,12 @@ namespace Violet
 		squareIB = IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		s_Data->QuadVertexArray->SetIndexBuffer(squareIB);
 
-		// Shader
-		s_Data->FlatColorShader = Shader::Create("Assets/Shaders/FlatColor.glsl");
+		// Create Default Texture
+		s_Data->WhiteTexture = Texture2D::Create(1, 1);
+		uint32_t whiteTextureData = 0xffffffff;
+		s_Data->WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 
+		// Texture Shader
 		s_Data->TextureShader = Shader::Create("Assets/Shaders/Texture.glsl");
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetInt("u_Texture", 0);
@@ -90,9 +93,6 @@ namespace Violet
 	 */
 	void Renderer2D::BeginScene(const OrthographicCamera& p_Camera)
 	{
-		s_Data->FlatColorShader->Bind();
-		s_Data->FlatColorShader->SetMat4("u_ViewProjection", p_Camera.GetViewProjectionMatrix());
-
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", p_Camera.GetViewProjectionMatrix());
 	}
@@ -124,11 +124,11 @@ namespace Violet
 	 */
 	void Renderer2D::DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const glm::vec4& p_Color)
 	{
-		s_Data->FlatColorShader->Bind();
-		s_Data->FlatColorShader->SetFloat4("u_Color", p_Color);
+		s_Data->TextureShader->SetFloat4("u_Color", p_Color);
+		s_Data->WhiteTexture->Bind();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position) * glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
-		s_Data->FlatColorShader->SetMat4("u_Transform", transform);
+		s_Data->TextureShader->SetMat4("u_Transform", transform);
 
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
@@ -153,12 +153,11 @@ namespace Violet
 	 */
 	void Renderer2D::DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture)
 	{
-		s_Data->TextureShader->Bind();
+		s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
+		p_Texture->Bind();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position) * glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
 		s_Data->TextureShader->SetMat4("u_Transform", transform);
-
-		p_Texture->Bind();
 
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
