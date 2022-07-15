@@ -10,3 +10,4 @@ bin-int/
 *.json
 
 *.ini
+*.log
