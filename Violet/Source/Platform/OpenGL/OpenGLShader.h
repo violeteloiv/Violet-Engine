@@ -3,6 +3,7 @@
 /// OpenGLShader.h
 /// Violet McAllister
 /// July 13th, 2022
+/// Updated: July 15th, 2022
 ///
 /// A shader is a program which allows
 /// you to communicate with the GPU directly
@@ -38,13 +39,18 @@ namespace Violet
 	public: // Main Functionality
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+	public: // Uniforms
+		virtual void SetInt(const std::string& p_Name, int p_Value) override;
+		virtual void SetFloat3(const std::string& p_Name, const glm::vec3& p_Value) override;
+		virtual void SetFloat4(const std::string& p_Name, const glm::vec4& p_Value) override;
+		virtual void SetMat4(const std::string& p_Name, const glm::mat4& p_Value) override;
 	public: // Getters
 		/**
 		 * @brief Gets the name of the shader.
 		 * @returns The name of the shader.
 		 */
 		virtual const std::string& GetName() const override { return m_Name; }
-	public: // Uniforms
+	public: // Uniform Internals
 		void UploadUniformInt(const std::string& p_Name, int p_Value);
 		void UploadUniformFloat(const std::string& p_Name, float p_Value);
 		void UploadUniformFloat2(const std::string& p_Name, const glm::vec2& p_Value);

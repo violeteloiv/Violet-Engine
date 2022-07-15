@@ -3,6 +3,7 @@
 /// OpenGLTexture.cpp
 /// Violet McAllister
 /// July 13th, 2022
+/// Updated: July 15th, 2022
 ///
 /// A texture is a collection of
 /// data which can be uploaded to
@@ -17,12 +18,32 @@
 
 #include "Platform/OpenGL/OpenGLTexture.h"
 
-#include <glad/glad.h>
-
 #include <stb_image.h>
 
 namespace Violet
 {
+	/**
+	 * @brief Constructs an OpenGLTexture2D object using only the
+	 * width and height that the texture should be.
+	 * @param p_Width The width of the created texture.
+	 * @param p_Height The height of the created texture.
+	 */
+	OpenGLTexture2D::OpenGLTexture2D(uint32_t p_Width, uint32_t p_Height)
+		: m_Width(p_Width), m_Height(p_Height)
+	{
+		m_InternalFormat = GL_RGBA8;
+		m_DataFormat = GL_RGBA;
+
+		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
+		glTextureStorage2D(m_RendererID, 1, m_InternalFormat, m_Width, m_Height);
+
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	}
+
 	/**
 	 * @brief Constructs an OpenGLTexture2D object. 
 	 * @param p_Filepath The path to the image file.
@@ -52,6 +73,9 @@ namespace Violet
 			dataFormat = GL_RGB;
 		}
 
+		m_InternalFormat = internalFormat;
+		m_DataFormat = dataFormat;
+
 		// Create texture
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
 		glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
@@ -59,6 +83,8 @@ namespace Violet
 		// Image Renderering Settings
 		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, dataFormat, GL_UNSIGNED_BYTE, data);
 
@@ -72,6 +98,13 @@ namespace Violet
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
 		glDeleteTextures(1, &m_RendererID);
+	}
+
+	void OpenGLTexture2D::SetData(void* p_Data, uint32_t p_Size)
+	{
+		uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;
+		VT_CORE_ASSERT(p_Size == m_Width * m_Height * bpp, "Data must be entire texture!");
+		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, p_Data);
 	}
 
 	/**

@@ -3,7 +3,7 @@
 /// ApplicationEvent.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 11th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Contains Application related events and
 /// functionality.
@@ -71,13 +71,7 @@ namespace Violet
 	class WindowCloseEvent : public Event
 	{
 	public: // Constructors & Deconstructors
-		/**
-		 * @brief Constructs a WindowCloseEvent object.
-		 */
-		WindowCloseEvent()
-		{
-
-		}
+		WindowCloseEvent() = default;
 	public: // Macros
 		EVENT_CLASS_TYPE(WindowClose)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
@@ -89,13 +83,7 @@ namespace Violet
 	class AppTickEvent : public Event
 	{
 	public: // Constructors & Deconstructors
-		/**
-		 * @brief Constructs a WindowCloseEvent object.
-		 */
-		AppTickEvent()
-		{
-
-		}
+		AppTickEvent() = default;
 	public: // Macros
 		EVENT_CLASS_TYPE(AppTick)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
@@ -107,13 +95,7 @@ namespace Violet
 	class AppUpdateEvent : public Event
 	{
 	public: // Constructors & Deconstructors
-		/**
-		 * @brief Constructs a AppUpdateEvent object.
-		 */
-		AppUpdateEvent()
-		{
-
-		}
+		AppUpdateEvent() = default;
 	public: // Macros
 		EVENT_CLASS_TYPE(AppUpdate)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
@@ -125,13 +107,7 @@ namespace Violet
 	class AppRenderEvent : public Event
 	{
 	public: // Constructors & Deconstructors
-		/**
-		 * @brief Constructs a AppRenderEvent object.
-		 */
-		AppRenderEvent()
-		{
-
-		}
+		AppRenderEvent() = default;
 	public: // Macros
 		EVENT_CLASS_TYPE(AppRender)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)

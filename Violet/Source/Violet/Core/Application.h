@@ -3,7 +3,7 @@
 /// Application.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 14th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Contains class information for the application
 /// interfacing between a Violet Engine Application
@@ -34,7 +34,7 @@ namespace Violet
 	{
 	public: // Constructors & Deconstructors
 		Application();
-		virtual ~Application() = default;
+		virtual ~Application();
 	public: // Main Functionality
 		void Run();
 		void OnEvent(Event& p_Event);

@@ -3,7 +3,7 @@
 /// WindowsWindow.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 11th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Using the generalized Window class we create
 /// a WindowsWindow implementation for a Windows
@@ -23,11 +23,12 @@
 namespace Violet
 {
 	/**
-	 * @brief This exists so that we know when we've
-	 * already initialized GLFW and do not have to
-	 * do it again, causing issues.
+	 * @brief This exists so that we know how
+	 * many windows we have created and
+	 * therefore how many windows to
+	 * deconstruct.
 	 */
-	static bool s_GLFWInitialized = false;
+	static uint8_t s_GLFWWindowCount = 0;
 
 	/**
 	 * @brief Run whenever an error is caught by GLFW. Gives information about
@@ -81,7 +82,7 @@ namespace Violet
 		VT_CORE_INFO("Creating Window {0} ({1}, {2})", m_Data.Title, m_Data.Width, m_Data.Height);
 
 		// Sanity check to make sure GLFW isn't already initialized.
-		if (!s_GLFWInitialized)
+		if (s_GLFWWindowCount == 0)
 		{
 			// Initialize GLFW :)
 			int success = glfwInit();
@@ -89,13 +90,13 @@ namespace Violet
 
 			// Set error callback that was defined earlier.
 			glfwSetErrorCallback(GLFWErrorCallback);
-			s_GLFWInitialized = true;
 		}
 
 		// Create the window.
 		// When specifying fullscreen mode, you use the monitor, for windowed, use nullptr.
 		// nullptr also for share sinec we aren't sharing resources to other monitors.
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		++s_GLFWWindowCount;
 		
 		// Create & Initialize Context
 		m_Context = CreateRef<OpenGLContext>(m_Window);
@@ -268,6 +269,10 @@ namespace Violet
 	{
 		// GLFW destroys the window and all data associated with it.
 		glfwDestroyWindow(m_Window);
+		--s_GLFWWindowCount;
+
+		if (s_GLFWWindowCount == 0)
+			glfwTerminate();
 	}
 
 	/**

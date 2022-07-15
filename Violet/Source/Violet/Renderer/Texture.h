@@ -3,6 +3,7 @@
 /// Texture.h
 /// Violet McAllister
 /// July 13th, 2022
+/// Updated: July 15th, 2022
 ///
 /// A texture is a collection of
 /// data which can be uploaded to
@@ -28,9 +29,10 @@ namespace Violet
 	{
 	public: // Deconstructors
 		virtual ~Texture() = default;
-	public: // Getters
+	public: // Getters & Setters
 		virtual uint32_t GetWidth() const = 0;
 		virtual uint32_t GetHeight() const = 0;
+		virtual void SetData(void* p_Data, uint32_t p_Size) = 0;
 	public: // Main Functionality
 		virtual void Bind(uint32_t p_Slot = 0) const = 0;
 	};
@@ -43,6 +45,7 @@ namespace Violet
 	class Texture2D : public Texture
 	{
 	public: // Creator
+		static Ref<Texture2D> Create(uint32_t p_Width, uint32_t p_Height);
 		static Ref<Texture2D> Create(const std::string& p_Filepath);
 	};
 }

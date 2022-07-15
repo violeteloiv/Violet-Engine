@@ -3,7 +3,7 @@
 /// SandboxApp.cpp
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 13=4th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Testing Violet API Code
 ///
@@ -11,7 +11,6 @@
 
 #include <Violet.h>
 #include <Violet/Core/EntryPoint.h>
-#include <Platform/OpenGL/OpenGLShader.h>
 
 #include <imgui/imgui.h>
 
@@ -34,8 +33,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<Violet::VertexBuffer> vertexBuffer;
-		vertexBuffer = Violet::VertexBuffer::Create(vertices, sizeof(vertices));
+		std::shared_ptr<Violet::VertexBuffer>  vertexBuffer = Violet::VertexBuffer::Create(vertices, sizeof(vertices));
 		vertexBuffer->SetLayout({
 			{ Violet::ShaderDataType::Float3, "a_Position" },
 			{ Violet::ShaderDataType::Float4, "a_Color" }
@@ -43,8 +41,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Violet::IndexBuffer> indexBuffer;
-		indexBuffer = Violet::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+		std::shared_ptr<Violet::IndexBuffer> indexBuffer = Violet::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA = Violet::VertexArray::Create();
@@ -56,8 +53,7 @@ public:
 			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		std::shared_ptr<Violet::VertexBuffer> squareVB;
-		squareVB = Violet::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
+		std::shared_ptr<Violet::VertexBuffer> squareVB = Violet::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		squareVB->SetLayout({
 			{ Violet::ShaderDataType::Float3, "a_Position" },
 			{ Violet::ShaderDataType::Float2, "a_TexCoord" }
@@ -65,8 +61,7 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Violet::IndexBuffer> squareIB;
-		squareIB = Violet::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
+		std::shared_ptr<Violet::IndexBuffer> squareIB = Violet::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(
@@ -145,8 +140,8 @@ public:
 		m_Texture = Violet::Texture2D::Create("Assets/Textures/Checkerboard.png");
 		m_Rainbow = Violet::Texture2D::Create("Assets/Textures/Rainbow.png");
 
-		std::dynamic_pointer_cast<Violet::OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<Violet::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+		textureShader->Bind();
+		textureShader->SetInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Violet::Timestep p_Timestep) override
@@ -162,8 +157,8 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		std::dynamic_pointer_cast<Violet::OpenGLShader>(m_FlatColorShader)->Bind();
-		std::dynamic_pointer_cast<Violet::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+		m_FlatColorShader->Bind();
+		m_FlatColorShader->SetFloat3("u_Color", m_SquareColor);
 
 		for (int y = 0; y < 20; y++)
 		{
