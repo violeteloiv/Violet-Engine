@@ -3,7 +3,7 @@
 /// Application.cpp
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 14th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Contains class implementations for the Application
 /// object.
@@ -41,6 +41,14 @@ namespace Violet
 		// Create & Push ImGui Layer.
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
+	}
+
+	/**
+	 * @brief Deconstructs an Application object. 
+	 */
+	Application::~Application()
+	{
+		Renderer::Shutdown();
 	}
 
 	/**

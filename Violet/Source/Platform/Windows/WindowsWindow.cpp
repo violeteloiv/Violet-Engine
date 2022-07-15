@@ -3,7 +3,7 @@
 /// WindowsWindow.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 14th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Using the generalized Window class we create
 /// a WindowsWindow implementation for a Windows
@@ -84,8 +84,6 @@ namespace Violet
 		// Sanity check to make sure GLFW isn't already initialized.
 		if (s_GLFWWindowCount == 0)
 		{
-			VT_CORE_INFO("Initializing GLFW");
-
 			// Initialize GLFW :)
 			int success = glfwInit();
 			VT_CORE_ASSERT(success, "[GLFW ERROR] Could Not Initialize GLFW!");
@@ -271,12 +269,10 @@ namespace Violet
 	{
 		// GLFW destroys the window and all data associated with it.
 		glfwDestroyWindow(m_Window);
+		--s_GLFWWindowCount;
 
-		if (--s_GLFWWindowCount == 0)
-		{
-			VT_CORE_INFO("Terminating GLFW");
+		if (s_GLFWWindowCount == 0)
 			glfwTerminate();
-		}
 	}
 
 	/**

@@ -3,7 +3,7 @@
 /// RendererAPI.h
 /// Violet McAllister
 /// July 12th, 2022
-/// Updated: July 14th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Defines what graphics APIs are available
 /// to use and allows for better abstraction.
@@ -46,6 +46,8 @@ namespace Violet
 		 * @returns The static API.
 		 */
 		inline static API GetAPI() { return s_API; }
+	public: // Creator
+		static Scope<RendererAPI> Create();
 	private: // Private Static Member Variables
 		static API s_API;
 	};

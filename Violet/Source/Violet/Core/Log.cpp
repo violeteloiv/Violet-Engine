@@ -3,7 +3,7 @@
 /// Log.cpp
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 1st, 2022
+/// Updated: July 15th, 2022
 ///
 /// Contains class implementations for the Log
 /// object.
@@ -18,8 +18,8 @@
 
 namespace Violet
 {
-	std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
-	std::shared_ptr<spdlog::logger> Log::s_ClientLogger;
+	Ref<spdlog::logger> Log::s_CoreLogger;
+	Ref<spdlog::logger> Log::s_ClientLogger;
 
 	/**
 	 * @brief  

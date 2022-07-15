@@ -3,7 +3,7 @@
 /// Renderer.cpp
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 14th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Violet's main renderer which handles
 /// creating and ending a scene, as well
@@ -14,8 +14,6 @@
 #include "vtpch.h"
 
 #include "Violet/Renderer/Renderer.h"
-
-#include "Platform/OpenGL/OpenGLShader.h"
 
 #include "Violet/Renderer/Renderer2D.h"
 
@@ -30,6 +28,14 @@ namespace Violet
 	{
 		RenderCommand::Init();
 		Renderer2D::Init();
+	}
+
+	/**
+	 * @brief Shutdowns the renderer. 
+	 */
+	void Renderer::Shutdown()
+	{
+		Renderer2D::Shutdown();
 	}
 
 	/**
@@ -67,8 +73,8 @@ namespace Violet
 	void Renderer::Submit(const Ref<Shader>& p_Shader, const Ref<VertexArray>& p_VertexArray, const glm::mat4& p_Transform)
 	{
 		p_Shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(p_Shader)->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(p_Shader)->UploadUniformMat4("u_Transform", p_Transform);
+		p_Shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
+		p_Shader->SetMat4("u_Transform", p_Transform);
 
 		p_VertexArray->Bind();
 		RenderCommand::DrawIndexed(p_VertexArray);

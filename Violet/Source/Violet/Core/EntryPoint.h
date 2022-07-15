@@ -3,6 +3,7 @@
 /// EntryPoint.h
 /// Violet McAllister
 /// June 30th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Allows the main function to be defined
 /// and implemented on the engine side instead
@@ -16,6 +17,8 @@
 #define __VIOLET_ENGINE_CORE_ENTRY_POINT_H_INCLUDED__
 
 #ifdef VT_PLATFORM_WINDOWS
+
+#include "Violet/Core/Core.h"
 
 extern Violet::Application* Violet::CreateApplication();
 
