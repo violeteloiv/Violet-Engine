@@ -53,6 +53,8 @@ namespace Violet
 	 */
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
+		VT_PROFILE_FUNCTION();
+
 		glCreateVertexArrays(1, &m_RendererID);
 	}
 
@@ -61,6 +63,8 @@ namespace Violet
 	 */
 	OpenGLVertexArray::~OpenGLVertexArray()
 	{
+		VT_PROFILE_FUNCTION();
+
 		glDeleteVertexArrays(1, &m_RendererID);
 	}
 
@@ -69,6 +73,8 @@ namespace Violet
 	 */
 	void OpenGLVertexArray::Bind() const
 	{
+		VT_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererID);
 	}
 
@@ -77,6 +83,8 @@ namespace Violet
 	 */
 	void OpenGLVertexArray::Unbind() const
 	{
+		VT_PROFILE_FUNCTION();
+
 		glBindVertexArray(0);
 	}
 
@@ -86,6 +94,8 @@ namespace Violet
 	 */
 	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& p_VertexBuffer)
 	{
+		VT_PROFILE_FUNCTION();
+
 		VT_CORE_ASSERT(p_VertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer Has No Layout!");
 
 		glBindVertexArray(m_RendererID);
@@ -113,6 +123,8 @@ namespace Violet
 	 */
 	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& p_IndexBuffer)
 	{
+		VT_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererID);
 		p_IndexBuffer->Bind();
 

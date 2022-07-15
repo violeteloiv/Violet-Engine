@@ -26,6 +26,8 @@ namespace Violet
 	 */
 	void Renderer::Init()
 	{
+		VT_PROFILE_FUNCTION();
+
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}

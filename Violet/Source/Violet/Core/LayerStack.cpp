@@ -3,7 +3,7 @@
 /// LayerStack.cpp
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 12th, 2022
+/// Updated: July 15th, 2022
 ///
 /// An object which contains and allows for the application
 /// to easily iterate through layers, and for the user to
@@ -40,7 +40,6 @@ namespace Violet
 	{
 		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, p_Layer);
 		m_LayerInsertIndex++;
-		p_Layer->OnAttach();
 	}
 
 	/**
@@ -52,7 +51,6 @@ namespace Violet
 	void LayerStack::PushOverlay(Layer* p_Overlay)
 	{
 		m_Layers.emplace_back(p_Overlay);
-		p_Overlay->OnAttach();
 	}
 
 	/**

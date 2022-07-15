@@ -26,6 +26,8 @@ namespace Violet
 	 */
 	void OpenGLRendererAPI::Init()
 	{
+		VT_PROFILE_FUNCTION();
+
 		// Enable Blending
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

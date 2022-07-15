@@ -30,6 +30,8 @@ namespace Violet
 	 */
 	void ImGuiLayer::OnAttach()
 	{
+		VT_PROFILE_FUNCTION();
+
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -65,6 +67,8 @@ namespace Violet
 	 */
 	void ImGuiLayer::OnDetach()
 	{
+		VT_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
@@ -75,6 +79,8 @@ namespace Violet
 	 */
 	void ImGuiLayer::Begin()
 	{
+		VT_PROFILE_FUNCTION();
+
 		// Initialize
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -86,6 +92,8 @@ namespace Violet
 	 */
 	void ImGuiLayer::End()
 	{
+		VT_PROFILE_FUNCTION();
+
 		ImGuiIO& io = ImGui::GetIO();
 
 		Application& app = Application::Get();

@@ -50,6 +50,8 @@ namespace Violet
 	 */
 	OpenGLShader::OpenGLShader(const std::string& p_Filepath)
 	{
+		VT_PROFILE_FUNCTION();
+
 		std::string source = ReadFile(p_Filepath);
 		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
@@ -70,6 +72,8 @@ namespace Violet
 	OpenGLShader::OpenGLShader(const std::string& p_Name, const std::string& p_VertexSource, const std::string& p_FragmentSource)
 		: m_Name(p_Name)
 	{
+		VT_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = p_VertexSource;
 		sources[GL_FRAGMENT_SHADER] = p_FragmentSource;
@@ -81,6 +85,8 @@ namespace Violet
 	 */
 	OpenGLShader::~OpenGLShader()
 	{
+		VT_PROFILE_FUNCTION();
+
 		glDeleteProgram(m_RendererID);
 	}
 
@@ -91,6 +97,8 @@ namespace Violet
 	 */
 	std::string OpenGLShader::ReadFile(const std::string& p_Filepath)
 	{
+		VT_PROFILE_FUNCTION();
+
 		std::string result;
 		std::ifstream in(p_Filepath, std::ios::in | std::ios::binary);
 		if (in)
@@ -127,6 +135,8 @@ namespace Violet
 	 */
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& p_Source)
 	{
+		VT_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* typeToken = "#type";
@@ -156,6 +166,8 @@ namespace Violet
 	 */
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& p_ShaderSources)
 	{
+		VT_PROFILE_FUNCTION();
+
 		GLuint program = glCreateProgram();
 		VT_CORE_ASSERT(p_ShaderSources.size() <= 2, "We only support 2 shaders for now");
 		std::array<GLenum, 2> glShaderIDs;
@@ -230,6 +242,8 @@ namespace Violet
 	 */
 	void OpenGLShader::Bind() const
 	{
+		VT_PROFILE_FUNCTION();
+
 		glUseProgram(m_RendererID);
 	}
 
@@ -238,6 +252,8 @@ namespace Violet
 	 */
 	void OpenGLShader::Unbind() const
 	{
+		VT_PROFILE_FUNCTION();
+
 		glUseProgram(0);
 	}
 
@@ -248,6 +264,8 @@ namespace Violet
 	 */
 	void OpenGLShader::SetInt(const std::string& p_Name, int p_Value)
 	{
+		VT_PROFILE_FUNCTION();
+
 		UploadUniformInt(p_Name, p_Value);
 	}
 
@@ -258,6 +276,8 @@ namespace Violet
 	 */
 	void OpenGLShader::SetFloat3(const std::string& p_Name, const glm::vec3& p_Value)
 	{
+		VT_PROFILE_FUNCTION();
+
 		UploadUniformFloat3(p_Name, p_Value);
 	}
 
@@ -268,6 +288,8 @@ namespace Violet
 	 */
 	void OpenGLShader::SetFloat4(const std::string& p_Name, const glm::vec4& p_Value)
 	{
+		VT_PROFILE_FUNCTION();
+
 		UploadUniformFloat4(p_Name, p_Value);
 	}
 

@@ -3,6 +3,7 @@
 /// OpenGLContext.cpp
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 15th, 2022
 ///
 /// An OpenGL implementation of a graphics context.
 ///
@@ -33,6 +34,8 @@ namespace Violet
 	 */
 	void OpenGLContext::Init()
 	{
+		VT_PROFILE_FUNCTION();
+
 		// Makes the window the current window.
 		glfwMakeContextCurrent(m_WindowHandle);
 		// Gets OpenGL functionality from drivers.
@@ -61,6 +64,8 @@ namespace Violet
 	 */
 	void OpenGLContext::SwapBuffers()
 	{
+		VT_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_WindowHandle);
 	}
 }

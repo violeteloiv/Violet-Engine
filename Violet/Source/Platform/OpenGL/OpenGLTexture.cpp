@@ -31,6 +31,8 @@ namespace Violet
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t p_Width, uint32_t p_Height)
 		: m_Width(p_Width), m_Height(p_Height)
 	{
+		VT_PROFILE_FUNCTION();
+
 		m_InternalFormat = GL_RGBA8;
 		m_DataFormat = GL_RGBA;
 
@@ -51,11 +53,17 @@ namespace Violet
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& p_Filepath)
 		: m_Path(p_Filepath)
 	{
+		VT_PROFILE_FUNCTION();
+
 		// Get The Width, Height, and Channels
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);
 		// Get image data
-		stbi_uc* data = stbi_load(p_Filepath.c_str(), &width, &height, &channels, 0);
+		stbi_uc* data = nullptr;
+		{
+			VT_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2d(const std::string&)");
+			data = stbi_load(p_Filepath.c_str(), &width, &height, &channels, 0);
+		}
 		VT_CORE_ASSERT(data, "[STB_IMAGE ERROR] Failed To Load Image!");
 		m_Width = width;
 		m_Height = height;
@@ -97,11 +105,15 @@ namespace Violet
 	 */
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
+		VT_PROFILE_FUNCTION();
+
 		glDeleteTextures(1, &m_RendererID);
 	}
 
 	void OpenGLTexture2D::SetData(void* p_Data, uint32_t p_Size)
 	{
+		VT_PROFILE_FUNCTION();
+		
 		uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;
 		VT_CORE_ASSERT(p_Size == m_Width * m_Height * bpp, "Data must be entire texture!");
 		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, p_Data);
@@ -113,6 +125,8 @@ namespace Violet
 	 */
 	void OpenGLTexture2D::Bind(uint32_t p_Slot) const
 	{
+		VT_PROFILE_FUNCTION();
+
 		glBindTextureUnit(p_Slot, m_RendererID);
 	}
 }

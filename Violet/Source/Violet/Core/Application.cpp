@@ -29,6 +29,8 @@ namespace Violet
 	 */
 	Application::Application()
 	{
+		VT_PROFILE_FUNCTION();
+
 		VT_CORE_ASSERT(!s_Instance, "Application Already Exists!");
 		s_Instance = this;
 
@@ -48,6 +50,8 @@ namespace Violet
 	 */
 	Application::~Application()
 	{
+		VT_PROFILE_FUNCTION();
+
 		Renderer::Shutdown();
 	}
 
@@ -57,7 +61,10 @@ namespace Violet
 	 */
 	void Application::PushLayer(Layer* p_Layer)
 	{
+		VT_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(p_Layer);
+		p_Layer->OnAttach();
 	}
 
 	/**
@@ -66,7 +73,10 @@ namespace Violet
 	 */
 	void Application::PushOverlay(Layer* p_Overlay)
 	{
+		VT_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(p_Overlay);
+		p_Overlay->OnAttach();
 	}
 
 	/**
@@ -75,6 +85,8 @@ namespace Violet
 	 */
 	void Application::OnEvent(Event& p_Event)
 	{
+		VT_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(p_Event);
 		dispatcher.Dispatch<WindowCloseEvent>(VT_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(VT_BIND_EVENT_FN(Application::OnWindowResize));
@@ -93,8 +105,12 @@ namespace Violet
 	 */
 	void Application::Run()
 	{
+		VT_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			VT_PROFILE_SCOPE("RunLoop")
+
 			// Delta Time
 			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
@@ -103,15 +119,23 @@ namespace Violet
 			// Update Layers
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timestep);
-			}
+				{
+					VT_PROFILE_SCOPE("LayerStack OnUpdate");
 
-			// Every ImGuiLayer gets rendered as part of the ImGui Layer.
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
-			m_ImGuiLayer->End();
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timestep);
+				}
+
+				// Every ImGuiLayer gets rendered as part of the ImGui Layer.
+				m_ImGuiLayer->Begin();
+				{
+					VT_PROFILE_SCOPE("LayerStack OnImGuiRender");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnImGuiRender();
+				}
+				m_ImGuiLayer->End();
+			}
 
 			m_Window->OnUpdate();
 		}
@@ -135,6 +159,8 @@ namespace Violet
 	 */
 	bool Application::OnWindowResize(WindowResizeEvent& p_Event)
 	{
+		VT_PROFILE_FUNCTION();
+
 		if (p_Event.GetWidth() == 0 || p_Event.GetHeight() == 0)
 		{
 			m_Minimized = true;

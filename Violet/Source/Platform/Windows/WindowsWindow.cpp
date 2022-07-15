@@ -58,6 +58,8 @@ namespace Violet
 	 */
 	WindowsWindow::WindowsWindow(const WindowProperties& p_Properties)
 	{
+		VT_PROFILE_FUNCTION();
+
 		Init(p_Properties);
 	}
 
@@ -66,6 +68,8 @@ namespace Violet
 	 */
 	WindowsWindow::~WindowsWindow()
 	{
+		VT_PROFILE_FUNCTION();
+
 		Shutdown();
 	}
 
@@ -75,6 +79,8 @@ namespace Violet
 	 */
 	void WindowsWindow::Init(const WindowProperties& p_Properties)
 	{
+		VT_PROFILE_FUNCTION();
+
 		m_Data.Title = p_Properties.Title;
 		m_Data.Width = p_Properties.Width;
 		m_Data.Height = p_Properties.Height;
@@ -84,6 +90,8 @@ namespace Violet
 		// Sanity check to make sure GLFW isn't already initialized.
 		if (s_GLFWWindowCount == 0)
 		{
+			VT_PROFILE_SCOPE("glfwInit");
+
 			// Initialize GLFW :)
 			int success = glfwInit();
 			VT_CORE_ASSERT(success, "[GLFW ERROR] Could Not Initialize GLFW!");
@@ -92,11 +100,15 @@ namespace Violet
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
 
-		// Create the window.
-		// When specifying fullscreen mode, you use the monitor, for windowed, use nullptr.
-		// nullptr also for share sinec we aren't sharing resources to other monitors.
-		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		++s_GLFWWindowCount;
+		{
+			VT_PROFILE_SCOPE("glfwCreateWindow");
+
+			// Create the window.
+			// When specifying fullscreen mode, you use the monitor, for windowed, use nullptr.
+			// nullptr also for share sinec we aren't sharing resources to other monitors.
+			m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
+			++s_GLFWWindowCount;
+		}
 		
 		// Create & Initialize Context
 		m_Context = CreateRef<OpenGLContext>(m_Window);
@@ -267,6 +279,8 @@ namespace Violet
 	 */
 	void WindowsWindow::Shutdown()
 	{
+		VT_PROFILE_FUNCTION();
+
 		// GLFW destroys the window and all data associated with it.
 		glfwDestroyWindow(m_Window);
 		--s_GLFWWindowCount;
@@ -280,6 +294,8 @@ namespace Violet
 	 */
 	void WindowsWindow::OnUpdate()
 	{
+		VT_PROFILE_FUNCTION();
+
 		// GLFW processes the events that it is listening for and sets flags
 		// saying whether or not those events have been triggered.
 		glfwPollEvents();
@@ -294,6 +310,8 @@ namespace Violet
 	 */
 	void WindowsWindow::SetVSync(bool p_Enabled)
 	{
+		VT_PROFILE_FUNCTION();
+
 		// When VSync is enabled, the screen updates once before swapping buffers,
 		// allowing the functionality shown in OnUpdate for glfwSwapBuffers to occur.
 		// When VSync is disabled, pixels are rendered as the data is sent, meaning that

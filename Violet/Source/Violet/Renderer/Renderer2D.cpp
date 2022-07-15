@@ -39,6 +39,8 @@ namespace Violet
 	 */
 	void Renderer2D::Init()
 	{
+		VT_PROFILE_FUNCTION();
+
 		// Initialize Data
 		s_Data = new Renderer2DStorage();
 		s_Data->QuadVertexArray = VertexArray::Create();
@@ -82,6 +84,8 @@ namespace Violet
 	 */
 	void Renderer2D::Shutdown()
 	{
+		VT_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 
@@ -91,6 +95,8 @@ namespace Violet
 	 */
 	void Renderer2D::BeginScene(const OrthographicCamera& p_Camera)
 	{
+		VT_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", p_Camera.GetViewProjectionMatrix());
 	}
@@ -100,7 +106,7 @@ namespace Violet
 	 */
 	void Renderer2D::EndScene()
 	{
-
+		VT_PROFILE_FUNCTION();
 	}
 
 	/**
@@ -122,6 +128,8 @@ namespace Violet
 	 */
 	void Renderer2D::DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const glm::vec4& p_Color)
 	{
+		VT_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", p_Color);
 		s_Data->WhiteTexture->Bind();
 
@@ -151,6 +159,8 @@ namespace Violet
 	 */
 	void Renderer2D::DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture)
 	{
+		VT_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
 		p_Texture->Bind();
 

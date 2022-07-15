@@ -3,6 +3,7 @@
 /// OrthographicCameraController.cpp
 /// Violet McAllister
 /// July 13th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Controller for an Orthographic Controller.
 /// 
@@ -38,6 +39,8 @@ namespace Violet
 	 */
 	void OrthographicCameraController::OnUpdate(Timestep p_Timestep)
 	{
+		VT_PROFILE_FUNCTION();
+
 		if (Input::IsKeyPressed(VT_KEY_A))
 		{
 			m_CameraPosition.x -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * p_Timestep;
@@ -86,6 +89,8 @@ namespace Violet
 	 */
 	void OrthographicCameraController::OnEvent(Event& p_Event)
 	{
+		VT_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(p_Event);
 		dispatcher.Dispatch<MouseScrolledEvent>(VT_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(VT_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
@@ -98,6 +103,8 @@ namespace Violet
 	 */
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& p_Event)
 	{
+		VT_PROFILE_FUNCTION();
+
 		m_ZoomLevel -= p_Event.GetYOffset() * 0.25f;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
@@ -111,6 +118,8 @@ namespace Violet
 	 */
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& p_Event)
 	{
+		VT_PROFILE_FUNCTION();
+
 		m_AspectRatio = (float)p_Event.GetWidth() / (float)p_Event.GetHeight();
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;

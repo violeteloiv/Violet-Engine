@@ -23,11 +23,14 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	VT_PROFILE_FUNCTION();
+
 	m_CheckerboardTexture = Violet::Texture2D::Create("Assets/Textures/Checkerboard.png");
 }
 
 void Sandbox2D::OnDetach()
 {
+	VT_PROFILE_FUNCTION();
 }
 
 void Sandbox2D::OnUpdate(Violet::Timestep p_Timestep)
@@ -35,10 +38,7 @@ void Sandbox2D::OnUpdate(Violet::Timestep p_Timestep)
 	VT_PROFILE_FUNCTION();
 
 	// Update
-	{
-		VT_PROFILE_SCOPE("CameraController::OnUpdate");
-		m_CameraController.OnUpdate(p_Timestep);
-	}
+	m_CameraController.OnUpdate(p_Timestep);
 
 	// Render Prep
 	{

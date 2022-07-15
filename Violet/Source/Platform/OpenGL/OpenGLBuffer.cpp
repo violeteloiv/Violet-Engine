@@ -3,6 +3,7 @@
 /// OpenGLBuffer.cpp
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Contains OpenGL implementations of Vertex & 
 /// Index Buffer objects used to store information 
@@ -30,6 +31,8 @@ namespace Violet
 	 */
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* p_Vertices, uint32_t p_Size)
 	{
+		VT_PROFILE_FUNCTION();
+
 		glCreateBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 		glBufferData(GL_ARRAY_BUFFER, p_Size, p_Vertices, GL_STATIC_DRAW);
@@ -40,6 +43,8 @@ namespace Violet
 	 */
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
+		VT_PROFILE_FUNCTION();
+
 		glDeleteBuffers(1, &m_RendererID);
 	}
 
@@ -48,6 +53,8 @@ namespace Violet
 	 */
 	void OpenGLVertexBuffer::Bind() const
 	{
+		VT_PROFILE_FUNCTION();
+
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 	}
 
@@ -56,6 +63,8 @@ namespace Violet
 	 */
 	void OpenGLVertexBuffer::Unbind() const
 	{
+		VT_PROFILE_FUNCTION();
+
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
@@ -71,6 +80,8 @@ namespace Violet
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* p_Indices, uint32_t p_Count)
 		: m_Count(p_Count)
 	{
+		VT_PROFILE_FUNCTION();
+
 		glCreateBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 		glBufferData(GL_ARRAY_BUFFER, p_Count * sizeof(uint32_t), p_Indices, GL_STATIC_DRAW);
@@ -81,6 +92,8 @@ namespace Violet
 	 */
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
 	{
+		VT_PROFILE_FUNCTION();
+
 		glDeleteBuffers(1, &m_RendererID);
 	}
 
@@ -89,6 +102,8 @@ namespace Violet
 	 */
 	void OpenGLIndexBuffer::Bind() const
 	{
+		VT_PROFILE_FUNCTION();
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
 	}
 
@@ -97,6 +112,8 @@ namespace Violet
 	 */
 	void OpenGLIndexBuffer::Unbind() const
 	{
+		VT_PROFILE_FUNCTION();
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }
