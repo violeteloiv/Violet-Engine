@@ -270,6 +270,18 @@ namespace Violet
 	}
 
 	/**
+	 * @brief Uploads a float value to the GPU for use in a shader.
+	 * @param p_Name The name of the uniform in the shader.
+	 * @param p_Value The float value.
+	 */
+	void OpenGLShader::SetFloat(const std::string& p_Name, float p_Value)
+	{
+		VT_PROFILE_FUNCTION();
+
+		UploadUniformFloat(p_Name, p_Value);
+	}
+
+	/**
 	 * @brief Uploads a set of three float values to the GPU for use in a shader.
 	 * @param p_Name The name of the uniform in the shader.
 	 * @param p_Value The three float values as a vector.

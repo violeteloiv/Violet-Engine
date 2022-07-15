@@ -131,9 +131,11 @@ namespace Violet
 		VT_PROFILE_FUNCTION();
 
 		s_Data->TextureShader->SetFloat4("u_Color", p_Color);
+		s_Data->TextureShader->SetFloat("u_TilingFactor", 1.0f);
 		s_Data->WhiteTexture->Bind();
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position) * glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position) 
+			* glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
 		s_Data->TextureShader->SetMat4("u_Transform", transform);
 
 		s_Data->QuadVertexArray->Bind();
@@ -145,10 +147,12 @@ namespace Violet
 	 * @param p_Position The 2D position.
 	 * @param p_Size The size of the square.
 	 * @param p_Texture The texture for the square.
+	 * @param p_TilingFactor Optional setting to change how the image tiles.
+	 * @param p_TintColor Option setting to change the tint color.
 	 */
-	void Renderer2D::DrawQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture)
+	void Renderer2D::DrawQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture, float p_TilingFactor, const glm::vec4& p_TintColor)
 	{
-		DrawQuad({ p_Position.x, p_Position.y, 0.0f }, p_Size, p_Texture);
+		DrawQuad({ p_Position.x, p_Position.y, 0.0f }, p_Size, p_Texture, p_TilingFactor, p_TintColor);
 	}
 
 	/**
@@ -156,15 +160,95 @@ namespace Violet
 	 * @param p_Position The 3D position.
 	 * @param p_Size The size of the square.
 	 * @param p_Texture The texture for the square.
+	 * @param p_TilingFactor Optional setting to change how the image tiles.
+	 * @param p_TintColor Option setting to change the tint color.
 	 */
-	void Renderer2D::DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture)
+	void Renderer2D::DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture, float p_TilingFactor, const glm::vec4& p_TintColor)
 	{
 		VT_PROFILE_FUNCTION();
 
-		s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
+		s_Data->TextureShader->SetFloat4("u_Color", p_TintColor);
+		s_Data->TextureShader->SetFloat("u_TilingFactor", p_TilingFactor);
 		p_Texture->Bind();
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position) * glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position) 
+			* glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
+		s_Data->TextureShader->SetMat4("u_Transform", transform);
+
+		s_Data->QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
+	}
+
+	/**
+	 * @brief Draws a rotated square at a position, with a size, and with a texture.
+	 * @param p_Position The 2D position.
+	 * @param p_Size The size of the square.
+	 * @param p_Rotation The rotation of the square.
+	 * @param p_Color The color of the square.
+	 */
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, float p_Rotation, const glm::vec4& p_Color)
+	{
+		DrawRotatedQuad({ p_Position.x, p_Position.y, 0.0f }, p_Size, p_Rotation, p_Color);
+	}
+	
+	/**
+	 * @brief Draws a rotated square at a position, with a size, and with a texture.
+	 * @param p_Position The 3D position.
+	 * @param p_Size The size of the square.
+	 * @param p_Rotation The rotation of the square.
+	 * @param p_Color The color of the square.
+	 */
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, float p_Rotation, const glm::vec4& p_Color)
+	{
+		VT_PROFILE_FUNCTION();
+
+		s_Data->TextureShader->SetFloat4("u_Color", p_Color);
+		s_Data->TextureShader->SetFloat("u_TilingFactor", 1.0f);
+		s_Data->WhiteTexture->Bind();
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position)
+			* glm::rotate(glm::mat4(1.0f), p_Rotation, { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
+		s_Data->TextureShader->SetMat4("u_Transform", transform);
+
+		s_Data->QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
+	}
+
+	/**
+	 * @brief Draws a rotated square at a position, with a size, and with a texture.
+	 * @param p_Position The 2D position.
+	 * @param p_Size The size of the square.
+	 * @param p_Rotation The rotation of the square.
+	 * @param p_Texture The texture for the square.
+	 * @param p_TilingFactor Optional setting to change how the image tiles.
+	 * @param p_TintColor Option setting to change the tint color.
+	 */
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, float p_Rotation, const Ref<Texture2D>& p_Texture, float p_TilingFactor, const glm::vec4& p_TintColor)
+	{
+		DrawRotatedQuad({ p_Position.x, p_Position.y, 0.0f }, p_Size, p_Rotation, p_Texture, p_TilingFactor, p_TintColor);
+	}
+
+	/**
+	 * @brief Draws a rotated square at a position, with a size, and with a texture.
+	 * @param p_Position The 3D position.
+	 * @param p_Size The size of the square.
+	 * @param p_Rotation The rotation of the square.
+	 * @param p_Texture The texture for the square.
+	 * @param p_TilingFactor Optional setting to change how the image tiles.
+	 * @param p_TintColor Option setting to change the tint color.
+	 */
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, float p_Rotation, const Ref<Texture2D>& p_Texture, float p_TilingFactor, const glm::vec4& p_TintColor)
+	{
+		VT_PROFILE_FUNCTION();
+
+		s_Data->TextureShader->SetFloat4("u_Color", p_TintColor);
+		s_Data->TextureShader->SetFloat("u_TilingFactor", p_TilingFactor);
+		p_Texture->Bind();
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position)
+			* glm::rotate(glm::mat4(1.0f), p_Rotation, { 0.0f, 0.0f, 1.0f })
+			* glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
 		s_Data->TextureShader->SetMat4("u_Transform", transform);
 
 		s_Data->QuadVertexArray->Bind();
