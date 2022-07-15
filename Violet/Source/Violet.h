@@ -19,7 +19,7 @@
 #include "Violet/Core/KeyCodes.h"
 #include "Violet/Core/Layer.h"
 #include "Violet/Core/Log.h"
-#include "Violet/Core/MouseButtonCodes.h"
+#include "Violet/Core/MouseCodes.h"
 #include "Violet/Core/Timestep.h"
 
 #include "Violet/ImGui/ImGuiLayer.h"

@@ -14,6 +14,8 @@
 #define __VIOLET_ENGINE_CORE_INPUT_H_INCLUDED__
 
 #include "Violet/Core/Core.h"
+#include "Violet/Core/KeyCodes.h"
+#include "Violet/Core/MouseCodes.h"
 
 namespace Violet
 {
@@ -34,14 +36,14 @@ namespace Violet
 		 * @param p_KeyCode The key code of the key we're checking.
 		 * @returns If a certain key is being pressed.
 		 */
-		inline static bool IsKeyPressed(int p_KeyCode) { return s_Instance->IsKeyPressedImpl(p_KeyCode); }
+		inline static bool IsKeyPressed(KeyCode p_Key) { return s_Instance->IsKeyPressedImpl(p_Key); }
 	public: // Static Mouse Events
 		/**
 		 * @brief Checks if a mouse button is pressed.
 		 * @param p_Button the button code of the button we are checking.
 		 * @returns If a certain mouse butotn is being pressed.
 		 */
-		inline static bool IsMouseButtonPressed(int p_Button) { return s_Instance->IsMouseButtonPressedImpl(p_Button); }
+		inline static bool IsMouseButtonPressed(MouseCode p_Button) { return s_Instance->IsMouseButtonPressedImpl(p_Button); }
 
 		/**
 		 * @brief Gets the mouse position.
@@ -61,9 +63,9 @@ namespace Violet
 		 */
 		inline static float GetMouseY() { return s_Instance->GetMouseYImpl(); }
 	protected: // Key Event Implementations
-		virtual bool IsKeyPressedImpl(int p_KeyCode) = 0;
+		virtual bool IsKeyPressedImpl(KeyCode p_Key) = 0;
 	protected: // Mouse Event Implementations
-		virtual bool IsMouseButtonPressedImpl(int p_Button) = 0;
+		virtual bool IsMouseButtonPressedImpl(MouseCode p_Button) = 0;
 		virtual std::pair<float, float> GetMousePositionImpl() = 0;
 		virtual float GetMouseXImpl() = 0;
 		virtual float GetMouseYImpl() = 0;

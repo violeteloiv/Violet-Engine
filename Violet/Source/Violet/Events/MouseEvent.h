@@ -3,7 +3,7 @@
 /// MouseEvent.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 11th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Contains Mouse related events and
 /// functionality.
@@ -13,6 +13,7 @@
 #ifndef __VIOLET_ENGINE_EVENTS_MOUSE_H_INCLUDED__
 #define __VIOLET_ENGINE_EVENTS_MOUSE_H_INCLUDED__
 
+#include "Violet/Core/Input.h"
 #include "Violet/Events/Event.h"
 
 namespace Violet
@@ -123,7 +124,7 @@ namespace Violet
 		 * @brief Gets the mouse button being used.
 		 * @returns The mouse button being used.
 		 */
-		inline int GetMouseButton() const { return m_Button; }
+		inline MouseCode GetMouseButton() const { return m_Button; }
 	public: // Macros
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	protected: // Constructors & Deconstructors
@@ -131,13 +132,13 @@ namespace Violet
 		 * @brief Constructs a MouseButtonEvent object.
 		 * @param p_Button The button being used on the mouse.
 		 */
-		MouseButtonEvent(int p_Button)
+		MouseButtonEvent(MouseCode p_Button)
 			: m_Button(p_Button)
 		{
 
 		}
 	protected: // Protected Variables
-		int m_Button;
+		MouseCode m_Button;
 	};
 
 	/**
@@ -151,7 +152,7 @@ namespace Violet
 		 * @brief Constructs a MouseButtonPressedEvent object.
 		 * @param p_Button The button being pressed.
 		 */
-		MouseButtonPressedEvent(int p_Button)
+		MouseButtonPressedEvent(MouseCode p_Button)
 			: MouseButtonEvent(p_Button)
 		{
 
@@ -183,7 +184,7 @@ namespace Violet
 		 * @brief Constructs a MouseButtonReleasedEvent object.
 		 * @param p_Button The button being released.
 		 */
-		MouseButtonReleasedEvent(int p_Button)
+		MouseButtonReleasedEvent(MouseCode p_Button)
 			: MouseButtonEvent(p_Button)
 		{
 

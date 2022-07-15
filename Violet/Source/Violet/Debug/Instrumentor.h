@@ -28,7 +28,7 @@ namespace Violet
 	{
 		std::string Name;
 		long long Start, End;
-		uint32_t ThreadID;
+		std::thread::id ThreadID;
 	};
 
 	/**
@@ -51,7 +51,7 @@ namespace Violet
 		 * @brief Constructs an Instrumentor object. 
 		 */
 		Instrumentor()
-			: m_CurrentSession(nullptr), m_ProfileCount(0)
+			: m_CurrentSession(nullptr)
 		{
 
 		}
@@ -63,9 +63,27 @@ namespace Violet
 		 */
 		void BeginSession(const std::string& p_Name, const std::string& p_Filepath = "results.json")
 		{
+			std::lock_guard lock(m_Mutex);
+			if (m_CurrentSession) {
+				// If there is already a current session, then close it before beginning new one.
+				// Subsequent profiling output meant for the original session will end up in the
+				// newly opened session instead.  That's better than having badly formatted
+				// profiling output.
+				if (Log::GetCoreLogger()) { // Edge case: BeginSession() might be before Log::Init()
+					VT_CORE_ERROR("Instrumentor::BeginSession('{0}') when session '{1}' already open.", p_Name, m_CurrentSession->Name);
+				}
+				InternalEndSession();
+			}
 			m_OutputStream.open(p_Filepath);
-			WriteHeader();
-			m_CurrentSession = new InstrumentationSession{ p_Name };
+			if (m_OutputStream.is_open()) {
+				m_CurrentSession = new InstrumentationSession({ p_Name });
+				WriteHeader();
+			}
+			else {
+				if (Log::GetCoreLogger()) { // Edge case: BeginSession() might be before Log::Init()
+					VT_CORE_ERROR("Instrumentor could not open results file '{0}'.", p_Filepath);
+				}
+			}
 		}
 
 		/**
@@ -73,11 +91,8 @@ namespace Violet
 		 */
 		void EndSession()
 		{
-			WriteFooter();
-			m_OutputStream.close();
-			delete m_CurrentSession;
-			m_CurrentSession = nullptr;
-			m_ProfileCount = 0;
+			std::lock_guard lock(m_Mutex);
+			InternalEndSession();
 		}
 
 		/**
@@ -87,41 +102,26 @@ namespace Violet
 		 */
 		void WriteProfile(const ProfileResult& p_Result)
 		{
-			if (m_ProfileCount++ > 0)
-				m_OutputStream << ",";
+			std::stringstream json;
 
 			std::string name = p_Result.Name;
 			std::replace(name.begin(), name.end(), '"', '\'');
 
-			m_OutputStream << "{";
-			m_OutputStream << "\"cat\":\"function\",";
-			m_OutputStream << "\"dur\":" << (p_Result.End - p_Result.Start) << ',';
-			m_OutputStream << "\"name\":\"" << name << "\",";
-			m_OutputStream << "\"ph\":\"X\",";
-			m_OutputStream << "\"pid\":0,";
-			m_OutputStream << "\"tid\":" << p_Result.ThreadID << ",";
-			m_OutputStream << "\"ts\":" << p_Result.Start;
-			m_OutputStream << "}";
+			json << ",{";
+			json << "\"cat\":\"function\",";
+			json << "\"dur\":" << (p_Result.End - p_Result.Start) << ',';
+			json << "\"name\":\"" << name << "\",";
+			json << "\"ph\":\"X\",";
+			json << "\"pid\":0,";
+			json << "\"tid\":" << p_Result.ThreadID << ",";
+			json << "\"ts\":" << p_Result.Start;
+			json << "}";
 
-			m_OutputStream.flush();
-		}
-	public: // Helper
-		/**
-		 * @brief Writes the JSON file header. 
-		 */
-		void WriteHeader()
-		{
-			m_OutputStream << "{\"otherData\": {},\"traceEvents\":[";
-			m_OutputStream.flush();
-		}
-
-		/**
-		 * @brief Writes the JSON file footer. 
-		 */
-		void WriteFooter()
-		{
-			m_OutputStream << "]}";
-			m_OutputStream.flush();
+			std::lock_guard lock(m_Mutex);
+			if (m_CurrentSession) {
+				m_OutputStream << json.str();
+				m_OutputStream.flush();
+			}
 		}
 	public: // Getter
 		/**
@@ -133,10 +133,41 @@ namespace Violet
 			static Instrumentor instance;
 			return instance;
 		}
+	private: // Helper
+		/**
+		 * @brief Writes the JSON file header.
+		 */
+		void WriteHeader()
+		{
+			m_OutputStream << "{\"otherData\": {},\"traceEvents\":[";
+			m_OutputStream.flush();
+		}
+
+		/**
+		 * @brief Writes the JSON file footer.
+		 */
+		void WriteFooter()
+		{
+			m_OutputStream << "]}";
+			m_OutputStream.flush();
+		}
+
+		/**
+		 * @brief Ends the session internally. NOTE: You
+		 * must own lock on m_Mutex before calling this.
+		 */
+		void InternalEndSession() {
+			if (m_CurrentSession) {
+				WriteFooter();
+				m_OutputStream.close();
+				delete m_CurrentSession;
+				m_CurrentSession = nullptr;
+			}
+		}
 	private: // Private Member Variables
+		std::mutex m_Mutex;
 		InstrumentationSession* m_CurrentSession;
 		std::ofstream m_OutputStream;
-		int m_ProfileCount;
 	};
 
 	class InstrumentationTimer
@@ -172,8 +203,7 @@ namespace Violet
 			long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count();
 			long long end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
 
-			uint32_t threadID = std::hash<std::thread::id>{}(std::this_thread::get_id());
-			Instrumentor::Get().WriteProfile({ m_Name, start, end, threadID });
+			Instrumentor::Get().WriteProfile({ m_Name, start, end, std::this_thread::get_id()});
 
 			m_Stopped = true;
 		}

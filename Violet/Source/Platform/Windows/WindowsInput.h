@@ -21,9 +21,9 @@ namespace Violet
 	class WindowsInput : public Input
 	{
 	protected: // Key Event Implementations
-		virtual bool IsKeyPressedImpl(int p_KeyCode) override;
+		virtual bool IsKeyPressedImpl(KeyCode p_KeyCode) override;
 	protected: // Mouse Event Implementations
-		virtual bool IsMouseButtonPressedImpl(int p_Button) override;
+		virtual bool IsMouseButtonPressedImpl(MouseCode p_Button) override;
 		virtual std::pair<float, float> GetMousePositionImpl() override;
 		virtual float GetMouseXImpl() override;
 		virtual float GetMouseYImpl() override;

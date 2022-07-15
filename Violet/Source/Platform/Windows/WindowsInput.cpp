@@ -27,11 +27,11 @@ namespace Violet
 	 * @param p_KeyCode The key code of the key we're checking.
 	 * @returns If a certain key is being pressed.
 	 */
-	bool WindowsInput::IsKeyPressedImpl(int p_KeyCode)
+	bool WindowsInput::IsKeyPressedImpl(KeyCode p_KeyCode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		// Gets the status of a keycode.
-		auto state = glfwGetKey(window, p_KeyCode);
+		auto state = glfwGetKey(window, static_cast<int32_t>(p_KeyCode));
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
@@ -40,11 +40,11 @@ namespace Violet
 	 * @param p_Button the button code of the button we are checking.
 	 * @returns If a certain mouse butotn is being pressed.
 	 */
-	bool WindowsInput::IsMouseButtonPressedImpl(int p_Button)
+	bool WindowsInput::IsMouseButtonPressedImpl(MouseCode p_Button)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		// Gets the status of a mouse code.
-		auto state = glfwGetMouseButton(window, p_Button);
+		auto state = glfwGetMouseButton(window, static_cast<int32_t>(p_Button));
 		return state == GLFW_PRESS;
 	}
 
