@@ -41,6 +41,7 @@ namespace Violet
 		virtual void Unbind() const override;
 	public: // Uniforms
 		virtual void SetInt(const std::string& p_Name, int p_Value) override;
+		virtual void SetIntArray(const std::string& p_Name, int* p_Values, uint32_t p_Count) override;
 		virtual void SetFloat(const std::string& p_Name, float p_Value) override;
 		virtual void SetFloat3(const std::string& p_Name, const glm::vec3& p_Value) override;
 		virtual void SetFloat4(const std::string& p_Name, const glm::vec4& p_Value) override;
@@ -53,6 +54,7 @@ namespace Violet
 		virtual const std::string& GetName() const override { return m_Name; }
 	public: // Uniform Internals
 		void UploadUniformInt(const std::string& p_Name, int p_Value);
+		void UploadUniformIntArray(const std::string& p_Name, int* p_Values, uint32_t p_Count);
 		void UploadUniformFloat(const std::string& p_Name, float p_Value);
 		void UploadUniformFloat2(const std::string& p_Name, const glm::vec2& p_Value);
 		void UploadUniformFloat3(const std::string& p_Name, const glm::vec3& p_Value);
