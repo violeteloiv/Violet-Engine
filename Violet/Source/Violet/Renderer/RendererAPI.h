@@ -45,7 +45,7 @@ namespace Violet
 		 * @brief Gets the static API.
 		 * @returns The static API.
 		 */
-		inline static API GetAPI() { return s_API; }
+		static API GetAPI() { return s_API; }
 	public: // Creator
 		static Scope<RendererAPI> Create();
 	private: // Private Static Member Variables

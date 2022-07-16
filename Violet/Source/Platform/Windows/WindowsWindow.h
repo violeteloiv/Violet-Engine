@@ -34,25 +34,25 @@ namespace Violet
 		 * @brief Gets the width of a windows window.
 		 * @returns The width of a windows window.
 		 */
-		inline unsigned int GetWidth() const override { return m_Data.Width; }
+		unsigned int GetWidth() const override { return m_Data.Width; }
 
 		/**
 		 * @brief Gets the height of a windows window.
 		 * @returns The height of a windows window.
 		 */
-		inline unsigned int GetHeight() const override { return m_Data.Height; }
+		unsigned int GetHeight() const override { return m_Data.Height; }
 
 		/**
 		 * @brief Sets a given event callback for the window.
 		 * @param p_Callback The callback for the event.
 		 */
-		inline void SetEventCallback(const EventCallbackFunction& p_Callback) override { m_Data.EventCallback = p_Callback; }
+		void SetEventCallback(const EventCallbackFunction& p_Callback) override { m_Data.EventCallback = p_Callback; }
 
 		/**
 		 * @brief Gets the native window pointer.
 		 * @returns The native window pointer.
 		 */
-		inline virtual void* GetNativeWindow() const { return m_Window; }
+		virtual void* GetNativeWindow() const { return m_Window; }
 	public: // Override Definitions
 		void OnUpdate() override;
 		void SetVSync(bool p_Enabled) override;

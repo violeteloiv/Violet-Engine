@@ -42,8 +42,8 @@ namespace Violet
 		void PushLayer(Layer* p_Layer);
 		void PushOverlay(Layer* p_Overlay);
 	public: // Getters & Setters
-		inline Window& GetWindow() { return *m_Window; }
-		inline static Application& Get() { return *s_Instance; }
+		Window& GetWindow() { return *m_Window; }
+		static Application& Get() { return *s_Instance; }
 	private: // Event Callback
 		bool OnWindowClose(WindowCloseEvent& p_Event);
 		bool OnWindowResize(WindowResizeEvent& p_Event);

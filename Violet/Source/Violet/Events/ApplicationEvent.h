@@ -39,13 +39,13 @@ namespace Violet
 		 * @brief Gets the width being resized to.
 		 * @returns The widrh being resized to.
 		 */
-		inline unsigned int GetWidth() const { return m_Width; }
+		unsigned int GetWidth() const { return m_Width; }
 
 		/**
 		 * @brief Gets the height being resized to.
 		 * @returns The height being resized to.
 		 */
-		inline unsigned int GetHeight() const { return m_Height; }
+		unsigned int GetHeight() const { return m_Height; }
 	public: // Overrides
 		/**
 		 * @brief Gives the Window Resize Event in the format:
