@@ -25,6 +25,20 @@ namespace Violet
 	/////////////////////////////
 
 	/**
+	 * @brief Constructs an OpenGLVertexBufer object using
+	 * only the size of the buffer.
+	 * @param p_Size The size of the buffer.
+	 */
+	OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t p_Size)
+	{
+		VT_PROFILE_FUNCTION();
+
+		glCreateBuffers(1, &m_RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferData(GL_ARRAY_BUFFER, p_Size, nullptr, GL_DYNAMIC_DRAW);
+	}
+
+	/**
 	 * @brief Constructs an OpenGLVertexBuffer object.
 	 * @param p_Vertices The vertices for the buffer.
 	 * @param p_Size The size of the buffer.
@@ -66,6 +80,17 @@ namespace Violet
 		VT_PROFILE_FUNCTION();
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	/**
+	 * @brief Sets the data inside the vertex buffer.
+	 * @param p_Data The data to place inside the vertex buffer.
+	 * @param p_Size The size of the data.
+	 */
+	void OpenGLVertexBuffer::SetData(const void* p_Data, uint32_t p_Size)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, p_Size, p_Data);
 	}
 
 	/////////////////////////////

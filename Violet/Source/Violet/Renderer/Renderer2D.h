@@ -30,6 +30,8 @@ namespace Violet
 	public: // Scene
 		static void BeginScene(const OrthographicCamera& p_Camera);
 		static void EndScene();
+	public: // Batching
+		static void Flush();
 	public: // Main Functionality
 		static void DrawQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, const glm::vec4& p_Color);
 		static void DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const glm::vec4& p_Color);

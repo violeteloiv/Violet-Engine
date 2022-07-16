@@ -3,7 +3,7 @@
 /// RenderCommand.h
 /// Violet McAllister
 /// July 12th, 2022
-/// Updated: July 14th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Abstracts away referencing a
 /// specific RendererAPI.
@@ -65,10 +65,11 @@ namespace Violet
 		/**
 		 * @brief Draws the data in the Vertex Array.
 		 * @param p_VertexArray The Vertex Array.
+		 * @param p_Count The index count.
 		 */
-		inline static void DrawIndexed(const Ref<VertexArray>& p_VertexArray)
+		inline static void DrawIndexed(const Ref<VertexArray>& p_VertexArray, uint32_t p_Count = 0)
 		{
-			s_RendererAPI->DrawIndexed(p_VertexArray);
+			s_RendererAPI->DrawIndexed(p_VertexArray, p_Count);
 		}
 	private: // Private State Member Variables
 		static Scope<RendererAPI> s_RendererAPI;

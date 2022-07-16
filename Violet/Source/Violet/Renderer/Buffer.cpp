@@ -3,7 +3,7 @@
 /// Buffer.cpp
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 13th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Contains Vertex & Index Buffer objects used
 /// to store information regarding the vertices
@@ -24,6 +24,22 @@ namespace Violet
 {
 	/**
 	 * @brief Creates a VertexBuffer object based on the current API.
+	 * @param p_Size The size of the data in the buffer.
+	 */
+	Ref<VertexBuffer> VertexBuffer::Create(uint32_t p_Size)
+	{
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::API::None:    VT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLVertexBuffer>(p_Size);
+		}
+
+		VT_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
+
+	/**
+	 * @brief Creates a VertexBuffer object based on the current API.
 	 * @param p_Vertices The vertices to be added to the vertex buffer.
 	 * @param p_Size The size of the vertices.
 	 */
@@ -42,14 +58,14 @@ namespace Violet
 	/**
 	 * @brief Creates an IndexBuffer object based on the current API.
 	 * @param p_Indices The indices to be added to the index buffer.
-	 * @param p_Size The count of the indices.
+	 * @param p_Count The count of the indices.
 	 */
-	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* p_Indices, uint32_t p_Size)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* p_Indices, uint32_t p_Count)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:    VT_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLIndexBuffer>(p_Indices, p_Size);
+			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLIndexBuffer>(p_Indices, p_Count);
 		}
 
 		VT_CORE_ASSERT(false, "Unknown RendererAPI!");
