@@ -39,7 +39,7 @@ namespace Violet
 		 * @brief Gets the Renderer API.
 		 * @returns The Renderer API.
 		 */
-		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+		static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private: // SceneData
 		struct SceneData
 		{

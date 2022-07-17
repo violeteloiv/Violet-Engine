@@ -32,6 +32,7 @@ namespace Violet
 	public: // Overrides
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
+		virtual void OnEvent(Event& p_Event) override;
 	public: // Main Functionality
 		void Begin();
 		void End();

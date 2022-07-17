@@ -49,7 +49,8 @@ project "Violet"
 	}
 	defines {
 
-		"_CRT_SECURE_NO_WARNINGS"
+		"_CRT_SECURE_NO_WARNINGS",
+		"GLFW_INCLUDE_NONE"
 	}
 
 	includedirs {
@@ -72,11 +73,6 @@ project "Violet"
 	filter "system:windows"
 		staticruntime "On"
 		systemversion "latest"
-
-		defines {
-			"VT_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
-		}
 
 		postbuildcommands {
 			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")

@@ -40,13 +40,13 @@ namespace Violet
 		 * @brief Gets the new mouseX position.
 		 * @returns The new mouseX position.
 		 */
-		inline float GetX() const { return m_MouseX; }
+		float GetX() const { return m_MouseX; }
 
 		/**
 		 * @brief Gest the new mouseY position.
 		 * @returns The new mouseY position.
 		 */
-		inline float GetY() const { return m_MouseY; }
+		float GetY() const { return m_MouseY; }
 	public: // Overrides
 		/**
 		 * @brief Gives the Mouse Moved Event in the format:
@@ -88,13 +88,13 @@ namespace Violet
 		 * @brief Gets the new X scroll wheel position.
 		 * @returns The new X scroll wheel position.
 		 */
-		inline float GetXOffset() const { return m_XOffset; }
+		float GetXOffset() const { return m_XOffset; }
 		
 		/**
 		 * @brief Gets the new Y scroll wheel position.
 		 * @returns The new Y scroll wheel position.
 		 */
-		inline float GetYOffset() const { return m_YOffset; }
+		float GetYOffset() const { return m_YOffset; }
 	public: // Overrides
 		/**
 		 * @brief Gives the Mouse Moved Event in the format:

@@ -3,7 +3,7 @@
 /// Buffer.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 14th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Contains Vertex & Index Buffer objects used
 /// to store information regarding the vertices
@@ -52,7 +52,7 @@ namespace Violet
 	}
 
 	/**
-	 * @brief 
+	 * @brief An element of a buffer.
 	 */
 	struct BufferElement
 	{
@@ -86,8 +86,8 @@ namespace Violet
 				case ShaderDataType::Float2:  return 2;
 				case ShaderDataType::Float3:  return 3;
 				case ShaderDataType::Float4:  return 4;
-				case ShaderDataType::Mat3:    return 3 * 3;
-				case ShaderDataType::Mat4:    return 4 * 4;
+				case ShaderDataType::Mat3:    return 3; // 3 * float3
+				case ShaderDataType::Mat4:    return 4; // 4 * float4
 				case ShaderDataType::Int:     return 1;
 				case ShaderDataType::Int2:    return 2;
 				case ShaderDataType::Int3:    return 3;
@@ -124,13 +124,13 @@ namespace Violet
 		 * @brief Gets the stride of the layout.
 		 * returns The stride of the layout.
 		 */
-		inline uint32_t GetStride() const { return m_Stride; }
+		uint32_t GetStride() const { return m_Stride; }
 
 		/**
 		 * @brief Gets the elements in the layout.
 		 * @returns The elements in the layout.
 		 */
-		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
+		const std::vector<BufferElement>& GetElements() const { return m_Elements; }
 	public: // vector overrides
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
@@ -167,10 +167,12 @@ namespace Violet
 	public: // Main Functionality
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
+		virtual void SetData(const void* p_Data, uint32_t p_Size) = 0;
 	public: // BufferLayout
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& p_Layout) = 0;
-	public: // Creator
+	public: // Creators
+		static Ref<VertexBuffer> Create(uint32_t p_Size);
 		static Ref<VertexBuffer> Create(float* p_Vertices, uint32_t p_Size);
 	};
 
@@ -187,7 +189,7 @@ namespace Violet
 	public: // Getter
 		virtual uint32_t GetCount() const = 0;
 	public: // Creator
-		static Ref<IndexBuffer> Create(uint32_t* p_Indices, uint32_t p_Size);
+		static Ref<IndexBuffer> Create(uint32_t* p_Indices, uint32_t p_Count);
 	};
 }
 

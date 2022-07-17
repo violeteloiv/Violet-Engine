@@ -28,7 +28,7 @@ namespace Violet
 		 * @brief Gets the key code of the event.
 		 * @returns The key code of the event.
 		 */
-		inline KeyCode GetKeyCode() const { return m_KeyCode; }
+		KeyCode GetKeyCode() const { return m_KeyCode; }
 	public: // Macros
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	protected: // Constructors & Deconstructors
@@ -67,7 +67,7 @@ namespace Violet
 		 * @brief Gets the amount of times a key has been repeated.
 		 * @returns the number of times repeated.
 		 */
-		inline int GetRepeatCount() const { return m_RepeatCount; }
+		int GetRepeatCount() const { return m_RepeatCount; }
 	public: // Override
 		/**
 		 * @brief Gives the Key Pressed Event in the format:

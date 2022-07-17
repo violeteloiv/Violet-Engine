@@ -3,7 +3,7 @@
 /// Window.h
 /// Violet McAllister
 /// July 1st, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 16th, 2022
 ///
 /// Contains Window Properties and a Window
 /// interface to generalize window functionality
@@ -16,7 +16,7 @@
 
 #include "vtpch.h"
 
-#include "Violet/Core/Core.h"
+#include "Violet/Core/Base.h"
 #include "Violet/Events/Event.h"
 
 namespace Violet

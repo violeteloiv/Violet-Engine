@@ -3,7 +3,7 @@
 /// OpenGLContext.cpp
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 16th, 2022
 ///
 /// An OpenGL implementation of a graphics context.
 ///
@@ -15,7 +15,6 @@
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
-#include <gl/GL.h>
 
 namespace Violet
 {

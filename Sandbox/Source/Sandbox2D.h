@@ -3,7 +3,7 @@
 /// Sandbox2D.h
 /// Violet McAllister
 /// July 14th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 16th, 2022
 ///
 /// Testing Violet API Code
 ///
@@ -34,7 +34,7 @@ private:
 
 	Violet::Ref<Violet::Texture2D> m_CheckerboardTexture;
 	
-	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+	glm::vec4 m_SquareColor;
 };
 
 #endif // __SANDBOX_2D_H_INCLUDED__

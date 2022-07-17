@@ -3,7 +3,7 @@
 /// Event.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 13th, 2022
+/// Updated: July 16th, 2022
 ///
 /// Contains Event Types, Categories, and a Dispatcher.
 /// 
@@ -17,7 +17,7 @@
 
 #include "vtpch.h"
 
-#include "Violet/Core/Core.h"
+#include "Violet/Core/Base.h"
 
 namespace Violet
 {
@@ -105,9 +105,9 @@ namespace Violet
 		 * Since any non-zero number is considered "true" by C++, we can return this
 		 * and if it returns a value, it's true, if it returns 0, it returns false.
 		 * 
-		 * @return Whether or not a category is in set category flags.
+		 * @returns Whether or not a category is in set category flags.
 		 */
-		inline bool IsInCategory(EventCategory p_Category)
+		bool IsInCategory(EventCategory p_Category)
 		{
 			return GetCategoryFlags() & p_Category;
 		}

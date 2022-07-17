@@ -48,6 +48,11 @@ namespace Violet
 		virtual void SetData(void* p_Data, uint32_t p_Size) override;
 	public: // Main Functionality
 		virtual void Bind(uint32_t p_Slot = 0) const override;
+	public: // Operator Overrides
+		virtual bool operator==(const Texture& p_Other) const override
+		{
+			return m_RendererID == ((OpenGLTexture2D&)p_Other).m_RendererID;
+		}
 	private: // Private Member Variables
 		std::string m_Path;
 		uint32_t m_Width, m_Height;

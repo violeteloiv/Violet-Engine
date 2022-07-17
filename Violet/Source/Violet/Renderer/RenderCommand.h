@@ -3,7 +3,7 @@
 /// RenderCommand.h
 /// Violet McAllister
 /// July 12th, 2022
-/// Updated: July 14th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Abstracts away referencing a
 /// specific RendererAPI.
@@ -26,7 +26,7 @@ namespace Violet
 		/**
 		 * @brief Initializes the graphics API. 
 		 */
-		inline static void Init()
+		static void Init()
 		{
 			s_RendererAPI->Init();
 		}
@@ -38,7 +38,7 @@ namespace Violet
 		 * @param p_Width The width.
 		 * @param p_Height The height.
 		 */
-		inline static void SetViewport(uint32_t p_X, uint32_t p_Y, uint32_t p_Width, uint32_t p_Height)
+		static void SetViewport(uint32_t p_X, uint32_t p_Y, uint32_t p_Width, uint32_t p_Height)
 		{
 			s_RendererAPI->SetViewport(p_X, p_Y, p_Width, p_Height);
 		}
@@ -49,7 +49,7 @@ namespace Violet
 		 * renderering.
 		 * @param p_Color The background color.
 		 */
-		inline static void SetClearColor(const glm::vec4& p_Color)
+		static void SetClearColor(const glm::vec4& p_Color)
 		{
 			s_RendererAPI->SetClearColor(p_Color);
 		}
@@ -57,7 +57,7 @@ namespace Violet
 		/**
 		 * @brief Clears the window before renderering.
 		 */
-		inline static void Clear()
+		static void Clear()
 		{
 			s_RendererAPI->Clear();
 		}
@@ -65,10 +65,11 @@ namespace Violet
 		/**
 		 * @brief Draws the data in the Vertex Array.
 		 * @param p_VertexArray The Vertex Array.
+		 * @param p_Count The index count.
 		 */
-		inline static void DrawIndexed(const Ref<VertexArray>& p_VertexArray)
+		static void DrawIndexed(const Ref<VertexArray>& p_VertexArray, uint32_t p_Count = 0)
 		{
-			s_RendererAPI->DrawIndexed(p_VertexArray);
+			s_RendererAPI->DrawIndexed(p_VertexArray, p_Count);
 		}
 	private: // Private State Member Variables
 		static Scope<RendererAPI> s_RendererAPI;
