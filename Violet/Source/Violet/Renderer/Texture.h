@@ -32,6 +32,7 @@ namespace Violet
 	public: // Getters & Setters
 		virtual uint32_t GetWidth() const = 0;
 		virtual uint32_t GetHeight() const = 0;
+		virtual uint32_t GetRendererID() const = 0;
 		virtual void SetData(void* p_Data, uint32_t p_Size) = 0;
 	public: // Main Functionality
 		virtual void Bind(uint32_t p_Slot = 0) const = 0;

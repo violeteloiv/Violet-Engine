@@ -80,6 +80,15 @@ namespace Violet
 	}
 
 	/**
+	 * @brief Closes the window by setting
+	 * running to false.
+	 */
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
+	/**
 	 * @brief Runs when an event is triggered.
 	 * @param p_Event The event being triggered.
 	 */
