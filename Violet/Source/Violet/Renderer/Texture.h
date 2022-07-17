@@ -3,7 +3,7 @@
 /// Texture.h
 /// Violet McAllister
 /// July 13th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 16th, 2022
 ///
 /// A texture is a collection of
 /// data which can be uploaded to
@@ -17,7 +17,7 @@
 
 #include <string>
 
-#include "Violet/Core/Core.h"
+#include "Violet/Core/Base.h"
 
 namespace Violet
 {

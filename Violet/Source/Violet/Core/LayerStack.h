@@ -3,7 +3,7 @@
 /// LayerStack.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 16th, 2022
 ///
 /// An object which contains and allows for the application
 /// to easily iterate through layers, and for the user to
@@ -16,7 +16,7 @@
 
 #include <vector>
 
-#include "Violet/Core/Core.h"
+#include "Violet/Core/Base.h"
 #include "Violet/Core/Layer.h"
 
 namespace Violet

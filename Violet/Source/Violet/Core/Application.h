@@ -3,7 +3,7 @@
 /// Application.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 16th, 2022
 ///
 /// Contains class information for the application
 /// interfacing between a Violet Engine Application
@@ -17,7 +17,7 @@
 #ifndef __VIOLET_ENGINE_CORE_APPLICATION_H_INCLUDED__
 #define __VIOLET_ENGINE_CORE_APPLICATION_H_INCLUDED__
 
-#include "Violet/Core/Core.h"
+#include "Violet/Core/Base.h"
 #include "Violet/Core/Layer.h"
 #include "Violet/Core/LayerStack.h"
 #include "Violet/Core/Timestep.h"
@@ -55,7 +55,7 @@ namespace Violet
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		bool m_Minimized = false;
-		float m_LastFrameTime;
+		float m_LastFrameTime = 0.0f;
 	private: // Static Instance
 		static Application* s_Instance;
 	private: // Friend Objects

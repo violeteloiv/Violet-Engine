@@ -3,7 +3,7 @@
 /// Input.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 16th, 2022
 ///
 /// Used to conduct input polling on the application
 /// and client side.
@@ -13,7 +13,7 @@
 #ifndef __VIOLET_ENGINE_CORE_INPUT_H_INCLUDED__
 #define __VIOLET_ENGINE_CORE_INPUT_H_INCLUDED__
 
-#include "Violet/Core/Core.h"
+#include "Violet/Core/Base.h"
 #include "Violet/Core/KeyCodes.h"
 #include "Violet/Core/MouseCodes.h"
 

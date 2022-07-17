@@ -13,6 +13,8 @@
 
 #include <imgui/imgui.h>
 
+#include <typeinfo>
+
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -47,8 +49,13 @@ void Sandbox2D::OnUpdate(Violet::Timestep p_Timestep)
 		Violet::RenderCommand::Clear();
 	}
 
+	static float rotation = 0.0f;
+
 	Violet::Renderer2D::ResetStats();
 	{
+		static float rotation = 0.0f;
+		rotation += p_Timestep * 50.0f;
+
 		VT_PROFILE_SCOPE("Renderer Draw");
 
 		Violet::Renderer2D::BeginScene(m_CameraController.GetCamera());
@@ -57,7 +64,7 @@ void Sandbox2D::OnUpdate(Violet::Timestep p_Timestep)
 		Violet::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
 		Violet::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, m_SquareColor);
 		Violet::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, m_CheckerboardTexture, 10.0f);
-		Violet::Renderer2D::DrawRotatedQuad({ -2.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, 45.0f, m_CheckerboardTexture, 20.0f);
+		Violet::Renderer2D::DrawRotatedQuad({ -2.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, rotation, m_CheckerboardTexture, 20.0f);
 
 		Violet::Renderer2D::EndScene();
 
