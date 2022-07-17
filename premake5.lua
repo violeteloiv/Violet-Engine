@@ -80,18 +80,18 @@ project "Violet"
 
 	filter "configurations:Debug"
 		defines "VT_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
 		defines "VT_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
 		defines "VT_DIST"
-		buildoptions "/MD"
-		optimize "on"
+		runtime "Release"
+		optimize "on" 
 
 project "Sandbox"
 	location "Sandbox"
@@ -125,15 +125,58 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "VT_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
 		defines "VT_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
 		defines "VT_DIST"
-		buildoptions "/MD"
+		runtime "Release"
+		optimize "on" 
+
+project "Violet-Editor"
+	location "Violet-Editor"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files {
+		"%{prj.name}/Source/**.h", "%{prj.name}/Source/**.cpp"
+	}
+
+	includedirs {
+		"Violet/Dependencies/spdlog/include",
+		"Violet/Source",
+		"Violet/Dependencies",
+		"%{IncludeDir.glm}"
+	}
+
+	links {
+		"Violet"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		defines "VT_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "VT_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "VT_DIST"
+		runtime "Release"
 		optimize "on" 

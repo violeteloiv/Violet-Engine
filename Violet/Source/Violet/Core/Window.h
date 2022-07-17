@@ -3,7 +3,7 @@
 /// Window.h
 /// Violet McAllister
 /// July 1st, 2022
-/// Updated: July 16th, 2022
+/// Updated: July 17th, 2022
 ///
 /// Contains Window Properties and a Window
 /// interface to generalize window functionality
@@ -28,7 +28,7 @@ namespace Violet
 	{
 	public: // Public Member Variables
 		std::string Title;
-		unsigned int Width, Height;
+		uint32_t Width, Height;
 	public: // Constructors & Deconstructors
 		/**
 		 * @brief Construcots a WindowProperties object.
@@ -37,8 +37,8 @@ namespace Violet
 		 * @param p_Height (default 720 pixels) Is the height of the window.
 		 */
 		WindowProperties(const std::string& p_Title = "Violet Engine",
-			unsigned int p_Width = 1280,
-			unsigned int p_Height = 720)
+			uint32_t p_Width = 1280,
+			uint32_t p_Height = 720)
 			: Title(p_Title), Width(p_Width), Height(p_Height)
 		{
 
@@ -57,8 +57,8 @@ namespace Violet
 	public: // Main Functionality
 		virtual void OnUpdate() = 0;
 	public: // Getters
-		virtual unsigned int GetWidth() const = 0;
-		virtual unsigned int GetHeight() const = 0;
+		virtual uint32_t GetWidth() const = 0;
+		virtual uint32_t GetHeight() const = 0;
 		virtual void* GetNativeWindow() const = 0;
 	public: // Window Attributes
 		virtual void SetEventCallback(const EventCallbackFunction& p_Callback) = 0;

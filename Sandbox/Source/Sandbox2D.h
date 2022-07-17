@@ -31,7 +31,6 @@ private:
 
 	Violet::Ref<Violet::VertexArray> m_SquareVA;
 	Violet::Ref<Violet::Shader> m_FlatColorShader;
-	Violet::Ref<Violet::Framebuffer> m_Framebuffer;
 
 	Violet::Ref<Violet::Texture2D> m_CheckerboardTexture;
 	

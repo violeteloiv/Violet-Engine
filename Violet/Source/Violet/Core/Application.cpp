@@ -3,7 +3,7 @@
 /// Application.cpp
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 16th, 2022
+/// Updated: July 17th, 2022
 ///
 /// Contains class implementations for the Application
 /// object.
@@ -26,15 +26,16 @@ namespace Violet
 
 	/**
 	 * @brief Constructs an Application object.
+	 * @param p_Name The name of the application.
 	 */
-	Application::Application()
+	Application::Application(const std::string& p_Name)
 	{
 		VT_PROFILE_FUNCTION();
 
 		VT_CORE_ASSERT(!s_Instance, "Application Already Exists!");
 		s_Instance = this;
 
-		m_Window = Window::Create();
+		m_Window = Window::Create(WindowProperties(p_Name));
 		m_Window->SetEventCallback(VT_BIND_EVENT_FN(Application::OnEvent));
 
 		// Initialize Violet Subsystems
