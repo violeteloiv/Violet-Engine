@@ -3,7 +3,7 @@
 /// OpenGLRendererAPI.cpp
 /// Violet McAllister
 /// July 12th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 16th, 2022
 ///
 /// Defines what graphics APIs are available
 /// to use and allows for better abstraction.
@@ -104,10 +104,12 @@ namespace Violet
 	 * given a vertex array with vertex and index data.
 	 * @param p_VertexArray The supplied Vertex Array for
 	 * submission.
+	 * @param p_IndexCount The number of indices.
 	 */
-	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& p_VertexArray)
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& p_VertexArray, uint32_t p_IndexCount)
 	{
-		glDrawElements(GL_TRIANGLES, p_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		uint32_t count = p_IndexCount ? p_IndexCount : p_VertexArray->GetIndexBuffer()->GetCount();
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }

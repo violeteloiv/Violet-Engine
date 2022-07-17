@@ -3,7 +3,7 @@
 /// Application.cpp
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 16th, 2022
 ///
 /// Contains class implementations for the Application
 /// object.
@@ -103,9 +103,9 @@ namespace Violet
 		// Loop through the LayerStack and look for OnEvent functions.
 		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 		{
-			(*it)->OnEvent(p_Event);
 			if (p_Event.Handled)
 				break;
+			(*it)->OnEvent(p_Event);
 		}
 	}
 
@@ -118,7 +118,7 @@ namespace Violet
 
 		while (m_Running)
 		{
-			VT_PROFILE_SCOPE("RunLoop")
+			VT_PROFILE_SCOPE("RunLoop");
 
 			// Delta Time
 			float time = (float)glfwGetTime();

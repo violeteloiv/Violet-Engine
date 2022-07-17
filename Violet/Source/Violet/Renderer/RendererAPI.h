@@ -39,13 +39,13 @@ namespace Violet
 		virtual void SetViewport(uint32_t p_X, uint32_t p_Y, uint32_t p_Width, uint32_t p_Height) = 0;
 		virtual void SetClearColor(const glm::vec4& p_Color) = 0;
 		virtual void Clear() = 0;
-		virtual void DrawIndexed(const Ref<VertexArray>& p_VertexArray) = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& p_VertexArray, uint32_t p_IndexCount = 0) = 0;
 	public: // Getter
 		/**
 		 * @brief Gets the static API.
 		 * @returns The static API.
 		 */
-		inline static API GetAPI() { return s_API; }
+		static API GetAPI() { return s_API; }
 	public: // Creator
 		static Scope<RendererAPI> Create();
 	private: // Private Static Member Variables

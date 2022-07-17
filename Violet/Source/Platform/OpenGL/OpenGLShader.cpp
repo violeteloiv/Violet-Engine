@@ -270,6 +270,31 @@ namespace Violet
 	}
 
 	/**
+	 * @brief Uploads an integer array to the GPU for use in a shader.
+	 * @param p_Name The name of the uniform in the shader.
+	 * @param p_Values The integers.
+	 * @param p_Count The number of integers.
+	 */
+	void OpenGLShader::SetIntArray(const std::string& p_Name, int* p_Values, uint32_t p_Count)
+	{
+		VT_PROFILE_FUNCTION();
+
+		UploadUniformIntArray(p_Name, p_Values, p_Count);
+	}
+
+	/**
+	 * @brief Uploads a float value to the GPU for use in a shader.
+	 * @param p_Name The name of the uniform in the shader.
+	 * @param p_Value The float value.
+	 */
+	void OpenGLShader::SetFloat(const std::string& p_Name, float p_Value)
+	{
+		VT_PROFILE_FUNCTION();
+
+		UploadUniformFloat(p_Name, p_Value);
+	}
+
+	/**
 	 * @brief Uploads a set of three float values to the GPU for use in a shader.
 	 * @param p_Name The name of the uniform in the shader.
 	 * @param p_Value The three float values as a vector.
@@ -312,6 +337,18 @@ namespace Violet
 	{
 		GLint location = glGetUniformLocation(m_RendererID, p_Name.c_str());
 		glUniform1i(location, p_Value);
+	}
+
+	/**
+	 * @brief Uploads an integer array to the GPU for use in a shader.
+	 * @param p_Name The name of the uniform in the shader.
+	 * @param p_Values The integers.
+	 * @param p_Count The number of integers.
+	 */
+	void OpenGLShader::UploadUniformIntArray(const std::string& p_Name, int* p_Values, uint32_t p_Count)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, p_Name.c_str());
+		glUniform1iv(location, p_Count, p_Values);
 	}
 
 	/**

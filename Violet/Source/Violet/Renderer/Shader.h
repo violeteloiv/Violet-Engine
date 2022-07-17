@@ -40,6 +40,8 @@ namespace Violet
 		virtual void Unbind() const = 0;
 	public: // Uniforms
 		virtual void SetInt(const std::string& p_Name, int p_Value) = 0;
+		virtual void SetIntArray(const std::string& p_Name, int* p_Values, uint32_t p_Count) = 0;
+		virtual void SetFloat(const std::string& p_Name, float p_Value) = 0;
 		virtual void SetFloat3(const std::string& p_Name, const glm::vec3& p_Value) = 0;
 		virtual void SetFloat4(const std::string& p_Name, const glm::vec4& p_Value) = 0;
 		virtual void SetMat4(const std::string& p_Name, const glm::mat4& p_Value) = 0;

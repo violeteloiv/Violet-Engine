@@ -3,7 +3,7 @@
 /// Layer.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 12th, 2022
+/// Updated: July 16th, 2022
 ///
 /// A layer object is used as the main object where
 /// code is written and allows for multiple render layers.
@@ -16,7 +16,7 @@
 #ifndef __VIOLET_ENGINE_CORE_LAYER_H_INCLUDED__
 #define __VIOLET_ENGINE_CORE_LAYER_H_INCLUDED__
 
-#include "Violet/Core/Core.h"
+#include "Violet/Core/Base.h"
 #include "Violet/Core/Timestep.h"
 #include "Violet/Events/Event.h"
 
@@ -43,7 +43,7 @@ namespace Violet
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& p_Event) {}
 	public: // Getters
-		inline const std::string& GetName() const { return m_DebugName; }
+		const std::string& GetName() const { return m_DebugName; }
 	protected: // Protected Member Variables
 		std::string m_DebugName;
 	};

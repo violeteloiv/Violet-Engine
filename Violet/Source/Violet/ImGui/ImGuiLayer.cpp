@@ -75,6 +75,17 @@ namespace Violet
 	}
 
 	/**
+	 * @brief Forces ImGui to capture Mouse & Keyboard events
+	 * @param p_Event The event info.
+	 */
+	void ImGuiLayer::OnEvent(Event& p_Event)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		p_Event.Handled |= p_Event.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+		p_Event.Handled |= p_Event.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+	}
+
+	/**
 	 * @brief Begins an ImGui context.
 	 */
 	void ImGuiLayer::Begin()

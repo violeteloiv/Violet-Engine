@@ -3,7 +3,7 @@
 /// Core.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 16th, 2022
 /// 
 /// Defines the macros required to make dll
 /// exporting work and connect the Violet
@@ -57,9 +57,24 @@
 	#error "Unknown platform!"
 #endif // End of platform detection
 
+#ifdef VT_DEBUG
+	#if defined(VT_PLATFORM_WINDOWS)
+		#define VT_DEBUGBREAK() __debugbreak()
+	#elif defined(VT_PLATFORM_LINUX)
+		#include <signal.h>
+		#define VT_DEBUGBREAK() raise(SIGTRAP)
+	#else
+		#error "Platform doesn't support debugbreak yet!"
+	#endif
+
+	#define VT_ENABLE_ASSERTS
+#else
+	#define VT_DEBUGBREAK()
+#endif
+
 #ifdef VT_ENABLE_ASSERTS
-	#define VT_ASSERT(x, ...) { if (!(x)) { VT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-	#define VT_CORE_ASSERT(x, ...) { if (!(x)) { VT_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define VT_ASSERT(x, ...) { if (!(x)) { VT_ERROR("Assertion Failed: {0}", __VA_ARGS__); VT_DEBUGBREAK(); } }
+	#define VT_CORE_ASSERT(x, ...) { if (!(x)) { VT_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); VT_DEBUGBREAK(); } }
 #else
 	#define VT_ASSERT(x, ...)
 	#define VT_CORE_ASSERT(x, ...)

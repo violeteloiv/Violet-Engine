@@ -3,6 +3,7 @@
 /// OpenGLBuffer.h
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Contains OpenGL implementations of Vertex & 
 /// Index Buffer objects used to store information 
@@ -19,16 +20,18 @@
 namespace Violet
 {
 	/**
-	 * @brief 
+	 * @brief OpenGL Implementation of a Vertex Buffer.
 	 */
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public: // Constructors & Deconstructors
+		OpenGLVertexBuffer(uint32_t p_Size);
 		OpenGLVertexBuffer(float* p_Vertices, uint32_t p_Size);
 		virtual ~OpenGLVertexBuffer();
 	public: // Main Functionality
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+		virtual void SetData(const void* p_Data, uint32_t p_Size) override;
 	public: // Buffer Layout
 		/**
 		 * @brief Gets the buffer layout.
@@ -47,7 +50,7 @@ namespace Violet
 	};
 
 	/**
-	 * @brief 
+	 * @brief OpenGL Implementation of an Index Buffer.
 	 */
 	class OpenGLIndexBuffer : public IndexBuffer
 	{

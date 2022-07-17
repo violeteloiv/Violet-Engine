@@ -3,7 +3,7 @@
 /// OpenGLRendererAPI.h
 /// Violet McAllister
 /// July 12th, 2022
-/// Updated: July 14th, 2022
+/// Updated: July 15th, 2022
 ///
 /// Defines what graphics APIs are available
 /// to use and allows for better abstraction.
@@ -28,10 +28,10 @@ namespace Violet
 	public: // Initializer
 		virtual void Init() override;
 	public: // Main Functionality
-		virtual void SetViewport(uint32_t p_X, uint32_t p_Y, uint32_t p_Width, uint32_t p_Height);
+		virtual void SetViewport(uint32_t p_X, uint32_t p_Y, uint32_t p_Width, uint32_t p_Height) override;
 		virtual void SetClearColor(const glm::vec4& p_Color) override;
 		virtual void Clear() override;
-		virtual void DrawIndexed(const Ref<VertexArray>& p_VertexArray);
+		virtual void DrawIndexed(const Ref<VertexArray>& p_VertexArray, uint32_t p_IndexCount = 0) override;
 	};
 }
 

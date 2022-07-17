@@ -3,7 +3,7 @@
 /// Log.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 16th, 2022
 ///
 /// Contains class information for logging. Utilizes
 /// a static "singleton" like object in order to initialize
@@ -18,7 +18,7 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 
-#include "Violet/Core/Core.h"
+#include "Violet/Core/Base.h"
 
 namespace Violet
 {
@@ -36,7 +36,7 @@ namespace Violet
 		 * @return std::shared_ptr<spdlog::logger>& 
 		 * @returns The core logger object.
 		 */
-		inline static Ref<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
+		static Ref<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
 		
 		/**
 		 * @brief Get the Client Logger object
@@ -44,7 +44,7 @@ namespace Violet
 		 * @return std::shared_ptr<spdlog::logger>& 
 		 * @returns The client logger object.
 		 */
-		inline static Ref<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
+		static Ref<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
 	private:
 		static Ref<spdlog::logger> s_CoreLogger;
 		static Ref<spdlog::logger> s_ClientLogger;
