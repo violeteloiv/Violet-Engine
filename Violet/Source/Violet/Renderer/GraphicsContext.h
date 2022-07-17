@@ -3,7 +3,7 @@
 /// GraphicsContext.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 17th, 2022
 ///
 /// A graphics context is what the renderer
 /// actually displays to. It contains buffers which
@@ -21,6 +21,8 @@ namespace Violet
 	 */
 	class GraphicsContext
 	{
+	public: // Deconstructor
+		virtual ~GraphicsContext() = default;
 	public: // Main Functionality
 		virtual void Init() = 0;
 		virtual void SwapBuffers() = 0;

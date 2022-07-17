@@ -35,9 +35,12 @@ namespace Violet
 	 */
 	class Framebuffer
 	{
+	public: // Deconstructor
+		virtual ~Framebuffer() = default;
 	public: // Main Functionality
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
+		virtual void Resize(uint32_t p_Width, uint32_t p_Height) = 0;
 	public: // Getters
 		virtual uint32_t GetColorAttachmentRendererID() const = 0;
 		virtual const FramebufferSpecification& GetSpecification() const = 0;

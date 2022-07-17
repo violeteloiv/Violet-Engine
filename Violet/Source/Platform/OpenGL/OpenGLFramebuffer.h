@@ -31,6 +31,7 @@ namespace Violet
 		void Invalidate();
 		virtual void Bind() override;
 		virtual void Unbind() override;
+		virtual void Resize(uint32_t p_Width, uint32_t p_Height) override;
 	public: // Getters
 		/**
 		 * @brief Gets the color attachment for the framebuffer.
@@ -44,8 +45,8 @@ namespace Violet
 		 */
 		virtual const FramebufferSpecification& GetSpecification() const override { return m_Specification; }
 	private: // Private Member Functions
-		uint32_t m_RendererID;
-		uint32_t m_ColorAttachment, m_DepthAttachment;
+		uint32_t m_RendererID = 0;
+		uint32_t m_ColorAttachment = 0, m_DepthAttachment = 0;
 		FramebufferSpecification m_Specification;
 	};
 }

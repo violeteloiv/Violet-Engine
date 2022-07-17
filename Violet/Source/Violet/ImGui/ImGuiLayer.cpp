@@ -3,7 +3,7 @@
 /// ImGuiLayer.cpp
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 17th, 2022
 ///
 /// Defines the implementation for an ImGuiLayer.
 ///
@@ -80,9 +80,12 @@ namespace Violet
 	 */
 	void ImGuiLayer::OnEvent(Event& p_Event)
 	{
-		ImGuiIO& io = ImGui::GetIO();
-		p_Event.Handled |= p_Event.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
-		p_Event.Handled |= p_Event.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		if (m_BlockEvents)
+		{
+			ImGuiIO& io = ImGui::GetIO();
+			p_Event.Handled |= p_Event.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			p_Event.Handled |= p_Event.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		}
 	}
 
 	/**

@@ -3,7 +3,7 @@
 /// Event.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 16th, 2022
+/// Updated: July 17th, 2022
 ///
 /// Contains Event Types, Categories, and a Dispatcher.
 /// 
@@ -80,6 +80,8 @@ namespace Violet
 	 */
 	class Event
 	{
+	public: // Deconstructor
+		virtual ~Event() = default;
 	public: // Main Functionality
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;

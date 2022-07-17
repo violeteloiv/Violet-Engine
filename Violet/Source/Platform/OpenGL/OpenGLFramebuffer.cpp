@@ -36,6 +36,8 @@ namespace Violet
 	OpenGLFramebuffer::~OpenGLFramebuffer()
 	{
 		glDeleteFramebuffers(1, &m_RendererID);
+		glDeleteTextures(1, &m_ColorAttachment);
+		glDeleteTextures(1, &m_DepthAttachment);
 	}
 
 	/**
@@ -44,6 +46,15 @@ namespace Violet
 	 */
 	void OpenGLFramebuffer::Invalidate()
 	{
+		// If the framebuffer is already defined, delete stuff
+		// before reassigning.
+		if (m_RendererID)
+		{
+			glDeleteFramebuffers(1, &m_RendererID);
+			glDeleteTextures(1, &m_ColorAttachment);
+			glDeleteTextures(1, &m_DepthAttachment);
+		}
+
 		// Creates a Framebuffer object.
 		glCreateFramebuffers(1, &m_RendererID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
@@ -61,8 +72,6 @@ namespace Violet
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_DepthAttachment);
 		glBindTexture(GL_TEXTURE_2D, m_DepthAttachment);
 		glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, m_Specification.Width, m_Specification.Height);
-		// glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, m_Specification.Width, m_Specification.Height, 0,
-		// 	GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_DepthAttachment, 0);
 
 		VT_CORE_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer Is Incomplete!");
@@ -77,6 +86,7 @@ namespace Violet
 	void OpenGLFramebuffer::Bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
+		glViewport(0, 0, m_Specification.Width, m_Specification.Height);
 	}
 
 	/**
@@ -85,5 +95,18 @@ namespace Violet
 	void OpenGLFramebuffer::Unbind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	/**
+	 * @brief Resizes the frame buffer.
+	 * @param p_Width The new width.
+	 * @param p_Height The new height.
+	 */
+	void OpenGLFramebuffer::Resize(uint32_t p_Width, uint32_t p_Height)
+	{
+		m_Specification.Width = p_Width;
+		m_Specification.Height = p_Height;
+
+		Invalidate();
 	}
 }

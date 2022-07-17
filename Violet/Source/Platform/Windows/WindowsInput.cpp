@@ -12,11 +12,8 @@
 
 #include <GLFW/glfw3.h>
 
-#include "Platform/Windows/WindowsInput.h"
-
 #include "Violet/Core/Application.h"
-
-#include "Platform/Windows/WindowsInput.h"
+#include "Violet/Core/Input.h"
 
 namespace Violet
 {
@@ -25,7 +22,7 @@ namespace Violet
 	 * @param p_KeyCode The key code of the key we're checking.
 	 * @returns If a certain key is being pressed.
 	 */
-	bool WindowsInput::IsKeyPressedImpl(KeyCode p_KeyCode)
+	bool Input::IsKeyPressed(KeyCode p_KeyCode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		// Gets the status of a keycode.
@@ -38,7 +35,7 @@ namespace Violet
 	 * @param p_Button the button code of the button we are checking.
 	 * @returns If a certain mouse butotn is being pressed.
 	 */
-	bool WindowsInput::IsMouseButtonPressedImpl(MouseCode p_Button)
+	bool Input::IsMouseButtonPressed(MouseCode p_Button)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		// Gets the status of a mouse code.
@@ -50,7 +47,7 @@ namespace Violet
 	 * @brief Gets the mouse position.
 	 * @returns The mouse position as a std::pair
 	 */
-	std::pair<float, float> WindowsInput::GetMousePositionImpl()
+	std::pair<float, float> Input::GetMousePosition()
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		double xpos, ypos;
@@ -64,9 +61,9 @@ namespace Violet
 	 * @brief Gets the mouse X position.
 	 * @returns The mouse X position.
 	 */
-	float WindowsInput::GetMouseXImpl()
+	float Input::GetMouseX()
 	{
-		auto [x, y] = GetMousePositionImpl();
+		auto [x, y] = GetMousePosition();
 		return x;
 	}
 
@@ -74,9 +71,9 @@ namespace Violet
 	 * @brief Gets the mouse Y position.
 	 * @returns The mouse Y position.
 	 */
-	float WindowsInput::GetMouseYImpl()
+	float Input::GetMouseY()
 	{
-		auto [x, y] = GetMousePositionImpl();
+		auto [x, y] = GetMousePosition();
 		return y;
 	}
 }

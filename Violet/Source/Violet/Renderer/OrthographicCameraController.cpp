@@ -3,7 +3,7 @@
 /// OrthographicCameraController.cpp
 /// Violet McAllister
 /// July 13th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 17th, 2022
 ///
 /// Controller for an Orthographic Controller.
 /// 
@@ -97,6 +97,17 @@ namespace Violet
 	}
 
 	/**
+	 * @brief Resets the projection when the window is resized.
+	 * @param p_Width The new width.
+	 * @param p_Height The new height.
+	 */
+	void OrthographicCameraController::OnResize(float p_Width, float p_Height)
+	{
+		m_AspectRatio = p_Width / p_Height;
+		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+	}
+
+	/**
 	 * @brief Runs when the mousewheel is scrolled.
 	 * @param p_Event Contains mouse event info.
 	 * @returns The success of the event.
@@ -120,8 +131,7 @@ namespace Violet
 	{
 		VT_PROFILE_FUNCTION();
 
-		m_AspectRatio = (float)p_Event.GetWidth() / (float)p_Event.GetHeight();
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		OnResize((float)p_Event.GetWidth(), (float)p_Event.GetHeight());
 		return false;
 	}
 }

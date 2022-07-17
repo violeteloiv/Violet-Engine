@@ -3,7 +3,7 @@
 /// OrthographicCameraController.h
 /// Violet McAllister
 /// July 13th, 2022
-/// Updated: July 14th, 2022
+/// Updated: July 17th, 2022
 ///
 /// Controller for an Orthographic Controller.
 /// 
@@ -33,6 +33,7 @@ namespace Violet
 	public: // Main Functionality
 		void OnUpdate(Timestep p_Timestep);
 		void OnEvent(Event& p_Event);
+		void OnResize(float p_Width, float p_Height);
 	public: // Getters
 		/**
 		 * @brief Gets the camera.

@@ -43,8 +43,23 @@ namespace Violet
 		void PushOverlay(Layer* p_Overlay);
 		void Close();
 	public: // Getters & Setters
+		/**
+		 * @brief Gets the Violet Window.
+		 * @returns The Violet Window.
+		 */
 		Window& GetWindow() { return *m_Window; }
+
+		/**
+		 * @brief Gets the current app instance.
+		 * @returns The current app instance.
+		 */
 		static Application& Get() { return *s_Instance; }
+
+		/**
+		 * @brief Gets the ImGui layer for the application.
+		 * @returns The ImGui layer.
+		 */
+		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 	private: // Event Callback
 		bool OnWindowClose(WindowCloseEvent& p_Event);
 		bool OnWindowResize(WindowResizeEvent& p_Event);

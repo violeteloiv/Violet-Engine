@@ -3,7 +3,7 @@
 /// RendererAPI.h
 /// Violet McAllister
 /// July 12th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 17th, 2022
 ///
 /// Defines what graphics APIs are available
 /// to use and allows for better abstraction.
@@ -33,6 +33,8 @@ namespace Violet
 		{
 			None = 0, OpenGL = 1
 		};
+	public: // Deconstructor
+		virtual ~RendererAPI() = default;
 	public: // Initializer
 		virtual void Init() = 0;
 	public: // Main Functionality

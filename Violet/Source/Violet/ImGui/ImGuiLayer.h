@@ -3,7 +3,7 @@
 /// ImGuiLayer.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 17th, 2022
 ///
 /// Layer to display ImGui items. Defined by application, pushed to
 /// LayerStack on client side.
@@ -36,8 +36,15 @@ namespace Violet
 	public: // Main Functionality
 		void Begin();
 		void End();
+	public: // Setters
+		/**
+		 * @brief Blocks ImGui events.
+		 * @param p_Block Whether or not to block events.
+		 */
+		void BlockEvents(bool p_Block) { m_BlockEvents = p_Block; }
 	private: // Private Member Variables
 		float m_Time = 0.0f;
+		bool m_BlockEvents = true;
 	};
 }
 
