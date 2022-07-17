@@ -3,7 +3,7 @@
 /// Sandbox2D.h
 /// Violet McAllister
 /// July 14th, 2022
-/// Updated: July 16th, 2022
+/// Updated: July 17th, 2022
 ///
 /// Testing Violet API Code
 ///
@@ -31,6 +31,7 @@ private:
 
 	Violet::Ref<Violet::VertexArray> m_SquareVA;
 	Violet::Ref<Violet::Shader> m_FlatColorShader;
+	Violet::Ref<Violet::Framebuffer> m_Framebuffer;
 
 	Violet::Ref<Violet::Texture2D> m_CheckerboardTexture;
 	
