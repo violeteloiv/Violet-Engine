@@ -42,6 +42,28 @@ namespace Violet
 		m_Framebuffer = Framebuffer::Create(spec);
 	}
 
+			void OnUpdate(Timestep p_Timestep)
+			{
+				auto& transform = GetComponent<TransformComponent>().Transform;
+				float speed = 5.0f;
+
+				if (Input::IsKeyPressed(Key::A))
+					transform[3][0] -= speed * p_Timestep;
+				if (Input::IsKeyPressed(Key::D))
+					transform[3][0] += speed * p_Timestep;
+				if (Input::IsKeyPressed(Key::W))
+					transform[3][1] += speed * p_Timestep;
+				if (Input::IsKeyPressed(Key::S))
+					transform[3][1] -= speed * p_Timestep;
+			}
+		};
+
+		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+		m_SecondCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+	}
+
 	/**
 	 * @brief Runs when the layer is detached from the application.
 	 * Equivalent of a destructor.
@@ -166,6 +188,9 @@ namespace Violet
 			}
 			ImGui::EndMenuBar();
 		}
+
+		m_SceneHierarchyPanel.OnImGuiRender();
+
 		ImGui::Begin("Settings");
 		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
