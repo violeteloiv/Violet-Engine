@@ -1,12 +1,18 @@
+include './Dependencies/premake/premake_customization/solution_items.lua'
+
 workspace "Violet"
 	architecture "x86_64"
 
-	startproject "Sandbox"
+	startproject "Violet-Editor"
 
 	configurations {
 		"Debug",
 		"Release",
 		"Dist"
+	}
+
+	solution_items {
+		".editorconfig"
 	}
 
 	flags {
@@ -16,167 +22,21 @@ workspace "Violet"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {
-	["GLFW"]		= "Violet/Dependencies/GLFW/include",
-	["GLAD"]		= "Violet/Dependencies/GLAD/include",
-	["ImGui"]		= "Violet/Dependencies/imgui",
-	["glm"]			= "Violet/Dependencies/glm",
-	["stb_image"]	= "Violet/Dependencies/stb_image"
+	["GLFW"]		= "%{wks.location}/Violet/Dependencies/GLFW/include",
+	["GLAD"]		= "%{wks.location}/Violet/Dependencies/GLAD/include",
+	["ImGui"]		= "%{wks.location}/Violet/Dependencies/imgui",
+	["glm"]			= "%{wks.location}/Violet/Dependencies/glm",
+	["stb_image"]	= "%{wks.location}/Violet/Dependencies/stb_image",
+	["entt"]		= "%{wks.location}/Violet/Dependencies/entt/include"
 }
 
 group "Dependencies"
+	include "Dependencies/premake"
 	include "Violet/Dependencies/GLFW"
 	include "Violet/Dependencies/Glad"
 	include "Violet/Dependencies/imgui"
 group ""
 
-project "Violet"
-	location "Violet"
-	kind "StaticLib"
-	language "C++"
-	cppdialect "C++17"
-	staticruntime "on"
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-	pchheader "vtpch.h"
-	pchsource "Violet/Source/vtpch.cpp"
-
-	files {
-		"%{prj.name}/Source/**.h", "%{prj.name}/Source/**.cpp",
-		"%{prj.name}/Dependencies/glm/glm/**.hpp", "%{prj.name}/Dependencies/glm/glm/**.inl",
-		"%{prj.name}/Dependencies/stb_image/**.h", "%{prj.name}/Dependencies/stb_image/**.cpp",
-	}
-	defines {
-
-		"_CRT_SECURE_NO_WARNINGS",
-		"GLFW_INCLUDE_NONE"
-	}
-
-	includedirs {
-		"%{prj.name}/Dependencies/spdlog/include",
-		"%{prj.name}/Source",
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.GLAD}",
-		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
-	}
-
-	links {
-		"GLFW",
-		"Glad",
-		"ImGui",
-		"opengl32.lib"
-	}
-
-	filter "system:windows"
-		staticruntime "On"
-		systemversion "latest"
-
-		postbuildcommands {
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-		}
-
-	filter "configurations:Debug"
-		defines "VT_DEBUG"
-		runtime "Debug"
-		symbols "on"
-
-	filter "configurations:Release"
-		defines "VT_RELEASE"
-		runtime "Release"
-		optimize "on"
-
-	filter "configurations:Dist"
-		defines "VT_DIST"
-		runtime "Release"
-		optimize "on" 
-
-project "Sandbox"
-	location "Sandbox"
-	kind "ConsoleApp"
-	language "C++"
-	cppdialect "C++17"
-	staticruntime "on"
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-	files {
-		"%{prj.name}/Source/**.h", "%{prj.name}/Source/**.cpp"
-	}
-
-	includedirs {
-		"Violet/Dependencies/spdlog/include",
-		"Violet/Source",
-		"Violet/Dependencies",
-		"%{IncludeDir.glm}"
-	}
-
-	links {
-		"Violet"
-	}
-
-	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
-		systemversion "latest"
-
-	filter "configurations:Debug"
-		defines "VT_DEBUG"
-		runtime "Debug"
-		symbols "on"
-
-	filter "configurations:Release"
-		defines "VT_RELEASE"
-		runtime "Release"
-		optimize "on"
-
-	filter "configurations:Dist"
-		defines "VT_DIST"
-		runtime "Release"
-		optimize "on" 
-
-project "Violet-Editor"
-	location "Violet-Editor"
-	kind "ConsoleApp"
-	language "C++"
-	cppdialect "C++17"
-	staticruntime "on"
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-	files {
-		"%{prj.name}/Source/**.h", "%{prj.name}/Source/**.cpp"
-	}
-
-	includedirs {
-		"Violet/Dependencies/spdlog/include",
-		"Violet/Source",
-		"Violet/Dependencies",
-		"%{IncludeDir.glm}"
-	}
-
-	links {
-		"Violet"
-	}
-
-	filter "system:windows"
-		systemversion "latest"
-
-	filter "configurations:Debug"
-		defines "VT_DEBUG"
-		runtime "Debug"
-		symbols "on"
-
-	filter "configurations:Release"
-		defines "VT_RELEASE"
-		runtime "Release"
-		optimize "on"
-
-	filter "configurations:Dist"
-		defines "VT_DIST"
-		runtime "Release"
-		optimize "on" 
+include "Violet"
+include "Sandbox"
+include "Violet-Editor"

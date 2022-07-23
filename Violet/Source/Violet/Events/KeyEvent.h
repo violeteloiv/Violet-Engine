@@ -3,7 +3,7 @@
 /// KeyEvent.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 23rd, 2022
 ///
 /// Contains Keyboard related events and
 /// functionality.
@@ -13,7 +13,7 @@
 #ifndef __VIOLET_ENGINE_EVENTS_KEY_H_INCLUDED__
 #define __VIOLET_ENGINE_EVENTS_KEY_H_INCLUDED__
 
-#include "Violet/Core/Input.h"
+#include "Violet/Core/KeyCodes.h"
 #include "Violet/Events/Event.h"
 
 namespace Violet
@@ -36,7 +36,7 @@ namespace Violet
 		 * @brief Constructor for the KeyEvent object.
 		 * @param p_KeyCode The keycode of the non-specific key event.
 		 */
-		KeyEvent(KeyCode p_KeyCode)
+		KeyEvent(const KeyCode p_KeyCode)
 			: m_KeyCode(p_KeyCode)
 		{
 
@@ -57,7 +57,7 @@ namespace Violet
 		 * @param p_KeyCode The keycode of the key being pressed.
 		 * @param p_RepeatCount The number of times the key press has been repeated.
 		 */
-		KeyPressedEvent(KeyCode p_KeyCode, int p_RepeatCount)
+		KeyPressedEvent(const KeyCode p_KeyCode, const uint16_t p_RepeatCount)
 			: KeyEvent(p_KeyCode), m_RepeatCount(p_RepeatCount)
 		{
 
@@ -67,7 +67,7 @@ namespace Violet
 		 * @brief Gets the amount of times a key has been repeated.
 		 * @returns the number of times repeated.
 		 */
-		int GetRepeatCount() const { return m_RepeatCount; }
+		uint16_t GetRepeatCount() const { return m_RepeatCount; }
 	public: // Override
 		/**
 		 * @brief Gives the Key Pressed Event in the format:
@@ -83,7 +83,7 @@ namespace Violet
 	public: // Macros
 		EVENT_CLASS_TYPE(KeyPressed)
 	private: // Member Variables
-		int m_RepeatCount;
+		uint16_t m_RepeatCount;
 	};
 
 	/**
@@ -97,7 +97,7 @@ namespace Violet
 		 * @brief Constructor for the KeyReleasedEvent object.
 		 * @param p_KeyCode They key code of the button released.
 		 */
-		KeyReleasedEvent(KeyCode p_KeyCode)
+		KeyReleasedEvent(const KeyCode p_KeyCode)
 			: KeyEvent(p_KeyCode)
 		{
 
