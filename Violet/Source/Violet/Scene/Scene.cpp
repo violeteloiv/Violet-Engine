@@ -3,6 +3,7 @@
 /// Scene.cpp
 /// Violet McAllister
 /// July 22nd, 2022
+/// Updated: July 23rd, 2022
 ///
 /// A Scene contains information about all of the
 /// entities and how to render and deal with them.
@@ -89,10 +90,10 @@ namespace Violet
 		Camera* mainCamera = nullptr;
 		glm::mat4* cameraTransform = nullptr;
 		{
-			auto group = m_Registry.view<TransformComponent, CameraComponent>();
-			for (auto entity : group)
+			auto view = m_Registry.view<TransformComponent, CameraComponent>();
+			for (auto entity : view)
 			{
-				auto& [transform, camera] = group.get<TransformComponent, CameraComponent>(entity);
+				auto& [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
 
 				if (camera.Primary)
 				{
@@ -116,6 +117,26 @@ namespace Violet
 			}
 
 			Renderer2D::EndScene();
+		}
+	}
+
+	/**
+	 * @brief Runs when the viewport is resized.
+	 * @param p_Width The width of the new viewport.
+	 * @param p_Height The height of the new viewport.
+	 */
+	void Scene::OnViewportSize(uint32_t p_Width, uint32_t p_Height)
+	{
+		m_ViewportWidth = p_Width;
+		m_ViewportHeight = p_Height;
+
+		// Resize our non-FixedAspectRatio cameras
+		auto view = m_Registry.view<CameraComponent>();
+		for (auto entity : view)
+		{
+			auto& cameraComponent = view.get<CameraComponent>(entity);
+			if (!cameraComponent.FixedAspectRatio)
+				cameraComponent.Camera.SetViewportSize(p_Width, p_Height);
 		}
 	}
 }

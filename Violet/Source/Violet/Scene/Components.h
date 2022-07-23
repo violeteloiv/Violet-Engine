@@ -3,7 +3,7 @@
 /// Components.h
 /// Violet McAllister
 /// July 17th, 2022
-/// Updated: July 22nd, 2022
+/// Updated: July 23nd, 2022
 ///
 /// Contains definitions and implementations
 /// for all of the Violet API's components.
@@ -15,7 +15,7 @@
 
 #include <glm/glm.hpp>
 
-#include "Violet/Renderer/Camera.h"
+#include "Violet/Scene/SceneCamera.h"
 
 namespace Violet
 {
@@ -63,7 +63,7 @@ namespace Violet
 	};
 
 	/**
-	 * A Sprite Renderer (color) component
+	 * @brief A Sprite Renderer (color) component
 	 * for the entity component system.
 	 */
 	struct SpriteRendererComponent
@@ -82,21 +82,19 @@ namespace Violet
 			: Color(p_Color) {}
 	};
 
+	/**
+	 * @brief A Camera component for the
+	 * entity component system.
+	 */
 	struct CameraComponent
 	{
 	public: // Variables
-		Camera Camera;
+		SceneCamera Camera;
 		bool Primary = true;
+		bool FixedAspectRatio = false;
 	public: // Constructors
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
-
-		/**
-		 * @brief Constructs a camera component.
-		 * @param p_Projection The projection of the camera.
-		 */
-		CameraComponent(const glm::mat4& p_Projection)
-			: Camera(p_Projection) {}
 	};
 }
 

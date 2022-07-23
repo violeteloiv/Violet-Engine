@@ -3,6 +3,7 @@
 /// Camera.h
 /// Violet McAllister
 /// July 22nd, 2022
+/// Updted: July 23rd, 2022
 ///
 /// A camera object that is agnostic to the type
 /// of camera used.
@@ -23,6 +24,9 @@ namespace Violet
 	class Camera
 	{
 	public: // Constructor
+		Camera() = default;
+		virtual ~Camera() = default;
+
 		/**
 		 * @brief Constructs a camera object.
 		 * @param p_Projection The camera projection.
@@ -35,8 +39,8 @@ namespace Violet
 		 * @returns The projection of the camera.
 		 */
 		const glm::mat4& GetProjection() const { return m_Projection; }
-	private: // Private Member Variables
-		glm::mat4 m_Projection;
+	protected: // Protected Member Variables
+		glm::mat4 m_Projection = glm::mat4(1.0f);
 	};
 }
 
