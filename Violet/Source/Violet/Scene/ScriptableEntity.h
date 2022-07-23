@@ -23,6 +23,8 @@ namespace Violet
 	 */
 	class ScriptableEntity
 	{
+	public: // Deconstructors
+		virtual ~ScriptableEntity() = default;
 	public: // Getter
 		/**
 		 * @brief Gets the component of the entity.
@@ -33,6 +35,10 @@ namespace Violet
 		{
 			return m_Entity.GetComponent<T>();
 		}
+	protected: // Virtual Implemntations
+		virtual void OnCreate() {}
+		virtual void OnDestroy() {}
+		virtual void OnUpdate(Timestep p_Timestep) {}
 	private: // Private Member Variables
 		Entity m_Entity;
 	private: // Friend Classes
