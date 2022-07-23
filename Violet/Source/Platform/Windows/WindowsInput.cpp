@@ -3,6 +3,7 @@
 /// WindowsInput.cpp
 /// Violet McAllister
 /// July 11th, 2022
+/// Updated: July 23rd, 2022
 ///
 /// Windows Implementation of the Input class.
 ///
@@ -22,9 +23,9 @@ namespace Violet
 	 * @param p_KeyCode The key code of the key we're checking.
 	 * @returns If a certain key is being pressed.
 	 */
-	bool Input::IsKeyPressed(KeyCode p_KeyCode)
+	bool Input::IsKeyPressed(const KeyCode p_KeyCode)
 	{
-		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		// Gets the status of a keycode.
 		auto state = glfwGetKey(window, static_cast<int32_t>(p_KeyCode));
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
@@ -35,9 +36,9 @@ namespace Violet
 	 * @param p_Button the button code of the button we are checking.
 	 * @returns If a certain mouse butotn is being pressed.
 	 */
-	bool Input::IsMouseButtonPressed(MouseCode p_Button)
+	bool Input::IsMouseButtonPressed(const MouseCode p_Button)
 	{
-		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		// Gets the status of a mouse code.
 		auto state = glfwGetMouseButton(window, static_cast<int32_t>(p_Button));
 		return state == GLFW_PRESS;
@@ -45,11 +46,11 @@ namespace Violet
 
 	/**
 	 * @brief Gets the mouse position.
-	 * @returns The mouse position as a std::pair
+	 * @returns The mouse position as a glm::vec2
 	 */
-	std::pair<float, float> Input::GetMousePosition()
+	glm::vec2 Input::GetMousePosition()
 	{
-		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		double xpos, ypos;
 		// Gets the cursor position.
 		glfwGetCursorPos(window, &xpos, &ypos);
@@ -63,8 +64,7 @@ namespace Violet
 	 */
 	float Input::GetMouseX()
 	{
-		auto [x, y] = GetMousePosition();
-		return x;
+		return GetMousePosition().x;
 	}
 
 	/**
@@ -73,7 +73,6 @@ namespace Violet
 	 */
 	float Input::GetMouseY()
 	{
-		auto [x, y] = GetMousePosition();
-		return y;
+		return GetMousePosition().y;
 	}
 }

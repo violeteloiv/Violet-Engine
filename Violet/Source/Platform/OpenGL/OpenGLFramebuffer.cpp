@@ -20,6 +20,8 @@
 
 namespace Violet
 {
+	static const uint32_t s_MaxFramebufferSize = 8192;
+
 	/**
 	 * @brief Constructs an OpenGL Framebuffer object with reference
 	 * to a specification.
@@ -104,6 +106,12 @@ namespace Violet
 	 */
 	void OpenGLFramebuffer::Resize(uint32_t p_Width, uint32_t p_Height)
 	{
+		if (p_Width == 0 || p_Height == 0 || p_Width > s_MaxFramebufferSize || p_Height > s_MaxFramebufferSize)
+		{
+			VT_CORE_WARN("Attempted to rezize framebuffer to {0}, {1}", p_Width, p_Height);
+			return;
+		}
+
 		m_Specification.Width = p_Width;
 		m_Specification.Height = p_Height;
 

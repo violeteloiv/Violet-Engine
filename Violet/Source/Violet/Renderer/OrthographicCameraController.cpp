@@ -3,7 +3,7 @@
 /// OrthographicCameraController.cpp
 /// Violet McAllister
 /// July 13th, 2022
-/// Updated: July 17th, 2022
+/// Updated: July 23rd, 2022
 ///
 /// Controller for an Orthographic Controller.
 /// 
@@ -41,23 +41,23 @@ namespace Violet
 	{
 		VT_PROFILE_FUNCTION();
 
-		if (Input::IsKeyPressed(VT_KEY_A))
+		if (Input::IsKeyPressed(Key::A))
 		{
 			m_CameraPosition.x -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * p_Timestep;
 			m_CameraPosition.y -= sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * p_Timestep;
 		}
-		else if (Input::IsKeyPressed(VT_KEY_D))
+		else if (Input::IsKeyPressed(Key::D))
 		{
 			m_CameraPosition.x += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * p_Timestep;
 			m_CameraPosition.y += sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * p_Timestep;
 		}
 
-		if (Input::IsKeyPressed(VT_KEY_W))
+		if (Input::IsKeyPressed(Key::W))
 		{
 			m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * p_Timestep;
 			m_CameraPosition.y +=  cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * p_Timestep;
 		}
-		else if (Input::IsKeyPressed(VT_KEY_S))
+		else if (Input::IsKeyPressed(Key::S))
 		{
 			m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * p_Timestep;
 			m_CameraPosition.y -=  cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * p_Timestep;
@@ -65,9 +65,9 @@ namespace Violet
 
 		if (m_Rotation)
 		{
-			if (Input::IsKeyPressed(VT_KEY_Q))
+			if (Input::IsKeyPressed(Key::Q))
 				m_CameraRotation += m_CameraRotationSpeed * p_Timestep;
-			if (Input::IsKeyPressed(VT_KEY_E))
+			if (Input::IsKeyPressed(Key::E))
 				m_CameraRotation -= m_CameraRotationSpeed * p_Timestep;
 
 			if (m_CameraRotation > 180.0f)

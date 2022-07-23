@@ -3,7 +3,7 @@
 /// OpenGLVertexArray.cpp
 /// Violet McAllister
 /// July 12th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 23rd, 2022
 ///
 /// The vertex array object contains
 /// information about how the vertex 
@@ -138,7 +138,7 @@ namespace Violet
 							ShaderDataTypeToOpenGLBaseType(element.Type),
 							element.Normalized ? GL_TRUE : GL_FALSE,
 							layout.GetStride(),
-							(const void*)(sizeof(float) * count * i));
+							(const void*)(element.Offset + sizeof(float) * count * i));
 						glVertexAttribDivisor(m_VertexBufferIndex, 1);
 						m_VertexBufferIndex++;
 					}

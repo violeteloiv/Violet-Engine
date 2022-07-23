@@ -3,7 +3,7 @@
 /// WindowsWindow.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 23rd, 2022
 ///
 /// Using the generalized Window class we create
 /// a WindowsWindow implementation for a Windows
@@ -170,21 +170,21 @@ namespace Violet
 				// KeyPressed Action
 				case GLFW_PRESS:
 				{
-					KeyPressedEvent e(static_cast<KeyCode>(p_Key), 0);
+					KeyPressedEvent e(p_Key, 0);
 					data.EventCallback(e);
 					break;
 				}
 				// KeyReleased Action
 				case GLFW_RELEASE:
 				{
-					KeyReleasedEvent e(static_cast<KeyCode>(p_Key));
+					KeyReleasedEvent e(p_Key);
 					data.EventCallback(e);
 					break;
 				}
 				// KeyPressed Repeat Action
 				case GLFW_REPEAT:
 				{
-					KeyPressedEvent e(static_cast<KeyCode>(p_Key), 1);
+					KeyPressedEvent e(p_Key, 1);
 					data.EventCallback(e);
 					break;
 				}
@@ -202,7 +202,7 @@ namespace Violet
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_Window);
 
 			// Creates a Violet Event and sets it.
-			KeyTypedEvent e(static_cast<KeyCode>(p_KeyCode));
+			KeyTypedEvent e(p_KeyCode);
 			data.EventCallback(e);
 		});
 
@@ -224,14 +224,14 @@ namespace Violet
 				// MousePressed Action
 				case GLFW_PRESS:
 				{
-					MouseButtonPressedEvent e(static_cast<MouseCode>(p_Button));
+					MouseButtonPressedEvent e(p_Button);
 					data.EventCallback(e);
 					break;
 				}
 				// KeyReleased Action
 				case GLFW_RELEASE:
 				{
-					MouseButtonReleasedEvent e(static_cast<MouseCode>(p_Button));
+					MouseButtonReleasedEvent e(p_Button);
 					data.EventCallback(e);
 					break;
 				}
