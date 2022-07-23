@@ -3,7 +3,7 @@
 /// Renderer2D.cpp
 /// Violet McAllister
 /// July 14th, 2022
-/// Updated: July 16th, 2022
+/// Updated: July 22nd, 2022
 ///
 /// Violet's main 2D Renderer which
 /// handles drawing 2D shapes.
@@ -138,6 +138,26 @@ namespace Violet
 		VT_PROFILE_FUNCTION();
 
 		delete[] s_Data.QuadVertexBufferBase;
+	}
+
+	/**
+	 * @brief Begins the scene by updating the view projection.
+	 * @param p_Camera The camera for the scene.
+	 * @param p_Transform The transform to be used.
+	 */
+	void Renderer2D::BeginScene(const Camera& p_Camera, const glm::mat4& p_Transform)
+	{
+		VT_PROFILE_FUNCTION();
+
+		glm::mat4 viewProj = p_Camera.GetProjection() * glm::inverse(p_Transform);
+
+		s_Data.TextureShader->Bind();
+		s_Data.TextureShader->SetMat4("u_ViewProjection", viewProj);
+
+		s_Data.QuadIndexCount = 0;
+		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+
+		s_Data.TextureSlotIndex = 1;
 	}
 
 	/**

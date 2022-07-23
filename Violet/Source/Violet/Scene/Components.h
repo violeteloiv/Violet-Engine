@@ -15,6 +15,8 @@
 
 #include <glm/glm.hpp>
 
+#include "Violet/Renderer/Camera.h"
+
 namespace Violet
 {
 	/**
@@ -78,6 +80,23 @@ namespace Violet
 		 */
 		SpriteRendererComponent(const glm::vec4& p_Color)
 			: Color(p_Color) {}
+	};
+
+	struct CameraComponent
+	{
+	public: // Variables
+		Camera Camera;
+		bool Primary = true;
+	public: // Constructors
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+
+		/**
+		 * @brief Constructs a camera component.
+		 * @param p_Projection The projection of the camera.
+		 */
+		CameraComponent(const glm::mat4& p_Projection)
+			: Camera(p_Projection) {}
 	};
 }
 
