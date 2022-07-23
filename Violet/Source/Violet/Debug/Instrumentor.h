@@ -3,6 +3,7 @@
 /// Instrumentor.h
 /// Violet McAllister
 /// July 15th, 2022
+/// Updated: July 22nd, 2022
 /// 
 /// Instrumentation information and
 /// implementations.
@@ -50,15 +51,9 @@ namespace Violet
 	 */
 	class Instrumentor
 	{
-	public: // Constructor
-		/**
-		 * @brief Constructs an Instrumentor object. 
-		 */
-		Instrumentor()
-			: m_CurrentSession(nullptr)
-		{
-
-		}
+	public: // Constructors
+		Instrumentor(const Instrumentor&) = delete;
+		Instrumentor(Instrumentor&&) = delete;
 	public: // Main Functionality
 		/**
 		 * @brief Begins an instrumentation session.
@@ -136,6 +131,23 @@ namespace Violet
 		{
 			static Instrumentor instance;
 			return instance;
+		}
+	private: // Constructors & Deconstructors
+		/**
+		 * @brief Constructs an Instrumentor object.
+		 */
+		Instrumentor()
+			: m_CurrentSession(nullptr)
+		{
+
+		}
+
+		/**
+		 * @brief Deconstructs an Instrumentor object. 
+		 */
+		~Instrumentor()
+		{
+			EndSession();
 		}
 	private: // Helper
 		/**
@@ -271,12 +283,16 @@ namespace Violet
 
 	#define VT_PROFILE_BEGIN_SESSION(name, filepath) ::Violet::Instrumentor::Get().BeginSession(name, filepath)
 	#define VT_PROFILE_END_SESSION() ::Violet::Instrumentor::Get().EndSession()
-	#define VT_PROFILE_SCOPE(name) constexpr auto fixedName = ::Violet::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
-									::Violet::InstrumentationTimer timer##__LINE__(fixedName.Data)
+	#define VT_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::Violet::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+												   ::Violet::InstrumentationTimer timer##line(fixedName##line.Data)
+	#define VT_PROFILE_SCOPE_LINE(name, line) VT_PROFILE_SCOPE_LINE2(name, line)
+	#define VT_PROFILE_SCOPE(name) VT_PROFILE_SCOPE_LINE(name, __LINE__)
 	#define VT_PROFILE_FUNCTION() VT_PROFILE_SCOPE(VT_FUNC_SIG)
 #else
 	#define VT_PROFILE_BEGIN_SESSION(name, filepath)
 	#define VT_PROFILE_END_SESSION()
+	#define VT_PROFILE_SCOPE_LINE2(name, line)
+	#define VT_PROFILE_SCOPE_LINE(name, line)
 	#define VT_PROFILE_SCOPE(name)
 	#define VT_PROFILE_FUNCTION()
 #endif 

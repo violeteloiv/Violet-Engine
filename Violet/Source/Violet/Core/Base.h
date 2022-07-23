@@ -3,7 +3,7 @@
 /// Core.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 16th, 2022
+/// Updated: July 22nd, 2022
 /// 
 /// Defines the macros required to make dll
 /// exporting work and connect the Violet
@@ -84,7 +84,7 @@
 #define BIT(x) (1 << x)
 
 // Event Bind Function
-#define VT_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+#define VT_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
 
 namespace Violet
 {

@@ -3,6 +3,7 @@
 /// EditorLayer.h
 /// Violet McAllister
 /// July 17th, 2022
+/// Updated: July 22nd, 2022
 ///
 /// The main editor layer for Violet Editor.
 ///
@@ -39,6 +40,6 @@ namespace Violet {
 		Ref<Shader> m_FlatColorShader;
 		Ref<Framebuffer> m_Framebuffer;
 		Ref<Scene> m_ActiveScene;
-		entt::entity m_SquareEntity;
+		Entity m_SquareEntity;
 	};
 }

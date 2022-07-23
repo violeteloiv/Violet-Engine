@@ -36,6 +36,7 @@
 #include "Violet/Renderer/VertexArray.h"
 
 #include "Violet/Scene/Components.h"
+#include "Violet/Scene/Entity.h"
 #include "Violet/Scene/Scene.h"
 
 #endif // _VIOLET_ENGINE_H_INCLUDED__

@@ -9,12 +9,17 @@
 ///
 /////////////////
 
+#ifndef __VIOLET_ENGINE_SCENE_H_INCLUDED__
+#define __VIOLET_ENGINE_SCENE_H_INCLUDED__
+
 #include <entt.hpp>
 
 #include "Violet/Core/Timestep.h"
 
 namespace Violet
 {
+	class Entity;
+
 	/**
 	 * @brief The scene handles all of the entities in
 	 * the application.
@@ -25,12 +30,14 @@ namespace Violet
 		Scene();
 		~Scene();
 	public: // Main Functionality
-		entt::entity CreateEntity();
+		Entity CreateEntity(const std::string& p_Name = std::string());
 	public: // Viole Internals
 		void OnUpdate(Timestep p_Timestep);
-	public: // TEMPORARY
-		entt::registry& Reg() { return m_Registry; }
 	private: // Private Member Variables
 		entt::registry m_Registry;
+	private: // Friend Classes
+		friend class Entity;
 	};
 }
+
+#endif // __VIOLET_ENGINE_SCENE_H_INCLUDED__

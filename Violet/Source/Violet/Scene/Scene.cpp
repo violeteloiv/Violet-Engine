@@ -17,6 +17,7 @@
 
 #include "Violet/Renderer/Renderer2D.h"
 #include "Violet/Scene/Components.h"
+#include "Violet/Scene/Entity.h"
 
 namespace Violet
 {
@@ -66,13 +67,22 @@ namespace Violet
 	}
 
 	/**
-	 * @brief Creates an entity. 
+	 * @brief Creates an entity.
+	 * @param p_Name The optional name of the entity.
 	 */
-	entt::entity Scene::CreateEntity()
+	Entity Scene::CreateEntity(const std::string& p_Name)
 	{
-		return m_Registry.create();
+		Entity entity{ m_Registry.create(), this };
+		entity.AddComponent<TransformComponent>();
+		auto& tag = entity.AddComponent<TagComponent>();
+		tag.Tag = p_Name.empty() ? "Entity" : p_Name;
+		return entity;
 	}
 
+	/**
+	 * @brief Runs when the application is updated.
+	 * @param p_Timestep The timestep.
+	 */
 	void Scene::OnUpdate(Timestep p_Timestep)
 	{
 		auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
