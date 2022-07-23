@@ -3,7 +3,7 @@
 /// Instrumentor.h
 /// Violet McAllister
 /// July 15th, 2022
-/// Updated: July 22nd, 2022
+/// Updated: July 23rd, 2022
 /// 
 /// Instrumentation information and
 /// implementations.
@@ -17,8 +17,12 @@
 #include <chrono>
 #include <fstream>
 #include <iomanip>
+#include <mutex>
+#include <sstream>
 #include <string>
 #include <thread>
+
+#include "Violet/Core/Log.h"
 
 namespace Violet
 {

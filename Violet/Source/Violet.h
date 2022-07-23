@@ -3,7 +3,7 @@
 /// Violet.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 22nd, 2022
+/// Updated: July 23rd, 2022
 ///
 /// Contains all of the include files for the
 /// Violet API.
@@ -38,5 +38,6 @@
 #include "Violet/Scene/Components.h"
 #include "Violet/Scene/Entity.h"
 #include "Violet/Scene/Scene.h"
+#include "Violet/Scene/ScriptableEntity.h"
 
 #endif // _VIOLET_ENGINE_H_INCLUDED__

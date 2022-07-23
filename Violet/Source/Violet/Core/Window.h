@@ -3,7 +3,7 @@
 /// Window.h
 /// Violet McAllister
 /// July 1st, 2022
-/// Updated: July 17th, 2022
+/// Updated: July 23rd, 2022
 ///
 /// Contains Window Properties and a Window
 /// interface to generalize window functionality
@@ -14,7 +14,7 @@
 #ifndef __VIOLET_ENGINE_CORE_WINDOW_H_INCLUDED__
 #define __VIOLET_ENGINE_CORE_WINDOW_H_INCLUDED__
 
-#include "vtpch.h"
+#include <sstream>
 
 #include "Violet/Core/Base.h"
 #include "Violet/Events/Event.h"

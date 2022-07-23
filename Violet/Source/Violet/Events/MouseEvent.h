@@ -3,7 +3,7 @@
 /// MouseEvent.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 13rd, 2022
 ///
 /// Contains Mouse related events and
 /// functionality.
@@ -13,7 +13,7 @@
 #ifndef __VIOLET_ENGINE_EVENTS_MOUSE_H_INCLUDED__
 #define __VIOLET_ENGINE_EVENTS_MOUSE_H_INCLUDED__
 
-#include "Violet/Core/Input.h"
+#include "Violet/Core/MouseCodes.h"
 #include "Violet/Events/Event.h"
 
 namespace Violet
@@ -30,7 +30,7 @@ namespace Violet
 		 * @param p_X The new mouseX position.
 		 * @param p_Y The new mouseY position.
 		 */
-		MouseMovedEvent(float p_X, float p_Y)
+		MouseMovedEvent(const float p_X, const float p_Y)
 			: m_MouseX(p_X), m_MouseY(p_Y)
 		{
 
@@ -78,7 +78,7 @@ namespace Violet
 		 * @param p_XOffset The new scroll wheel X position.
 		 * @param p_YOffset The new scroll wheen Y position.
 		 */
-		MouseScrolledEvent(float p_XOffset, float p_YOffset)
+		MouseScrolledEvent(const float p_XOffset, const float p_YOffset)
 			: m_XOffset(p_XOffset), m_YOffset(p_YOffset)
 		{
 
@@ -124,7 +124,7 @@ namespace Violet
 		 * @brief Gets the mouse button being used.
 		 * @returns The mouse button being used.
 		 */
-		inline MouseCode GetMouseButton() const { return m_Button; }
+		MouseCode GetMouseButton() const { return m_Button; }
 	public: // Macros
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	protected: // Constructors & Deconstructors
@@ -132,7 +132,7 @@ namespace Violet
 		 * @brief Constructs a MouseButtonEvent object.
 		 * @param p_Button The button being used on the mouse.
 		 */
-		MouseButtonEvent(MouseCode p_Button)
+		MouseButtonEvent(const MouseCode p_Button)
 			: m_Button(p_Button)
 		{
 
@@ -152,7 +152,7 @@ namespace Violet
 		 * @brief Constructs a MouseButtonPressedEvent object.
 		 * @param p_Button The button being pressed.
 		 */
-		MouseButtonPressedEvent(MouseCode p_Button)
+		MouseButtonPressedEvent(const MouseCode p_Button)
 			: MouseButtonEvent(p_Button)
 		{
 
@@ -184,7 +184,7 @@ namespace Violet
 		 * @brief Constructs a MouseButtonReleasedEvent object.
 		 * @param p_Button The button being released.
 		 */
-		MouseButtonReleasedEvent(MouseCode p_Button)
+		MouseButtonReleasedEvent(const MouseCode p_Button)
 			: MouseButtonEvent(p_Button)
 		{
 

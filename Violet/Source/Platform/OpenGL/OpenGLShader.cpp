@@ -3,7 +3,7 @@
 /// OpenGLShader.cpp
 /// Violet McAllister
 /// July 13th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 23rd, 2022
 ///
 /// A shader is a program which allows
 /// you to communicate with the GPU directly
@@ -100,7 +100,7 @@ namespace Violet
 		VT_PROFILE_FUNCTION();
 
 		std::string result;
-		std::ifstream in(p_Filepath, std::ios::in | std::ios::binary);
+		std::ifstream in(p_Filepath, std::ios::in | std::ios::binary); // Closes itself due to RAII.
 		if (in)
 		{
 			// Reads File Data into result
@@ -112,7 +112,6 @@ namespace Violet
 				result.resize(size);
 				in.seekg(0, std::ios::beg);
 				in.read(&result[0], size);
-				in.close();
 			}
 			else
 			{

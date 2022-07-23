@@ -3,7 +3,7 @@
 /// Renderer2D.cpp
 /// Violet McAllister
 /// July 14th, 2022
-/// Updated: July 22nd, 2022
+/// Updated: July 23rd, 2022
 ///
 /// Violet's main 2D Renderer which
 /// handles drawing 2D shapes.
@@ -120,7 +120,7 @@ namespace Violet
 		s_Data.TextureShader->Bind();
 		s_Data.TextureShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
 
-		// Set All Texture Slots to 0
+		// Set First Texture Slot to 0
 		s_Data.TextureSlots[0] = s_Data.WhiteTexture;
 
 		// Initialize Position Vertices
@@ -328,7 +328,7 @@ namespace Violet
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
 		{
-			if (*s_Data.TextureSlots[i].get() == *p_Texture.get())
+			if (*s_Data.TextureSlots[i] == *p_Texture)
 			{
 				textureIndex = (float)i;
 				break;
