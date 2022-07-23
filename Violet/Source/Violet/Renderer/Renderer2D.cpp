@@ -220,30 +220,10 @@ namespace Violet
 	{
 		VT_PROFILE_FUNCTION();
 
-		constexpr size_t quadVertexCount = 4;
-		const float textureIndex = 0.0f; // White Texture
-		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
-		const float tilingFactor = 1.0f;
-
-		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
-			FlushAndReset();
-
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position)
 			* glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
 
-		for (size_t i = 0; i < quadVertexCount; i++)
-		{
-			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
-			s_Data.QuadVertexBufferPtr->Color = p_Color;
-			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
-			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-			s_Data.QuadVertexBufferPtr->TilingFactor = tilingFactor;
-			s_Data.QuadVertexBufferPtr++;
-		}
-
-		s_Data.QuadIndexCount += 6;
-
-		s_Data.Stats.QuadCount++;
+		DrawQuad(transform, p_Color);
 	}
 
 	/**
@@ -268,6 +248,54 @@ namespace Violet
 	 * @param p_TintColor Option setting to change the tint color.
 	 */
 	void Renderer2D::DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture, float p_TilingFactor, const glm::vec4& p_TintColor)
+	{
+		VT_PROFILE_FUNCTION();
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position)
+			* glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
+
+		DrawQuad(transform, p_Texture, p_TilingFactor, p_TintColor);
+	}
+
+	/**
+	 * @brief Draws a square with only a transform and color.
+	 * @param p_Transform The transform of the square.
+	 * @param p_Color The color of the square.
+	 */
+	void Renderer2D::DrawQuad(const glm::mat4& p_Transform, const glm::vec4& p_Color)
+	{
+		constexpr size_t quadVertexCount = 4;
+		const float textureIndex = 0.0f; // White Texture
+		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
+		const float tilingFactor = 1.0f;
+
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			FlushAndReset();
+
+		for (size_t i = 0; i < quadVertexCount; i++)
+		{
+			s_Data.QuadVertexBufferPtr->Position = p_Transform * s_Data.QuadVertexPositions[i];
+			s_Data.QuadVertexBufferPtr->Color = p_Color;
+			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
+			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+			s_Data.QuadVertexBufferPtr->TilingFactor = tilingFactor;
+			s_Data.QuadVertexBufferPtr++;
+		}
+
+		s_Data.QuadIndexCount += 6;
+
+		s_Data.Stats.QuadCount++;
+	}
+
+	/**
+	 * @brief Draws a square at a position, with a size, and with a texture.
+	 * @param p_Position The 3D position.
+	 * @param p_Size The size of the square.
+	 * @param p_Texture The texture for the square.
+	 * @param p_TilingFactor Optional setting to change how the image tiles.
+	 * @param p_TintColor Option setting to change the tint color.
+	 */
+	void Renderer2D::DrawQuad(const glm::mat4& p_Transform, const Ref<Texture2D>& p_Texture, float p_TilingFactor, const glm::vec4& p_TintColor)
 	{
 		VT_PROFILE_FUNCTION();
 
@@ -297,12 +325,9 @@ namespace Violet
 			s_Data.TextureSlotIndex++;
 		}
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position)
-			* glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
-
 		for (size_t i = 0; i < quadVertexCount; i++)
 		{
-			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
+			s_Data.QuadVertexBufferPtr->Position = p_Transform * s_Data.QuadVertexPositions[i];
 			s_Data.QuadVertexBufferPtr->Color = p_TintColor;
 			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
 			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
@@ -326,7 +351,7 @@ namespace Violet
 	{
 		DrawRotatedQuad({ p_Position.x, p_Position.y, 0.0f }, p_Size, p_Rotation, p_Color);
 	}
-	
+
 	/**
 	 * @brief Draws a rotated square at a position, with a size, and with a texture.
 	 * @param p_Position The 3D position.
@@ -338,31 +363,11 @@ namespace Violet
 	{
 		VT_PROFILE_FUNCTION();
 
-		constexpr size_t quadVertexCount = 4;
-		const float textureIndex = 0.0f; // White Texture
-		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
-		const float tilingFactor = 1.0f;
-
-		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
-			FlushAndReset();
-
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position)
 			* glm::rotate(glm::mat4(1.0f), glm::radians(p_Rotation), { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
 
-		for (size_t i = 0; i < quadVertexCount; i++)
-		{
-			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
-			s_Data.QuadVertexBufferPtr->Color = p_Color;
-			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
-			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-			s_Data.QuadVertexBufferPtr->TilingFactor = tilingFactor;
-			s_Data.QuadVertexBufferPtr++;
-		}
-
-		s_Data.QuadIndexCount += 6;
-
-		s_Data.Stats.QuadCount++;
+		DrawQuad(transform, p_Color);
 	}
 
 	/**
@@ -392,49 +397,11 @@ namespace Violet
 	{
 		VT_PROFILE_FUNCTION();
 
-		constexpr size_t quadVertexCount = 4;
-		constexpr glm::vec2 textureCoords[] = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
-
-		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
-			FlushAndReset();
-
-		float textureIndex = 0.0f;
-		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
-		{
-			if (*s_Data.TextureSlots[i].get() == *p_Texture.get())
-			{
-				textureIndex = (float)i;
-				break;
-			}
-		}
-
-		if (textureIndex == 0.0f)
-		{
-			if (s_Data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
-				FlushAndReset();
-
-			textureIndex = (float)s_Data.TextureSlotIndex;
-			s_Data.TextureSlots[s_Data.TextureSlotIndex] = p_Texture;
-			s_Data.TextureSlotIndex++;
-		}
-
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), p_Position)
 			* glm::rotate(glm::mat4(1.0f), glm::radians(p_Rotation), { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
 
-		for (size_t i = 0; i < quadVertexCount; i++)
-		{
-			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
-			s_Data.QuadVertexBufferPtr->Color = p_TintColor;
-			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
-			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-			s_Data.QuadVertexBufferPtr->TilingFactor = p_TilingFactor;
-			s_Data.QuadVertexBufferPtr++;
-		}
-
-		s_Data.QuadIndexCount += 6;
-
-		s_Data.Stats.QuadCount++;
+		DrawQuad(transform, p_Texture, p_TilingFactor, p_TintColor);
 	}
 
 	/**

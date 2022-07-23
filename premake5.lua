@@ -20,7 +20,8 @@ IncludeDir = {
 	["GLAD"]		= "Violet/Dependencies/GLAD/include",
 	["ImGui"]		= "Violet/Dependencies/imgui",
 	["glm"]			= "Violet/Dependencies/glm",
-	["stb_image"]	= "Violet/Dependencies/stb_image"
+	["stb_image"]	= "Violet/Dependencies/stb_image",
+	["entt"]		= "Violet/Dependencies/entt/include"
 }
 
 group "Dependencies"
@@ -60,7 +61,8 @@ project "Violet"
 		"%{IncludeDir.GLAD}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links {
@@ -111,7 +113,8 @@ project "Sandbox"
 		"Violet/Dependencies/spdlog/include",
 		"Violet/Source",
 		"Violet/Dependencies",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links {
@@ -156,7 +159,8 @@ project "Violet-Editor"
 		"Violet/Dependencies/spdlog/include",
 		"Violet/Source",
 		"Violet/Dependencies",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links {

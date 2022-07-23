@@ -3,7 +3,7 @@
 /// Violet.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 17th, 2022
+/// Updated: July 22nd, 2022
 ///
 /// Contains all of the include files for the
 /// Violet API.
@@ -34,5 +34,8 @@
 #include "Violet/Renderer/Shader.h"
 #include "Violet/Renderer/Texture.h"
 #include "Violet/Renderer/VertexArray.h"
+
+#include "Violet/Scene/Components.h"
+#include "Violet/Scene/Scene.h"
 
 #endif // _VIOLET_ENGINE_H_INCLUDED__

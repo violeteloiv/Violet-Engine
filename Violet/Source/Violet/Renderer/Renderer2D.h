@@ -3,7 +3,7 @@
 /// Renderer2D.h
 /// Violet McAllister
 /// July 14th, 2022
-/// Updated: July 16th, 2022
+/// Updated: July 17th, 2022
 ///
 /// Violet's main 2D Renderer which
 /// handles drawing 2D shapes.
@@ -37,6 +37,8 @@ namespace Violet
 		static void DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const glm::vec4& p_Color);
 		static void DrawQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture, float p_TilingFactor = 1.0f, const glm::vec4& p_TintColor = glm::vec4(1.0f));
 		static void DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture, float p_TilingFactor = 1.0f, const glm::vec4& p_TintColor = glm::vec4(1.0f));
+		static void DrawQuad(const glm::mat4& p_Transform, const glm::vec4& p_Color);
+		static void DrawQuad(const glm::mat4& p_Transform, const Ref<Texture2D>& p_Texture, float p_TilingFactor = 1.0f, const glm::vec4& p_TintColor = glm::vec4(1.0f));
 		static void DrawRotatedQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, float p_Rotation, const glm::vec4& p_Color);
 		static void DrawRotatedQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, float p_Rotation, const glm::vec4& p_Color);
 		static void DrawRotatedQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, float p_Rotation, const Ref<Texture2D>& p_Texture, float p_TilingFactor = 1.0f, const glm::vec4& p_TintColor = glm::vec4(1.0f));
