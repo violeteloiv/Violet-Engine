@@ -38,6 +38,7 @@ namespace Violet
 		void OnImGuiRender();
 	private: // Helpers
 		void DrawEntityNode(Entity p_Entity);
+		void DrawComponents(Entity p_Entity);
 	private: // Private Member Variables
 		Ref<Scene> m_Context;
 		Entity m_SelectionContext;

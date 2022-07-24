@@ -15,6 +15,8 @@
 
 #include "SceneHierarchyPanel.h"
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include <imgui/imgui.h>
 
 #include "Violet/Scene/Components.h"
@@ -48,14 +50,19 @@ namespace Violet
 	 */
 	void SceneHierarchyPanel::OnImGuiRender()
 	{
+		// Scene Hierarchy Panel
 		ImGui::Begin("Scene Hierarchy");
-
 		m_Context->m_Registry.each([&](auto entityID)
 		{
 			Entity entity{ entityID, m_Context.get() };
 			DrawEntityNode(entity);
 		});
-
+		ImGui::End();
+	
+		// Properties Panel
+		ImGui::Begin("Properties");
+		if (m_SelectionContext)
+			DrawComponents(m_SelectionContext);
 		ImGui::End();
 	}
 
@@ -81,6 +88,40 @@ namespace Violet
 			if (opened)
 				ImGui::TreePop();
 			ImGui::TreePop();
+		}
+	}
+
+	/**
+	 * @brief Draws the components of a given entity.
+	 * @param p_Entity The entity to fraw the components
+	 * of.
+	 */
+	void SceneHierarchyPanel::DrawComponents(Entity p_Entity)
+	{
+		// Tag Component Drawing
+		if (p_Entity.HasComponent<TagComponent>())
+		{
+			auto& tag = p_Entity.GetComponent<TagComponent>().Tag;
+
+			char buffer[256];
+			memset(buffer, 0, sizeof(buffer));
+			strcpy_s(buffer, sizeof(buffer), tag.c_str());
+			if (ImGui::InputText("Tag", buffer, sizeof(buffer)))
+			{
+				tag = std::string(buffer);
+			}
+		}
+
+		// Transform Component Drawing
+		if (p_Entity.HasComponent<TransformComponent>())
+		{
+			if (ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform"))
+			{
+				auto& transform = p_Entity.GetComponent<TransformComponent>().Transform;
+				ImGui::DragFloat3("Position", glm::value_ptr(transform[3]), 0.1f);
+
+				ImGui::TreePop();
+			}
 		}
 	}
 }
