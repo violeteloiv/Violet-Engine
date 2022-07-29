@@ -65,8 +65,8 @@ namespace Violet
 		public:
 			virtual void OnCreate() override
 			{
-				auto& transform = GetComponent<TransformComponent>().Transform;
-				transform[3][0] = rand() % 10 - 5.0f;
+				auto& translation = GetComponent<TransformComponent>().Translation;
+				translation.x = rand() % 10 - 5.0f;
 			}
 
 			virtual void OnDestroy() override
@@ -76,17 +76,17 @@ namespace Violet
 
 			virtual void OnUpdate(Timestep p_Timestep) override
 			{
-				auto& transform = GetComponent<TransformComponent>().Transform;
+				auto& translation = GetComponent<TransformComponent>().Translation;
 				float speed = 5.0f;
 
 				if (Input::IsKeyPressed(Key::A))
-					transform[3][0] -= speed * p_Timestep;
+					translation.x -= speed * p_Timestep;
 				if (Input::IsKeyPressed(Key::D))
-					transform[3][0] += speed * p_Timestep;
+					translation.x += speed * p_Timestep;
 				if (Input::IsKeyPressed(Key::W))
-					transform[3][1] += speed * p_Timestep;
+					translation.y += speed * p_Timestep;
 				if (Input::IsKeyPressed(Key::S))
-					transform[3][1] -= speed * p_Timestep;
+					translation.y -= speed * p_Timestep;
 			}
 		};
 

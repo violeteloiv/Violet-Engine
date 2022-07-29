@@ -3,7 +3,7 @@
 /// Components.h
 /// Violet McAllister
 /// July 17th, 2022
-/// Updated: July 23rd, 2022
+/// Updated: July 28th, 2022
 ///
 /// Contains definitions and implementations
 /// for all of the Violet API's components.
@@ -14,6 +14,7 @@
 #define __VIOLET_ENGINE_SCENE_COMPONENTS_H_INCLUDED__
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "Violet/Scene/SceneCamera.h"
 #include "Violet/Scene/ScriptableEntity.h"
@@ -47,20 +48,34 @@ namespace Violet
 	struct TransformComponent
 	{
 	public: // Variables
-		glm::mat4 Transform{ 1.0f };
+		glm::vec3 Translation = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 Rotation = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 Scale = { 1.0f, 1.0f, 1.0f };
 	public: // Constructors
 		TransformComponent() = default;
 		TransformComponent(const TransformComponent&) = default;
 
 		/**
-		 * @brief Constructs a transform using a different transform.
-		 * @param p_Transform The transform to be added.
+		 * @brief Constructs a transform using its position.
+		 * @param p_Translation The translation of the entity.
 		 */
-		TransformComponent(const glm::mat4& p_Transform)
-			: Transform(p_Transform) {}
+		TransformComponent(const glm::vec3& p_Translation)
+			: Translation(p_Translation) {}
 	public: // Operators
-		operator glm::mat4& () { return Transform; }
-		operator const glm::mat4& const () { return Transform; }
+		/**
+		 * @brief Gets the transform of the entity given its
+		 * translation, rotation, and scale.
+		 */
+		glm::mat4 GetTransform()
+		{
+			glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), Rotation.x, { 1, 0, 0 })
+				* glm::rotate(glm::mat4(1.0f), Rotation.y, { 0, 1, 0 })
+				* glm::rotate(glm::mat4(1.0f), Rotation.z, { 0, 0, 1 });
+
+			return glm::translate(glm::mat4(1.0f), Translation)
+				* rotation
+				* glm::scale(glm::mat4(1.0f), Scale);
+		}
 	};
 
 	/**
