@@ -3,7 +3,7 @@
 /// Scene.h
 /// Violet McAllister
 /// July 22nd, 2022
-/// Updated: July 23rd, 2022
+/// Updated: July 28th, 2022
 ///
 /// A Scene contains information about all of the
 /// entities and how to render and deal with them.
@@ -32,9 +32,13 @@ namespace Violet
 		~Scene();
 	public: // Main Functionality
 		Entity CreateEntity(const std::string& p_Name = std::string());
+		void DestroyEntity(Entity p_Entity);
 	public: // Viole Internals
 		void OnUpdate(Timestep p_Timestep);
 		void OnViewportSize(uint32_t p_Width, uint32_t p_Height);
+	private: // Component
+		template<typename T>
+		void OnComponentAdded(Entity p_Entity, T& p_Component);
 	private: // Private Member Variables
 		entt::registry m_Registry;
 		uint32_t m_ViewportWidth = 0, m_ViewportHeight = 0;

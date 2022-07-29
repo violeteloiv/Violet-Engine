@@ -3,7 +3,7 @@
 /// Entity.h
 /// Violet McAllister
 /// July 22nd, 2022
-/// Updated: July 23rd, 2022
+/// Updated: July 28th, 2022
 ///
 /// A Violet entity is able to have components
 /// attached to it which decides what it does
@@ -39,7 +39,9 @@ namespace Violet
 		T& AddComponent(Args&&... p_Args)
 		{
 			VT_CORE_ASSERT(!HasComponent<T>(), "Entity Already Has Component!");
-			return m_Scene->m_Registry.emplace<T>(m_EntityHandle, std::forward<Args>(p_Args)...);
+			T& component = m_Scene->m_Registry.emplace<T>(m_EntityHandle, std::forward<Args>(p_Args)...);
+			m_Scene->OnComponentAdded<T>(*this, component);
+			return component;
 		}
 
 		/**
@@ -77,6 +79,7 @@ namespace Violet
 		}
 	public: // Overrides
 		operator bool() const { return m_EntityHandle != entt::null; }
+		operator entt::entity() const { return m_EntityHandle; }
 		operator uint32_t() const { return (uint32_t)m_EntityHandle; }
 	public: // Operator Overloads
 		bool operator==(const Entity& p_Other) const

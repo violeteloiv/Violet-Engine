@@ -52,6 +52,15 @@ namespace Violet
 	}
 
 	/**
+	 * @brief Destroys an entity.
+	 * @param p_Entity The entity to destroy.
+	 */
+	void Scene::DestroyEntity(Entity p_Entity)
+	{
+		m_Registry.destroy(p_Entity);
+	}
+
+	/**
 	 * @brief Runs when the application is updated.
 	 * @param p_Timestep The timestep.
 	 */
@@ -126,5 +135,71 @@ namespace Violet
 			if (!cameraComponent.FixedAspectRatio)
 				cameraComponent.Camera.SetViewportSize(p_Width, p_Height);
 		}
+	}
+
+	/**
+	 * @brief Runs when a component is added to an entity.
+	 * @param p_Entity The entity a component is being added to.
+	 * @param p_Component The component being added to the entity.
+	 */
+	template<typename T>
+	void Scene::OnComponentAdded(Entity p_Entity, T& p_Component)
+	{
+		static_assert(false);
+	}
+
+	/**
+	 * @brief Runs when a transform component is added to an entity.
+	 * @param p_Entity The entity a transform component is being added to.
+	 * @param p_Component The transform component being added to the entity.
+	 */
+	template<>
+	void Scene::OnComponentAdded<TransformComponent>(Entity p_Entity, TransformComponent& p_Component)
+	{
+
+	}
+
+	/**
+	 * @brief Runs when a camera component component is added to an entity.
+	 * @param p_Entity The entity a camera component component is being added to.
+	 * @param p_Component The camera component component being added to the entity.
+	 */
+	template<>
+	void Scene::OnComponentAdded<CameraComponent>(Entity p_Entity, CameraComponent& p_Component)
+	{
+		p_Component.Camera.SetViewportSize(m_ViewportWidth, m_ViewportHeight);
+	}
+
+	/**
+	 * @brief Runs when a sprite renderer component component is added to an entity.
+	 * @param p_Entity The entity a sprite renderer component component is being added to.
+	 * @param p_Component The transform sprite renderer component being added to the entity.
+	 */
+	template<>
+	void Scene::OnComponentAdded<SpriteRendererComponent>(Entity p_Entity, SpriteRendererComponent& p_Component)
+	{
+
+	}
+
+	/**
+	 * @brief Runs when a tag component is added to an entity.
+	 * @param p_Entity The entity a tag component is being added to.
+	 * @param p_Component The tag component being added to the entity.
+	 */
+	template<>
+	void Scene::OnComponentAdded<TagComponent>(Entity p_Entity, TagComponent& p_Component)
+	{
+
+	}
+
+	/**
+	 * @brief Runs when a native script component component is added to an entity.
+	 * @param p_Entity The entity a native script component component is being added to.
+	 * @param p_Component The native script component component being added to the entity.
+	 */
+	template<>
+	void Scene::OnComponentAdded<NativeScriptComponent>(Entity p_Entity, NativeScriptComponent& p_Component)
+	{
+
 	}
 }
