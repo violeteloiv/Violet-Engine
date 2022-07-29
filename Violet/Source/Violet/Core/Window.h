@@ -3,7 +3,7 @@
 /// Window.h
 /// Violet McAllister
 /// July 1st, 2022
-/// Updated: July 23rd, 2022
+/// Updated: July 28th, 2022
 ///
 /// Contains Window Properties and a Window
 /// interface to generalize window functionality
@@ -37,8 +37,8 @@ namespace Violet
 		 * @param p_Height (default 720 pixels) Is the height of the window.
 		 */
 		WindowProperties(const std::string& p_Title = "Violet Engine",
-			uint32_t p_Width = 1280,
-			uint32_t p_Height = 720)
+			uint32_t p_Width = 1600,
+			uint32_t p_Height = 900)
 			: Title(p_Title), Width(p_Width), Height(p_Height)
 		{
 
