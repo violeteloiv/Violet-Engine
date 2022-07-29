@@ -3,6 +3,7 @@
 /// SceneCamera.cpp
 /// Violet McAllister
 /// July 23rd, 2022
+/// Updated: July 28th, 2022
 ///
 /// A camera used by the scene as a way to
 /// navigate scenes.
@@ -26,21 +27,6 @@ namespace Violet
 	}
 
 	/**
-	 * @brief Sets the orthographic projection of the camera.
-	 * @param p_Size The orthographic information.
-	 * @param p_NearClip The near clip of the camera.
-	 * @param p_FarClip the far clip of the camera.
-	 */
-	void SceneCamera::SetOrthographic(float p_Size, float p_NearClip, float p_FarClip)
-	{
-		m_ProjectionType = ProjectionType::Orthographic;
-		m_OrthographicSize = p_Size;
-		m_OrthographicNear = p_NearClip;
-		m_OrthographicFar = p_FarClip;
-		RecalculateProjection();
-	}
-
-	/**
 	 * @brief Sets the perspective projection of the camera.
 	 * @param p_VerticalFOV The perspective information.
 	 * @param p_NearClip The near clip of the camera.
@@ -52,6 +38,21 @@ namespace Violet
 		m_PerspectiveFOV = p_VerticalFOV;
 		m_PerspectiveNear = p_NearClip;
 		m_PerspectiveFar = p_FarClip;
+		RecalculateProjection();
+	}
+
+	/**
+	 * @brief Sets the orthographic projection of the camera.
+	 * @param p_Size The orthographic information.
+	 * @param p_NearClip The near clip of the camera.
+	 * @param p_FarClip the far clip of the camera.
+	 */
+	void SceneCamera::SetOrthographic(float p_Size, float p_NearClip, float p_FarClip)
+	{
+		m_ProjectionType = ProjectionType::Orthographic;
+		m_OrthographicSize = p_Size;
+		m_OrthographicNear = p_NearClip;
+		m_OrthographicFar = p_FarClip;
 		RecalculateProjection();
 	}
 

@@ -3,7 +3,7 @@
 /// MouseEvent.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 13rd, 2022
+/// Updated: July 28th, 2022
 ///
 /// Contains Mouse related events and
 /// functionality.
@@ -126,7 +126,7 @@ namespace Violet
 		 */
 		MouseCode GetMouseButton() const { return m_Button; }
 	public: // Macros
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput | EventCategoryMouseButton)
 	protected: // Constructors & Deconstructors
 		/**
 		 * @brief Constructs a MouseButtonEvent object.

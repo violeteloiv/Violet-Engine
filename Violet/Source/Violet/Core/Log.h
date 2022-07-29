@@ -3,7 +3,7 @@
 /// Log.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 16th, 2022
+/// Updated: July 28th, 2022
 ///
 /// Contains class information for logging. Utilizes
 /// a static "singleton" like object in order to initialize
@@ -15,8 +15,11 @@
 #ifndef __VIOLET_ENGINE_LOG_H_INCLUDED__
 #define __VIOLET_ENGINE_LOG_H_INCLUDED__
 
-#include <spdlog/spdlog.h>
-#include <spdlog/fmt/ostr.h>
+// This ignores all warnings raised inside ImGui
+#pragma warning(push, 0)
+	#include <spdlog/spdlog.h>
+	#include <spdlog/fmt/ostr.h>
+#pragma warning(pop)
 
 #include "Violet/Core/Base.h"
 

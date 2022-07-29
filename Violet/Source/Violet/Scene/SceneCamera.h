@@ -3,6 +3,7 @@
 /// SceneCamera.h
 /// Violet McAllister
 /// July 23rd, 2022
+/// Updated: July 28th, 2022
 ///
 /// A camera used by the scene as a way to
 /// navigate scenes.
@@ -31,8 +32,8 @@ namespace Violet
 		SceneCamera();
 		virtual ~SceneCamera() = default;
 	public: // Getters & Setters
-		void SetOrthographic(float p_Size, float p_NearClip, float p_FarClip);
 		void SetPerspective(float p_VerticalFOV, float p_NearClip, float p_FarClip);
+		void SetOrthographic(float p_Size, float p_NearClip, float p_FarClip);
 		void SetViewportSize(uint32_t p_Width, uint32_t p_Height);
 
 		/**

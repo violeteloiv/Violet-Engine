@@ -3,7 +3,7 @@
 /// Core.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 23rd, 2022
+/// Updated: July 28th, 2022
 /// 
 /// Defines the macros required to make dll
 /// exporting work and connect the Violet
@@ -33,13 +33,8 @@
 	#define VT_DEBUGBREAK()
 #endif
 
-#ifdef VT_ENABLE_ASSERTS
-	#define VT_ASSERT(x, ...) { if (!(x)) { VT_ERROR("Assertion Failed: {0}", __VA_ARGS__); VT_DEBUGBREAK(); } }
-	#define VT_CORE_ASSERT(x, ...) { if (!(x)) { VT_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); VT_DEBUGBREAK(); } }
-#else
-	#define VT_ASSERT(x, ...)
-	#define VT_CORE_ASSERT(x, ...)
-#endif // VT_ENABLE_ASSERTS
+#define VT_EXPAND_MACRO(x) x
+#define VT_STRINGIFY_MACRO(x) #x
 
 // Bit Operation
 #define BIT(x) (1 << x)
@@ -79,5 +74,8 @@ namespace Violet
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
 }
+
+#include "Violet/Core/Assert.h"
+#include "Violet/Core/Log.h"
 
 #endif // __VIOLET_ENGINE_CORE_H_INCLUDED__

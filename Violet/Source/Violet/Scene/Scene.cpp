@@ -3,7 +3,7 @@
 /// Scene.cpp
 /// Violet McAllister
 /// July 22nd, 2022
-/// Updated: July 23rd, 2022
+/// Updated: July 28th, 2022
 ///
 /// A Scene contains information about all of the
 /// entities and how to render and deal with them.
@@ -94,7 +94,7 @@ namespace Violet
 
 		if (mainCamera)
 		{
-			Renderer2D::BeginScene(mainCamera->GetProjection(), *cameraTransform);
+			Renderer2D::BeginScene(*mainCamera, *cameraTransform);
 
 			auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 			for (auto entity : group)
