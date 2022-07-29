@@ -3,6 +3,7 @@
 /// SceneHierarchyPanel.cpp
 /// Violet McAllister
 /// July 23rd, 2022
+/// Updated: July 28th, 2022
 ///
 /// The Scene Hierarchy Panel in the Violet Editor
 /// contains information regarding the entities in
@@ -57,8 +58,12 @@ namespace Violet
 			Entity entity{ entityID, m_Context.get() };
 			DrawEntityNode(entity);
 		});
-		ImGui::End();
+
+		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+			m_SelectionContext = {};
 	
+		ImGui::End();
+
 		// Properties Panel
 		ImGui::Begin("Properties");
 		if (m_SelectionContext)
