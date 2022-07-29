@@ -27,7 +27,8 @@ IncludeDir = {
 	["ImGui"]		= "%{wks.location}/Violet/Dependencies/imgui",
 	["glm"]			= "%{wks.location}/Violet/Dependencies/glm",
 	["stb_image"]	= "%{wks.location}/Violet/Dependencies/stb_image",
-	["entt"]		= "%{wks.location}/Violet/Dependencies/entt/include"
+	["entt"]		= "%{wks.location}/Violet/Dependencies/entt/include",
+	["yaml_cpp"]	= "%{wks.location}/Violet/Dependencies/yaml-cpp/include"
 }
 
 group "Dependencies"
@@ -35,6 +36,7 @@ group "Dependencies"
 	include "Violet/Dependencies/GLFW"
 	include "Violet/Dependencies/Glad"
 	include "Violet/Dependencies/imgui"
+	include "Violet/Dependencies/yaml-cpp"
 group ""
 
 include "Violet"
