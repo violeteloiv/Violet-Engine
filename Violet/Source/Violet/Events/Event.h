@@ -3,7 +3,7 @@
 /// Event.h
 /// Violet McAllister
 /// June 30th, 2022
-/// Updated: July 13rd, 2022
+/// Updated: July 28th, 2022
 ///
 /// Contains Event Types, Categories, and a Dispatcher.
 /// 
@@ -149,7 +149,7 @@ namespace Violet
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
 				// Wizard Referencing & Dereferencing
-				m_Event.Handled = p_Function(static_cast<T&>(m_Event));
+				m_Event.Handled |= p_Function(static_cast<T&>(m_Event));
 				return true;
 			}
 			

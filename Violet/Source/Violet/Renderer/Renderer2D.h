@@ -3,7 +3,7 @@
 /// Renderer2D.h
 /// Violet McAllister
 /// July 14th, 2022
-/// Updated: July 22nd, 2022
+/// Updated: July 28th, 2022
 ///
 /// Violet's main 2D Renderer which
 /// handles drawing 2D shapes.
@@ -58,19 +58,20 @@ namespace Violet
 			 * @brief Gets the total number of vertices drawn.
 			 * @returns The total number of vertices drawn.
 			 */
-			uint32_t GetTotalVertexCount() { return QuadCount * 4; }
+			uint32_t GetTotalVertexCount() const { return QuadCount * 4; }
 
 			/**
 			 * @brief Gets the total number of indices drawn.
 			 * @returns The total number of indices drawn.
 			 */
-			uint32_t GetTotalIndexCount() { return QuadCount * 6; }
+			uint32_t GetTotalIndexCount() const { return QuadCount * 6; }
 		};
 	public: // Statistics Functions
 		static void ResetStats();
 		static Statistics GetStats();
 	private: // Helpers
-		static void FlushAndReset();
+		static void StartBatch();
+		static void NextBatch();
 	};
 }
 

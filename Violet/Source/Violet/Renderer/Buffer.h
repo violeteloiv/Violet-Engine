@@ -3,7 +3,7 @@
 /// Buffer.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 28th, 2022
 ///
 /// Contains Vertex & Index Buffer objects used
 /// to store information regarding the vertices
@@ -114,7 +114,7 @@ namespace Violet
 		 * @brief Constructs a BufferLayout object using a list of elements.
 		 * @param p_Elements The list of elements.
 		 */
-		BufferLayout(const std::initializer_list<BufferElement>& p_Elements)
+		BufferLayout(std::initializer_list<BufferElement> p_Elements)
 			: m_Elements(p_Elements)
 		{
 			CalculateOffsetsAndStride();
