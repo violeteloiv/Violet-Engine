@@ -3,6 +3,7 @@
 /// WindowsPlatformUtils.cpp
 /// Violet McAllister
 /// July 29th, 2022
+/// Updated: July 30th, 2022
 ///
 /// A windows implementation of all
 /// platform specific utility funcitons.
@@ -14,7 +15,6 @@
 #include "Violet/Utils/PlatformUtils.h"
 
 #include <commdlg.h>
-#include <sstream>
 
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32 // Native GLFW Functions
@@ -35,11 +35,14 @@ namespace Violet
 	{
 		OPENFILENAMEA ofn;
 		CHAR szFile[260] = { 0 };
+		CHAR currentDir[256] = { 0 };
 		ZeroMemory(&ofn, sizeof(OPENFILENAME));
 		ofn.lStructSize = sizeof(OPENFILENAME);
 		ofn.hwndOwner = glfwGetWin32Window((GLFWwindow*)Application::Get().GetWindow().GetNativeWindow());
 		ofn.lpstrFile = szFile;
 		ofn.nMaxFile = sizeof(szFile);
+		if (GetCurrentDirectoryA(256, currentDir))
+			ofn.lpstrInitialDir = currentDir;
 		ofn.lpstrFilter = p_Filter;
 		ofn.nFilterIndex = 1;
 		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
@@ -61,14 +64,17 @@ namespace Violet
 	{
 		OPENFILENAMEA ofn;
 		CHAR szFile[260] = { 0 };
+		CHAR currentDir[256] = { 0 };
 		ZeroMemory(&ofn, sizeof(OPENFILENAME));
 		ofn.lStructSize = sizeof(OPENFILENAME);
 		ofn.hwndOwner = glfwGetWin32Window((GLFWwindow*)Application::Get().GetWindow().GetNativeWindow());
 		ofn.lpstrFile = szFile;
 		ofn.nMaxFile = sizeof(szFile);
+		if (GetCurrentDirectoryA(256, currentDir))
+			ofn.lpstrInitialDir = currentDir;
 		ofn.lpstrFilter = p_Filter;
 		ofn.nFilterIndex = 1;
-		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT | OFN_NOCHANGEDIR;
 
 		// Sets the default extension by extracting it from the filter.
 		ofn.lpstrDefExt = strchr(p_Filter, '\0') + 1;
