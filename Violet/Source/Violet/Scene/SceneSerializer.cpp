@@ -44,6 +44,7 @@ namespace YAML
 			node.push_back(p_RHS.x);
 			node.push_back(p_RHS.y);
 			node.push_back(p_RHS.z);
+			node.SetStyle(EmitterStyle::Flow);
 			return node;
 		}
 
@@ -87,6 +88,7 @@ namespace YAML
 			node.push_back(p_RHS.y);
 			node.push_back(p_RHS.z);
 			node.push_back(p_RHS.w);
+			node.SetStyle(EmitterStyle::Flow);
 			return node;
 		}
 
@@ -272,11 +274,7 @@ namespace Violet
 	 */
 	bool SceneSerializer::Deserialize(const std::string& p_Filepath)
 	{
-		std::ifstream stream(p_Filepath);
-		std::stringstream ss;
-		ss << stream.rdbuf();
-
-		YAML::Node data = YAML::Load(ss.str());
+		YAML::Node data = YAML::LoadFile(p_Filepath);
 		if (!data["Scene"])
 			return false;
 

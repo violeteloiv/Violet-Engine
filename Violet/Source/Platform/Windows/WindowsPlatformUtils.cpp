@@ -14,6 +14,7 @@
 #include "Violet/Utils/PlatformUtils.h"
 
 #include <commdlg.h>
+#include <sstream>
 
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32 // Native GLFW Functions
@@ -30,7 +31,7 @@ namespace Violet
 	 * @returns The filepath to the selected file in the open
 	 * file dialog.
 	 */
-	std::string FileDialogs::OpenFile(const char* p_Filter)
+	std::optional<std::string> FileDialogs::OpenFile(const char* p_Filter)
 	{
 		OPENFILENAMEA ofn;
 		CHAR szFile[260] = { 0 };
@@ -46,7 +47,7 @@ namespace Violet
 		if (GetOpenFileNameA(&ofn) == TRUE)
 			return ofn.lpstrFile;
 
-		return std::string();
+		return std::nullopt;
 	}
 
 	/**
@@ -56,7 +57,7 @@ namespace Violet
 	 * @returns The filepath to the selected file in the save
 	 * file dialog.
 	 */
-	std::string FileDialogs::SaveFile(const char* p_Filter)
+	std::optional<std::string> FileDialogs::SaveFile(const char* p_Filter)
 	{
 		OPENFILENAMEA ofn;
 		CHAR szFile[260] = { 0 };
@@ -69,9 +70,12 @@ namespace Violet
 		ofn.nFilterIndex = 1;
 		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
 
+		// Sets the default extension by extracting it from the filter.
+		ofn.lpstrDefExt = strchr(p_Filter, '\0') + 1;
+
 		if (GetSaveFileNameA(&ofn) == TRUE)
 			return ofn.lpstrFile;
 
-		return std::string();
+		return std::nullopt;
 	}
 }

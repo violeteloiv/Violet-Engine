@@ -13,6 +13,7 @@
 #ifndef __VIOLET_ENGINE_UTILS_PLATFORM_UTILS_H_INCLUDED__
 #define __VIOLET_ENGINE_UTILS_PLATFORM_UTILS_H_INCLUDED__
 
+#include <optional>
 #include <string>
 
 namespace Violet
@@ -24,8 +25,8 @@ namespace Violet
 	class FileDialogs
 	{
 	public:
-		static std::string OpenFile(const char* p_Filter);
-		static std::string SaveFile(const char* p_Filter);
+		static std::optional<std::string> OpenFile(const char* p_Filter);
+		static std::optional<std::string> SaveFile(const char* p_Filter);
 	};
 }
 
