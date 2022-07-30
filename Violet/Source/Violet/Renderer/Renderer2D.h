@@ -3,7 +3,7 @@
 /// Renderer2D.h
 /// Violet McAllister
 /// July 14th, 2022
-/// Updated: July 28th, 2022
+/// Updated: July 30th, 2022
 ///
 /// Violet's main 2D Renderer which
 /// handles drawing 2D shapes.
@@ -14,6 +14,7 @@
 #define __VIOLET_ENGINE_RENDERER_2D_H_INCLUDED__
 
 #include "Violet/Renderer/Camera.h"
+#include "Violet/Renderer/EditorCamera.h"
 #include "Violet/Renderer/OrthographicCamera.h"
 #include "Violet/Renderer/Texture.h"
 
@@ -30,6 +31,7 @@ namespace Violet
 		static void Shutdown();
 	public: // Scene
 		static void BeginScene(const Camera& p_Camera, const glm::mat4& p_Transform);
+		static void BeginScene(const EditorCamera& p_Camera);
 		static void BeginScene(const OrthographicCamera& p_Camera); // TODO: Remove
 		static void EndScene();
 	public: // Batching

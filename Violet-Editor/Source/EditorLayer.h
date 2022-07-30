@@ -14,6 +14,8 @@
 
 #include "Violet.h"
 
+#include "Violet/Renderer/EditorCamera.h"
+
 #include "Panels/SceneHierarchyPanel.h"
 
 namespace Violet {
@@ -47,6 +49,7 @@ namespace Violet {
 		int m_GizmoType = -1;
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
+		EditorCamera m_EditorCamera;
 	private: // Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 	private: // Temporary

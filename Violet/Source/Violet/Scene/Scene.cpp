@@ -61,10 +61,10 @@ namespace Violet
 	}
 
 	/**
-	 * @brief Runs when the application is updated.
+	 * @brief Runs when the application is in runtime.
 	 * @param p_Timestep The timestep.
 	 */
-	void Scene::OnUpdate(Timestep p_Timestep)
+	void Scene::OnUpdateRuntime(Timestep p_Timestep)
 	{
 		// Update Scripts
 		{
@@ -115,6 +115,26 @@ namespace Violet
 
 			Renderer2D::EndScene();
 		}
+	}
+
+	/**
+	 * @brief Runs when the application is in editor.
+	 * @param p_Timestep The timestep.
+	 * @param p_Camera The editor camera.
+	 */
+	void Scene::OnUpdateEditor(Timestep p_Timestep, EditorCamera& p_Camera)
+	{
+		Renderer2D::BeginScene(p_Camera);
+
+		auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+		for (auto entity : group)
+		{
+			auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+
+			Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+		}
+
+		Renderer2D::EndScene();
 	}
 
 	/**
