@@ -44,6 +44,7 @@ namespace Violet
 	void SceneHierarchyPanel::SetContext(const Ref<Scene>& p_Context)
 	{
 		m_Context = p_Context;
+		m_SelectionContext = {};
 	}
 
 	/**

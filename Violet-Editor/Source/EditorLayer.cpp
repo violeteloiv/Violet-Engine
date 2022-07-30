@@ -17,6 +17,7 @@
 #include <imgui/imgui.h>
 
 #include "Violet/Scene/SceneSerializer.h"
+#include "Violet/Utils/PlatformUtils.h"
 
 namespace Violet
 {
@@ -206,17 +207,17 @@ namespace Violet
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
-				if (ImGui::MenuItem("Serialize"))
-				{
-					SceneSerializer serializer(m_ActiveScene);
-					serializer.Serialize("Assets/Scenes/Example.violet");
-				}
+				// New Scene
+				if (ImGui::MenuItem("New", "Ctrl+N"))
+					NewScene();
+	
+				// Open Scene
+				if (ImGui::MenuItem("Open...", "Ctrl+O"))
+					OpenScene();
 
-				if (ImGui::MenuItem("Deserialize"))
-				{
-					SceneSerializer serializer(m_ActiveScene);
-					serializer.Deserialize("Assets/Scenes/Example.violet");
-				}
+				// Save Scene As
+				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
+					SaveSceneAs();
 
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
@@ -260,5 +261,90 @@ namespace Violet
 	void EditorLayer::OnEvent(Event& p_Event)
 	{
 		m_CameraController.OnEvent(p_Event);
+
+		EventDispatcher dispatcher(p_Event);
+		dispatcher.Dispatch<KeyPressedEvent>(VT_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
+	}
+
+	/**
+	 * @brief Runs when a key is pressed, implements scene
+	 * management shortcuts.
+	 * @param p_Event The event information.
+	 * @returns The event success.
+	 */
+	bool EditorLayer::OnKeyPressed(KeyPressedEvent& p_Event)
+	{
+		// Shortcuts only
+		if (p_Event.GetRepeatCount() > 0)
+			return false;
+
+		bool control = Input::IsKeyPressed(Key::LeftControl) || Input::IsKeyPressed(Key::RightControl);
+		bool shift = Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift);
+		switch (p_Event.GetKeyCode())
+		{
+			// New Scene
+			case Key::N:
+			{
+				if (control)
+					NewScene();
+				break;
+			}
+
+			// Open Scene
+			case Key::O:
+			{
+				if (control)
+					OpenScene();
+				break;
+			}
+			
+			// Save Scene As
+			case Key::S:
+			{
+				if (control && shift)
+					SaveSceneAs();
+				break;
+			}
+		}
+	}
+
+	/**
+	 * @brief Creates a new scene from scratch.
+	 */
+	void EditorLayer::NewScene()
+	{
+		m_ActiveScene = CreateRef<Scene>();
+		m_ActiveScene->OnViewportSize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+	}
+
+	/**
+	 * @brief Opens a scene from a file. 
+	 */
+	void EditorLayer::OpenScene()
+	{
+		std::string filepath = FileDialogs::OpenFile("Violet Scene (*.violet)\0*.violet\0");
+		if (!filepath.empty())
+		{
+			m_ActiveScene = CreateRef<Scene>();
+			m_ActiveScene->OnViewportSize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Deserialize(filepath);
+		}
+	}
+
+	/**
+	 * @brief Opens a dialog to save a scene to file. 
+	 */
+	void EditorLayer::SaveSceneAs()
+	{
+		std::string filepath = FileDialogs::SaveFile("Violet Scene (*.violet)\0*.violet\0");
+		if (!filepath.empty())
+		{
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Serialize(filepath);
+		}
 	}
 }

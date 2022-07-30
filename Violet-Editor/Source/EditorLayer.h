@@ -3,7 +3,7 @@
 /// EditorLayer.h
 /// Violet McAllister
 /// July 17th, 2022
-/// Updated: July 23rd, 2022
+/// Updated: July 29th, 2022
 ///
 /// The main editor layer for Violet Editor.
 ///
@@ -34,6 +34,12 @@ namespace Violet {
 		void OnUpdate(Timestep ts) override;
 		virtual void OnImGuiRender() override;
 		void OnEvent(Event& e) override;
+	private: // Event
+		bool OnKeyPressed(KeyPressedEvent& p_Event);
+	private: // File Dialogs
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
 	private: // Private Member Variables
 		OrthographicCameraController m_CameraController;
 		Ref<Texture2D> m_CheckerboardTexture;
