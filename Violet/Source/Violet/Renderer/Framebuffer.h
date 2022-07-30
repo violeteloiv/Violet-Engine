@@ -100,6 +100,7 @@ namespace Violet
 		virtual void Unbind() = 0;
 		virtual void Resize(uint32_t p_Width, uint32_t p_Height) = 0;
 		virtual int ReadPixel(uint32_t p_AttachmentIndex, int p_X, int p_Y) = 0;
+		virtual void ClearAttachment(uint32_t p_AttachmentIndex, int p_Value) = 0;
 	public: // Getters
 		virtual uint32_t GetColorAttachmentRendererID(uint32_t p_Index = 0) const = 0;
 		virtual const FramebufferSpecification& GetSpecification() const = 0;

@@ -130,6 +130,23 @@ namespace Violet
 
 			return false;
 		}
+
+		/**
+		 * @brief Converts a Violet FB Format to an OpenGL format.
+		 * @param p_Format The format to convert.
+		 * @returns The converted format.
+		 */
+		static GLenum VioletFBTextureFormatToGL(FramebufferTextureFormat p_Format)
+		{
+			switch (p_Format)
+			{
+				case FramebufferTextureFormat::RGBA8: return GL_RGBA8;
+				case FramebufferTextureFormat::RED_INTEGER: return GL_RED_INTEGER;
+			}
+
+			VT_CORE_ASSERT(false);
+			return 0;
+		}
 	}
 
 	/**
@@ -286,5 +303,19 @@ namespace Violet
 		int pixelData;
 		glReadPixels(p_X, p_Y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
 		return pixelData;
+	}
+
+	/**
+	 * @brief Clears the attachment to a particular value.
+	 * @param p_AttachmentIndex The index to clear.
+	 * @param p_Value The value to clear to;
+	 */
+	void OpenGLFramebuffer::ClearAttachment(uint32_t p_AttachmentIndex, int p_Value)
+	{
+		VT_CORE_ASSERT(p_AttachmentIndex < m_ColorAttachments.size());
+
+		auto& spec = m_ColorAttachmentSpecifications[p_AttachmentIndex];
+		glClearTexImage(m_ColorAttachments[p_AttachmentIndex], 0,
+			Utils::VioletFBTextureFormatToGL(spec.TextureFormat), GL_INT, &p_Value);
 	}
 }

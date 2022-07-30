@@ -150,6 +150,9 @@ namespace Violet
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 
+		// Clear Entity ID Attachment To -1
+		m_Framebuffer->ClearAttachment(1, -1);
+
 		// Update Scene
 		m_ActiveScene->OnUpdateEditor(p_Timestep, m_EditorCamera);
 

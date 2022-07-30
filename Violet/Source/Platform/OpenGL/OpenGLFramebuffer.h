@@ -34,6 +34,7 @@ namespace Violet
 		virtual void Unbind() override;
 		virtual void Resize(uint32_t p_Width, uint32_t p_Height) override;
 		virtual int ReadPixel(uint32_t p_AttachmentIndex, int p_X, int p_Y) override;
+		virtual void ClearAttachment(uint32_t p_AttachmentIndex, int p_Value) override;
 	public: // Getters
 		/**
 		 * @brief Gets the color attachment for the framebuffer.
