@@ -17,7 +17,8 @@ project "Violet-Editor"
 		"%{wks.location}/Violet/Source",
 		"%{wks.location}/Violet/Dependencies",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links {

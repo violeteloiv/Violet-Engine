@@ -3,7 +3,7 @@
 /// Scene.cpp
 /// Violet McAllister
 /// July 22nd, 2022
-/// Updated: July 28th, 2022
+/// Updated: July 30th, 2022
 ///
 /// A Scene contains information about all of the
 /// entities and how to render and deal with them.
@@ -135,6 +135,22 @@ namespace Violet
 			if (!cameraComponent.FixedAspectRatio)
 				cameraComponent.Camera.SetViewportSize(p_Width, p_Height);
 		}
+	}
+
+	/**
+	 * @brief Gets the primary camera entity from the scene.
+	 * @returns The primary camera entity in the scene.
+	 */
+	Entity Scene::GetPrimaryCameraEntity()
+	{
+		auto view = m_Registry.view<CameraComponent>();
+		for (auto entity : view)
+		{
+			const auto& camera = view.get<CameraComponent>(entity);
+			if (camera.Primary)
+				return Entity{ entity, this };
+		}
+		return {};
 	}
 
 	/**

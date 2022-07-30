@@ -3,7 +3,7 @@
 /// SceneHierarchyPanel.h
 /// Violet McAllister
 /// July 23rd, 2022
-/// Updated: July 28th, 2022
+/// Updated: July 30th, 2022
 ///
 /// The Scene Hierarchy Panel in the Violet Editor
 /// contains information regarding the entities in
@@ -36,6 +36,12 @@ namespace Violet
 		void SetContext(const Ref<Scene>& p_Scene);
 	public: // Violet Internals
 		void OnImGuiRender();
+	public: // Getters
+		/**
+		 * @brief Gets the currently selected entity.
+		 * @returns The currently selected entity.
+		 */
+		Entity GetSelectedEntity() const { return m_SelectionContext; }
 	private: // Helpers
 		void DrawEntityNode(Entity p_Entity);
 		void DrawComponents(Entity p_Entity);

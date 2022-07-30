@@ -11,12 +11,10 @@ project "Violet"
 	pchsource "Source/vtpch.cpp"
 
 	files {
-		"Source/**.h",
-		"Source/**.cpp",
-		"Dependencies/stb_image/**.h",
-		"Dependencies/stb_image/**.cpp",
-		"Dependencies/glm/glm/**.hpp",
-		"Dependencies/glm/glm/**.inl",
+		"Source/**.h", "Source/**.cpp",
+		"Dependencies/stb_image/**.h", "Dependencies/stb_image/**.cpp",
+		"Dependencies/glm/glm/**.hpp", "Dependencies/glm/glm/**.inl",
+		"Dependencies/ImGuizmo/ImGuizmo.h", "Dependencies/ImGuizmo/ImGuizmo.cpp"
 	}
 
 	defines {
@@ -33,7 +31,8 @@ project "Violet"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
-		"%{IncludeDir.yaml_cpp}"
+		"%{IncludeDir.yaml_cpp}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links {
@@ -43,6 +42,9 @@ project "Violet"
 		"yaml-cpp",
 		"opengl32.lib"
 	}
+
+	filter "files:Dependencies/ImGuizmo/**.cpp"
+		flags { "NoPCH" }
 
 	filter "system:windows"
 		systemversion "latest"

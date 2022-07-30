@@ -3,7 +3,7 @@
 /// Components.h
 /// Violet McAllister
 /// July 17th, 2022
-/// Updated: July 28th, 2022
+/// Updated: July 30th, 2022
 ///
 /// Contains definitions and implementations
 /// for all of the Violet API's components.
@@ -15,6 +15,8 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/quaternion.hpp>
 
 #include "Violet/Scene/SceneCamera.h"
 #include "Violet/Scene/ScriptableEntity.h"
@@ -68,9 +70,7 @@ namespace Violet
 		 */
 		glm::mat4 GetTransform()
 		{
-			glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), Rotation.x, { 1, 0, 0 })
-				* glm::rotate(glm::mat4(1.0f), Rotation.y, { 0, 1, 0 })
-				* glm::rotate(glm::mat4(1.0f), Rotation.z, { 0, 0, 1 });
+			glm::mat4 rotation = glm::toMat4(glm::quat(Rotation));
 
 			return glm::translate(glm::mat4(1.0f), Translation)
 				* rotation

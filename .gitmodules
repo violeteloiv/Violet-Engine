@@ -13,3 +13,6 @@
 [submodule "Violet/Dependencies/yaml-cpp"]
 	path = Violet/Dependencies/yaml-cpp
 	url = https://github.com/thecherno/yaml-cpp
+[submodule "Violet/Dependencies/ImGuizmo"]
+	path = Violet/Dependencies/ImGuizmo
+	url = https://github.com/thecherno/imguizmo

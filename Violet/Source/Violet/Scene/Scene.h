@@ -36,6 +36,8 @@ namespace Violet
 	public: // Viole Internals
 		void OnUpdate(Timestep p_Timestep);
 		void OnViewportSize(uint32_t p_Width, uint32_t p_Height);
+	public: // Getters
+		Entity GetPrimaryCameraEntity();
 	private: // Component
 		template<typename T>
 		void OnComponentAdded(Entity p_Entity, T& p_Component);

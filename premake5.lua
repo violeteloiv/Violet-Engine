@@ -28,7 +28,8 @@ IncludeDir = {
 	["glm"]			= "%{wks.location}/Violet/Dependencies/glm",
 	["stb_image"]	= "%{wks.location}/Violet/Dependencies/stb_image",
 	["entt"]		= "%{wks.location}/Violet/Dependencies/entt/include",
-	["yaml_cpp"]	= "%{wks.location}/Violet/Dependencies/yaml-cpp/include"
+	["yaml_cpp"]	= "%{wks.location}/Violet/Dependencies/yaml-cpp/include",
+	["ImGuizmo"]	= "%{wks.location}/Violet/Dependencies/ImGuizmo"
 }
 
 group "Dependencies"

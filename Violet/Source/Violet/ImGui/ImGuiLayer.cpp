@@ -3,7 +3,7 @@
 /// ImGuiLayer.cpp
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 28th, 2022
+/// Updated: July 30th, 2022
 ///
 /// Defines the implementation for an ImGuiLayer.
 ///
@@ -16,6 +16,8 @@
 #include <imgui.h>
 #include <examples/imgui_impl_glfw.h>
 #include <examples/imgui_impl_opengl3.h>
+
+#include <ImGuizmo.h>
 
 // Temporary
 #include <GLFW/glfw3.h>
@@ -104,6 +106,7 @@ namespace Violet
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+		ImGuizmo::BeginFrame();
 	}
 
 	/**
