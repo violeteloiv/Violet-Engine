@@ -65,16 +65,16 @@ namespace Violet
 		 * @param p_Height The data height.
 		 * @param p_Index The attachment index.
 		 */
-		static void AttachColorTexture(uint32_t p_ID, int p_Samples, GLenum p_Format, uint32_t p_Width, uint32_t p_Height, int p_Index)
+		static void AttachColorTexture(uint32_t p_ID, int p_Samples, GLenum p_InternalFormat, GLenum p_Format, uint32_t p_Width, uint32_t p_Height, int p_Index)
 		{
 			bool multisampled = p_Samples > 1;
 			if (multisampled)
 			{
-				glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, p_Samples, p_Format, p_Width, p_Height, GL_FALSE);
+				glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, p_Samples, p_InternalFormat, p_Width, p_Height, GL_FALSE);
 			}
 			else
 			{
-				glTexImage2D(GL_TEXTURE_2D, 0, p_Format, p_Width, p_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+				glTexImage2D(GL_TEXTURE_2D, 0, p_InternalFormat, p_Width, p_Height, 0, p_Format, GL_UNSIGNED_BYTE, nullptr);
 
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -195,9 +195,12 @@ namespace Violet
 				Utils::BindTexture(multisample, m_ColorAttachments[i]);
 				switch (m_ColorAttachmentSpecifications[i].TextureFormat)
 				{
-				case FramebufferTextureFormat::RGBA8:
-					Utils::AttachColorTexture(m_ColorAttachments[i], m_Specification.Samples, GL_RGBA8, m_Specification.Width, m_Specification.Height, i);
-					break;
+					case FramebufferTextureFormat::RGBA8:
+						Utils::AttachColorTexture(m_ColorAttachments[i], m_Specification.Samples, GL_RGBA8, GL_RGBA, m_Specification.Width, m_Specification.Height, i);
+						break;
+					case FramebufferTextureFormat::RED_INTEGER:
+						Utils::AttachColorTexture(m_ColorAttachments[i], m_Specification.Samples, GL_R32I, GL_RED_INTEGER, m_Specification.Width, m_Specification.Height, i);
+						break;
 				}
 			}
 		}
@@ -266,5 +269,22 @@ namespace Violet
 		m_Specification.Height = p_Height;
 
 		Invalidate();
+	}
+
+	/**
+	 * @brief Reads the pixel data given an attachment index and it's coordinates.
+	 * @param p_AttachmentIndex The attachment index of the framebuffer.
+	 * @param p_X The x coordinate to read.
+	 * @param p_Y The y coordinate to read.
+	 * @returns The pixel data.
+	 */
+	int OpenGLFramebuffer::ReadPixel(uint32_t p_AttachmentIndex, int p_X, int p_Y)
+	{
+		VT_CORE_ASSERT(p_AttachmentIndex < m_ColorAttachments.size());
+
+		glReadBuffer(GL_COLOR_ATTACHMENT0 + p_AttachmentIndex);
+		int pixelData;
+		glReadPixels(p_X, p_Y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
+		return pixelData;
 	}
 }

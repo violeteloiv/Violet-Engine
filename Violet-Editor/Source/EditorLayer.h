@@ -49,6 +49,7 @@ namespace Violet {
 		int m_GizmoType = -1;
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
+		glm::vec2 m_ViewportBounds[2];
 		EditorCamera m_EditorCamera;
 	private: // Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
