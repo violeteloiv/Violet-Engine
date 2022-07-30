@@ -3,7 +3,7 @@
 /// OpenGLShader.cpp
 /// Violet McAllister
 /// July 13th, 2022
-/// Updated: July 23rd, 2022
+/// Updated: July 30th, 2022
 ///
 /// A shader is a program which allows
 /// you to communicate with the GPU directly
@@ -291,6 +291,18 @@ namespace Violet
 		VT_PROFILE_FUNCTION();
 
 		UploadUniformFloat(p_Name, p_Value);
+	}
+
+	/**
+	 * @brief Uploads a set of two float values to the GPU for use in a shader.
+	 * @param p_Name The name of the uniform in the shader.
+	 * @param p_Value The two float values.
+	 */
+	void OpenGLShader::SetFloat2(const std::string& p_Name, const glm::vec2& p_Value)
+	{
+		VT_PROFILE_FUNCTION();
+
+		UploadUniformFloat2(p_Name, p_Value);
 	}
 
 	/**

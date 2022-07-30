@@ -3,7 +3,7 @@
 /// Shader.h
 /// Violet McAllister
 /// July 11th, 2022
-/// Updated: July 15th, 2022
+/// Updated: July 30th, 2022
 ///
 /// A shader is a program which allows
 /// you to communicate with the GPU directly
@@ -42,6 +42,7 @@ namespace Violet
 		virtual void SetInt(const std::string& p_Name, int p_Value) = 0;
 		virtual void SetIntArray(const std::string& p_Name, int* p_Values, uint32_t p_Count) = 0;
 		virtual void SetFloat(const std::string& p_Name, float p_Value) = 0;
+		virtual void SetFloat2(const std::string& p_Name, const glm::vec2& p_Value) = 0;
 		virtual void SetFloat3(const std::string& p_Name, const glm::vec3& p_Value) = 0;
 		virtual void SetFloat4(const std::string& p_Name, const glm::vec4& p_Value) = 0;
 		virtual void SetMat4(const std::string& p_Name, const glm::mat4& p_Value) = 0;

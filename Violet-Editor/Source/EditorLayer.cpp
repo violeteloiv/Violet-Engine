@@ -396,19 +396,23 @@ namespace Violet
 
 			// No Gizmo
 			case Key::Q:
-				m_GizmoType = -1;
+				if (!ImGuizmo::IsUsing())
+					m_GizmoType = -1;
 				break;
 			// Translation Gizmo
 			case Key::W:
-				m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
+				if (!ImGuizmo::IsUsing())
+					m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
 				break;
 			// Rotation Gizmo
 			case Key::E:
-				m_GizmoType = ImGuizmo::OPERATION::ROTATE;
+				if (!ImGuizmo::IsUsing())
+					m_GizmoType = ImGuizmo::OPERATION::ROTATE;
 				break;
 			// Scale Gizmo
 			case Key::R:
-				m_GizmoType = ImGuizmo::OPERATION::SCALE;
+				if (!ImGuizmo::IsUsing())
+					m_GizmoType = ImGuizmo::OPERATION::SCALE;
 				break;
 		}
 	}
