@@ -32,6 +32,7 @@ namespace Violet
 		glm::vec2 TexCoord;
 		float TexIndex;
 		float TilingFactor;
+		int EntityID;
 	};
 
 	/**
@@ -74,11 +75,12 @@ namespace Violet
 		s_Data.QuadVertexArray = VertexArray::Create();
 		s_Data.QuadVertexBuffer = VertexBuffer::Create(s_Data.MaxVertices * sizeof(QuadVertex));
 		s_Data.QuadVertexBuffer->SetLayout({
-			{ ShaderDataType::Float3, "a_Position" },
-			{ ShaderDataType::Float4, "a_Color" },
-			{ ShaderDataType::Float2, "a_TexCoord" },
-			{ ShaderDataType::Float, "a_TexIndex" },
-			{ ShaderDataType::Float, "a_TilingFactor" }
+			{ ShaderDataType::Float3,	"a_Position"		},
+			{ ShaderDataType::Float4,	"a_Color"			},
+			{ ShaderDataType::Float2,	"a_TexCoord"		},
+			{ ShaderDataType::Float,	"a_TexIndex"		},
+			{ ShaderDataType::Float,	"a_TilingFactor"	},
+			{ ShaderDataType::Int,		"a_EntityID"		}
 		});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
@@ -298,8 +300,9 @@ namespace Violet
 	 * @brief Draws a square with only a transform and color.
 	 * @param p_Transform The transform of the square.
 	 * @param p_Color The color of the square.
+	 * @param p_EntityID Optional setting for the entity ID.
 	 */
-	void Renderer2D::DrawQuad(const glm::mat4& p_Transform, const glm::vec4& p_Color)
+	void Renderer2D::DrawQuad(const glm::mat4& p_Transform, const glm::vec4& p_Color, int p_EntityID)
 	{
 		constexpr size_t quadVertexCount = 4;
 		const float textureIndex = 0.0f; // White Texture
@@ -316,6 +319,7 @@ namespace Violet
 			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
 			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
 			s_Data.QuadVertexBufferPtr->TilingFactor = tilingFactor;
+			s_Data.QuadVertexBufferPtr->EntityID = p_EntityID;
 			s_Data.QuadVertexBufferPtr++;
 		}
 
@@ -330,9 +334,10 @@ namespace Violet
 	 * @param p_Size The size of the square.
 	 * @param p_Texture The texture for the square.
 	 * @param p_TilingFactor Optional setting to change how the image tiles.
-	 * @param p_TintColor Option setting to change the tint color.
+	 * @param p_TintColor Optional setting to change the tint color.
+	 * @param p_EntityID Optional setting for the EntityID.
 	 */
-	void Renderer2D::DrawQuad(const glm::mat4& p_Transform, const Ref<Texture2D>& p_Texture, float p_TilingFactor, const glm::vec4& p_TintColor)
+	void Renderer2D::DrawQuad(const glm::mat4& p_Transform, const Ref<Texture2D>& p_Texture, float p_TilingFactor, const glm::vec4& p_TintColor, int p_EntityID)
 	{
 		VT_PROFILE_FUNCTION();
 
@@ -369,6 +374,7 @@ namespace Violet
 			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
 			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
 			s_Data.QuadVertexBufferPtr->TilingFactor = p_TilingFactor;
+			s_Data.QuadVertexBufferPtr->EntityID = p_EntityID;
 			s_Data.QuadVertexBufferPtr++;
 		}
 
@@ -439,6 +445,17 @@ namespace Violet
 			* glm::scale(glm::mat4(1.0f), { p_Size.x, p_Size.y, 1.0f });
 
 		DrawQuad(transform, p_Texture, p_TilingFactor, p_TintColor);
+	}
+
+	/**
+	 * @brief Draws a sprite using it's SRC.
+	 * @param p_Transform The transform of the spirte.
+	 * @param p_SRC The Sprite Renderer Component of the sprite.
+	 * @param p_EntityID The ID of the entity.
+	 */
+	void Renderer2D::DrawSprite(const glm::mat4& p_Transform, SpriteRendererComponent& p_SRC, int p_EntityID)
+	{
+		DrawQuad(p_Transform, p_SRC.Color, p_EntityID);
 	}
 
 	/**

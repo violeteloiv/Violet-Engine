@@ -38,6 +38,7 @@ namespace Violet {
 		void OnEvent(Event& e) override;
 	private: // Event
 		bool OnKeyPressed(KeyPressedEvent& p_Event);
+		bool OnMouseButtonPressed(MouseButtonPressedEvent& p_Event);
 	private: // File Dialogs
 		void NewScene();
 		void OpenScene();
@@ -51,6 +52,7 @@ namespace Violet {
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
 		glm::vec2 m_ViewportBounds[2];
 		EditorCamera m_EditorCamera;
+		Entity m_HoveredEntity;
 	private: // Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 	private: // Temporary

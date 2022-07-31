@@ -17,6 +17,7 @@
 #include "Violet/Renderer/EditorCamera.h"
 #include "Violet/Renderer/OrthographicCamera.h"
 #include "Violet/Renderer/Texture.h"
+#include "Violet/Scene/Components.h"
 
 namespace Violet
 {
@@ -41,12 +42,13 @@ namespace Violet
 		static void DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const glm::vec4& p_Color);
 		static void DrawQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture, float p_TilingFactor = 1.0f, const glm::vec4& p_TintColor = glm::vec4(1.0f));
 		static void DrawQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, const Ref<Texture2D>& p_Texture, float p_TilingFactor = 1.0f, const glm::vec4& p_TintColor = glm::vec4(1.0f));
-		static void DrawQuad(const glm::mat4& p_Transform, const glm::vec4& p_Color);
-		static void DrawQuad(const glm::mat4& p_Transform, const Ref<Texture2D>& p_Texture, float p_TilingFactor = 1.0f, const glm::vec4& p_TintColor = glm::vec4(1.0f));
+		static void DrawQuad(const glm::mat4& p_Transform, const glm::vec4& p_Color, int p_EntityID = -1);
+		static void DrawQuad(const glm::mat4& p_Transform, const Ref<Texture2D>& p_Texture, float p_TilingFactor = 1.0f, const glm::vec4& p_TintColor = glm::vec4(1.0f), int p_EntityID = -1);
 		static void DrawRotatedQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, float p_Rotation, const glm::vec4& p_Color);
 		static void DrawRotatedQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, float p_Rotation, const glm::vec4& p_Color);
 		static void DrawRotatedQuad(const glm::vec2& p_Position, const glm::vec2& p_Size, float p_Rotation, const Ref<Texture2D>& p_Texture, float p_TilingFactor = 1.0f, const glm::vec4& p_TintColor = glm::vec4(1.0f));
 		static void DrawRotatedQuad(const glm::vec3& p_Position, const glm::vec2& p_Size, float p_Rotation, const Ref<Texture2D>& p_Texture, float p_TilingFactor = 1.0f, const glm::vec4& p_TintColor = glm::vec4(1.0f));
+		static void DrawSprite(const glm::mat4& p_Transform, SpriteRendererComponent& p_SRC, int p_EntityID);
 	public: // Statistics
 		/**
 		 * @brief Contains Renderer stats. 

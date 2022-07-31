@@ -42,6 +42,12 @@ namespace Violet
 		 * @returns The currently selected entity.
 		 */
 		Entity GetSelectedEntity() const { return m_SelectionContext; }
+
+		/**
+		 * @brief Sets the currently selected entity.
+		 * @param p_Entity The currently selected entity.
+		 */
+		void SetSelectedEntity(Entity p_Entity) { m_SelectionContext = p_Entity; }
 	private: // Helpers
 		void DrawEntityNode(Entity p_Entity);
 		void DrawComponents(Entity p_Entity);
